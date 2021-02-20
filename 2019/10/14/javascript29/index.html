@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>新手村29 - Countdown Timer - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手村29 - Countdown Timer">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-10-14 08:38" pubdate>
+        October 14, 2019 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手村29 - Countdown Timer</h1>
+            
+            <div class="markdown-body">
+              <h2 id="29-Countdown-Timer"><a href="#29-Countdown-Timer" class="headerlink" title="29 - Countdown Timer"></a>29 - Countdown Timer</h2><p>俗話說的好，一天一蘋果，醫生遠離我</p>
+<p>一天一 JS，What the f*ck JavaScript？</p>
+<p>small steps every day - 記錄著新手村日記</p>
+<h1 id="完成目標"><a href="#完成目標" class="headerlink" title="完成目標"></a>完成目標</h1><p>做一個倒數計時器</p>
+<ul>
+<li>功能<ul>
+<li>各種設定好的時間可以進行倒數</li>
+<li>可以客製化時間倒數</li>
+</ul>
+</li>
+<li>畫面<ul>
+<li>顯示目前倒數的數字</li>
+<li>顯示倒數結束時是幾點幾分</li>
+</ul>
+</li>
+</ul>
+<h2 id="index-START-html"><a href="#index-START-html" class="headerlink" title="index_START.html"></a>index_START.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Countdown Timer<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#x27;https://fonts.googleapis.com/css?family=Inconsolata&#x27;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&#x27;stylesheet&#x27;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&#x27;text/css&#x27;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;style.css&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer__controls&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-time</span>=<span class="hljs-string">&quot;20&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer__button&quot;</span>&gt;</span>20 Secs<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-time</span>=<span class="hljs-string">&quot;300&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer__button&quot;</span>&gt;</span>Work 5<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-time</span>=<span class="hljs-string">&quot;900&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer__button&quot;</span>&gt;</span>Quick 15<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-time</span>=<span class="hljs-string">&quot;1200&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer__button&quot;</span>&gt;</span>Snack 20<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-time</span>=<span class="hljs-string">&quot;3600&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;timer__button&quot;</span>&gt;</span>Lunch Break<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;customForm&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;custom&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;minutes&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Enter Minutes&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;display&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;display__time-left&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;display__end-time&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;scripts-START.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="Style-css"><a href="#Style-css" class="headerlink" title="Style.css"></a>Style.css</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">html</span> &#123;<br>  <span class="hljs-attribute">box-sizing</span>: border-box;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#8E24AA</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">45deg</span>,  <span class="hljs-number">#42a5f5</span> <span class="hljs-number">0%</span>,<span class="hljs-number">#478ed1</span> <span class="hljs-number">50%</span>,<span class="hljs-number">#0d47a1</span> <span class="hljs-number">100%</span>);<br>&#125;<br><br>*, *:before, *:after &#123;<br>  box-sizing: inherit;<br>&#125;<br><br><span class="hljs-selector-tag">body</span> &#123;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">text-align</span>: center;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Inconsolata&#x27;</span>, monospace;<br>&#125;<br><br><span class="hljs-selector-class">.display__time-left</span> &#123;<br>  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">100</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20rem</span>;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">color</span>: white;<br>  <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">4px</span> <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.05</span>);<br>&#125;<br><br><span class="hljs-selector-class">.timer</span> &#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;<br>  <span class="hljs-attribute">flex-direction</span>: column;<br>&#125;<br><br><span class="hljs-selector-class">.timer__controls</span> &#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>&#125;<br><br><span class="hljs-selector-class">.timer__controls</span> &gt; * &#123;<br>  <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-selector-class">.timer__controls</span> <span class="hljs-selector-tag">form</span> &#123;<br>  <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;<br>  <span class="hljs-attribute">display</span>: flex;<br>&#125;<br><br><span class="hljs-selector-class">.timer__controls</span> <span class="hljs-selector-tag">input</span> &#123;<br>  <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;<br>&#125;<br><br><span class="hljs-selector-class">.timer__button</span> &#123;<br>  <span class="hljs-attribute">background</span>: none;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">cursor</span>: pointer;<br>  <span class="hljs-attribute">color</span>: white;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;<br>  <span class="hljs-attribute">text-transform</span>: uppercase;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>);<br>  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">3px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.2</span>);<br>  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.2</span>);<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1rem</span>;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Inconsolata&#x27;</span>, monospace;<br>&#125;<br><br><span class="hljs-selector-class">.timer__button</span><span class="hljs-selector-pseudo">:hover</span>,<br><span class="hljs-selector-class">.timer__button</span><span class="hljs-selector-pseudo">:focus</span> &#123;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.2</span>);<br>  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-selector-class">.display</span> &#123;<br>  <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">flex-direction</span>: column;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">justify-content</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.display__end-time</span> &#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4rem</span>;<br>  <span class="hljs-attribute">color</span>: white;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="scripts-START-js"><a href="#scripts-START-js" class="headerlink" title="scripts-START.js"></a>scripts-START.js</h2><p>空</p>
+<h2 id="JS-step-by-step"><a href="#JS-step-by-step" class="headerlink" title="JS - step by step"></a>JS - step by step</h2><p>首先，我們先將需要的元素選取起來，必須先找到點擊的按鈕、點擊按鈕後會觸發的 <code>h1</code>、 <code>p</code> </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> countdown;<br><span class="hljs-keyword">const</span> timerDisplay = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.display__time-left&#x27;</span>);<br><span class="hljs-keyword">const</span> endTime = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.display__end-time&#x27;</span>);<br><span class="hljs-keyword">const</span> buttons = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;[data-time]&#x27;</span>);<br><br><span class="hljs-built_in">console</span>.log(timerDisplay);<br>	<span class="hljs-comment">//&lt;h1 class=&quot;display__time-left&quot;&gt;&lt;/h1&gt;</span><br><span class="hljs-built_in">console</span>.log(endTime);<br>  <span class="hljs-comment">//&lt;p class=&quot;display__end-time&quot;&gt;&lt;/p&gt;</span><br><span class="hljs-built_in">console</span>.log(buttons);<br>	<span class="hljs-comment">//NodeList(5) [button.timer__button, button.timer__button, button.timer__button, button.timer__button, button.timer__button]</span><br></code></pre></td></tr></table></figure>
+<p>接下來，當我們觸發點擊按鈕時，我們應該先要取得現在的時間、取得倒數的時間長度、執行倒數計時、顯示剩餘的時間於 h1，顯示結束時間於 p，變數 <code>seconds</code> 為取得 data-attibute 中所代表的倒數計時時間並轉為數字；其中在呼叫方法 <code>timer</code> 之前，我們必須先執行一次 <code>clearInterval()</code> 將先前的 <code>setInterval()</code> 方法先清除掉（後續避免會有BUG），變數 <code>now</code> 為取得目前的時間，變數 <code>then</code> 為將取得的時間轉換為秒數</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startTimer</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> seconds = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">this</span>.dataset.time);<br>  timer(seconds);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timer</span>(<span class="hljs-params">seconds</span>) </span>&#123;<br>  <span class="hljs-built_in">clearInterval</span>(countdown);<br><br>  <span class="hljs-keyword">const</span> now = <span class="hljs-built_in">Date</span>.now();<br>  <span class="hljs-keyword">const</span> then = now + seconds * <span class="hljs-number">1000</span>;<br>  displayTimeLeft(seconds);<br>  displayEndTime(then);<br><br>  countdown = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> secondsLeft = <span class="hljs-built_in">Math</span>.round((then - <span class="hljs-built_in">Date</span>.now()) / <span class="hljs-number">1000</span>);<br>    <span class="hljs-keyword">if</span>(secondsLeft &lt; <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-built_in">clearInterval</span>(countdown);<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br>    displayTimeLeft(secondsLeft);<br>  &#125;, <span class="hljs-number">1000</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>接下來來完成 Function 中的 <code>displayTimeLeft</code> 與 <code>displayEndTime</code> ，一個為計算倒數計時的大標題 <code>h1</code> ，另一個為計算結束時間為何，讓使用者可以知道倒數終止的時間為幾點幾分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayTimeLeft</span>(<span class="hljs-params">seconds</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> minutes = <span class="hljs-built_in">Math</span>.floor(seconds / <span class="hljs-number">60</span>);<br>  <span class="hljs-keyword">const</span> remainderSeconds = seconds % <span class="hljs-number">60</span>;<br>  <span class="hljs-keyword">const</span> display = <span class="hljs-string">`<span class="hljs-subst">$&#123;minutes&#125;</span>:<span class="hljs-subst">$&#123;remainderSeconds &lt; <span class="hljs-number">10</span> ? <span class="hljs-string">&#x27;0&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span> &#125;</span><span class="hljs-subst">$&#123;remainderSeconds&#125;</span>`</span>;<br>  <span class="hljs-built_in">document</span>.title = display;<br>  timerDisplay.textContent = display;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayEndTime</span>(<span class="hljs-params">timestamp</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> end = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(timestamp);<br>  <span class="hljs-keyword">const</span> hour = end.getHours();<br>  <span class="hljs-keyword">const</span> adjustedHour = hour &gt; <span class="hljs-number">12</span> ? hour - <span class="hljs-number">12</span> : hour;<br>  <span class="hljs-keyword">const</span> minutes = end.getMinutes();<br>  endTime.textContent = <span class="hljs-string">`Be Back At <span class="hljs-subst">$&#123;adjustedHour&#125;</span>:<span class="hljs-subst">$&#123;minutes &lt; <span class="hljs-number">10</span> ? <span class="hljs-string">&#x27;0&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>&#125;</span><span class="hljs-subst">$&#123;minutes&#125;</span>`</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>最後，再加上讓使用者可以自己輸入時間的 <code>submit</code> 按鈕，可以客製化自己想要多少的時間</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">document</span>.customForm.addEventListener(<span class="hljs-string">&#x27;submit&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>&#123;<br>  e.preventDefault();<br>  <span class="hljs-keyword">const</span> mins = <span class="hljs-built_in">this</span>.minutes.value;<br>  <span class="hljs-built_in">console</span>.log(mins);<br>  timer(mins * <span class="hljs-number">60</span>);<br>  <span class="hljs-built_in">this</span>.reset();<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>就大功告成啦！</p>
+<h2 id="JS-final"><a href="#JS-final" class="headerlink" title="JS - final"></a>JS - final</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> countdown;<br><span class="hljs-keyword">const</span> timerDisplay = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.display__time-left&#x27;</span>);<br><span class="hljs-keyword">const</span> endTime = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.display__end-time&#x27;</span>);<br><span class="hljs-keyword">const</span> buttons = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;[data-time]&#x27;</span>);<br><br><span class="hljs-built_in">console</span>.log(timerDisplay);<br><span class="hljs-comment">//&lt;h1 class=&quot;display__time-left&quot;&gt;&lt;/h1&gt;</span><br><span class="hljs-built_in">console</span>.log(endTime);<br><span class="hljs-comment">//&lt;p class=&quot;display__end-time&quot;&gt;&lt;/p&gt;</span><br><span class="hljs-built_in">console</span>.log(buttons);<br><span class="hljs-comment">//NodeList(5) [button.timer__button, button.timer__button, button.timer__button, button.timer__button, button.timer__button]</span><br><br>buttons.forEach(<span class="hljs-function"><span class="hljs-params">button</span> =&gt;</span> button.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, startTimer));<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startTimer</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> seconds = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">this</span>.dataset.time);<br>  timer(seconds);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timer</span>(<span class="hljs-params">seconds</span>) </span>&#123;<br>  <span class="hljs-comment">// clear any existing timers</span><br>  <span class="hljs-built_in">clearInterval</span>(countdown);<br><br>  <span class="hljs-keyword">const</span> now = <span class="hljs-built_in">Date</span>.now();<br>  <span class="hljs-keyword">const</span> then = now + seconds * <span class="hljs-number">1000</span>;<br>  displayTimeLeft(seconds);<br>  displayEndTime(then);<br><br>  countdown = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> secondsLeft = <span class="hljs-built_in">Math</span>.round((then - <span class="hljs-built_in">Date</span>.now()) / <span class="hljs-number">1000</span>);<br>    <span class="hljs-comment">// check if we should stop it!</span><br>    <span class="hljs-keyword">if</span>(secondsLeft &lt; <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-built_in">clearInterval</span>(countdown);<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-comment">// display it</span><br>    displayTimeLeft(secondsLeft);<br>  &#125;, <span class="hljs-number">1000</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayTimeLeft</span>(<span class="hljs-params">seconds</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> minutes = <span class="hljs-built_in">Math</span>.floor(seconds / <span class="hljs-number">60</span>);<br>  <span class="hljs-keyword">const</span> remainderSeconds = seconds % <span class="hljs-number">60</span>;<br>  <span class="hljs-keyword">const</span> display = <span class="hljs-string">`<span class="hljs-subst">$&#123;minutes&#125;</span>:<span class="hljs-subst">$&#123;remainderSeconds &lt; <span class="hljs-number">10</span> ? <span class="hljs-string">&#x27;0&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span> &#125;</span><span class="hljs-subst">$&#123;remainderSeconds&#125;</span>`</span>;<br>  <span class="hljs-built_in">document</span>.title = display;<br>  timerDisplay.textContent = display;<br>&#125;<br>  <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayEndTime</span>(<span class="hljs-params">timestamp</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> end = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(timestamp);<br>  <span class="hljs-keyword">const</span> hour = end.getHours();<br>  <span class="hljs-keyword">const</span> adjustedHour = hour &gt; <span class="hljs-number">12</span> ? hour - <span class="hljs-number">12</span> : hour;<br>  <span class="hljs-keyword">const</span> minutes = end.getMinutes();<br>  endTime.textContent = <span class="hljs-string">`Be Back At <span class="hljs-subst">$&#123;adjustedHour&#125;</span>:<span class="hljs-subst">$&#123;minutes &lt; <span class="hljs-number">10</span> ? <span class="hljs-string">&#x27;0&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>&#125;</span><span class="hljs-subst">$&#123;minutes&#125;</span>`</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>本刊同步於個人網站：<a target="_blank" rel="noopener" href="http://chestertang.site/">http://chestertang.site/</a></p>
+<p>本次範例程式碼原作者來源：<a target="_blank" rel="noopener" href="https://tinyurl.com/yavm5f5n">https://tinyurl.com/yavm5f5n</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/">前端新手村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/html/">html</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/15/javascript30/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手村30 - Whack A Mole</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/13/javascript28/">
+                        <span class="hidden-mobile">新手村28 - Video Speed Controller</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

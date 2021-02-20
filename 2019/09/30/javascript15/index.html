@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>新手村15 - LocalStorage - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手村15 - LocalStorage">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-30 15:02" pubdate>
+        September 30, 2019 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手村15 - LocalStorage</h1>
+            
+            <div class="markdown-body">
+              <h2 id="15-LocalStorage"><a href="#15-LocalStorage" class="headerlink" title="15 - LocalStorage"></a>15 - LocalStorage</h2><p>俗話說的好，一天一蘋果，醫生遠離我</p>
+<p>一天一 JS，What the f*ck JavaScript？</p>
+<p>small steps every day - 記錄著新手村日記</p>
+<h1 id="完成目標"><a href="#完成目標" class="headerlink" title="完成目標"></a>完成目標</h1><ol>
+<li><p>localStorage</p>
+</li>
+<li><p>event delegation</p>
+</li>
+</ol>
+<ul>
+<li>功能<ul>
+<li>做一個可以輸入文字的框，送出之後新增一個 Checkbox</li>
+<li>重新整理時，選單不會清空會存進 localStorage</li>
+</ul>
+</li>
+<li>畫面<ul>
+<li>選單的選項前面，要有打勾的功能，並且自訂圖示</li>
+</ul>
+</li>
+</ul>
+<h2 id="index-START-html"><a href="#index-START-html" class="headerlink" title="index_START.html"></a>index_START.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>LocalStorage<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;style.css&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>   <span class="hljs-comment">&lt;!--</span><br><span class="hljs-comment">      Fish SVG Cred:</span><br><span class="hljs-comment">      https://thenounproject.com/search/?q=fish&amp;i=589236</span><br><span class="hljs-comment">   --&gt;</span><br><br>   <span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="hljs-attr">xmlns:xlink</span>=<span class="hljs-string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.1&quot;</span> <span class="hljs-attr">x</span>=<span class="hljs-string">&quot;0px&quot;</span> <span class="hljs-attr">y</span>=<span class="hljs-string">&quot;0px&quot;</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">&quot;0 0 512 512&quot;</span> <span class="hljs-attr">enable-background</span>=<span class="hljs-string">&quot;new 0 0 512 512&quot;</span> <span class="hljs-attr">xml:space</span>=<span class="hljs-string">&quot;preserve&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">g</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;M495.9,425.3H16.1c-5.2,0-10.1,2.9-12.5,7.6c-2.4,4.7-2.1,10.3,0.9,14.6l39,56.4c2.6,3.8,7,6.1,11.6,6.1h401.7   c4.6,0,9-2.3,11.6-6.1l39-56.4c3-4.3,3.3-9.9,0.9-14.6C506,428.2,501.1,425.3,495.9,425.3z M449.4,481.8H62.6L43,453.6H469   L449.4,481.8z&quot;</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;M158.3,122c7.8,0,14.1-6.3,14.1-14.1V43.4c0-7.8-6.3-14.1-14.1-14.1c-7.8,0-14.1,6.3-14.1,14.1v64.5   C144.2,115.7,150.5,122,158.3,122z&quot;</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;M245.1,94.7c7.8,0,14.1-6.3,14.1-14.1V16.1c0-7.8-6.3-14.1-14.1-14.1C237.3,2,231,8.3,231,16.1v64.5   C231,88.4,237.3,94.7,245.1,94.7z&quot;</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;M331.9,122c7.8,0,14.1-6.3,14.1-14.1V43.4c0-7.8-6.3-14.1-14.1-14.1s-14.1,6.3-14.1,14.1v64.5   C317.8,115.7,324.1,122,331.9,122z&quot;</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;M9.6,385.2c5.3,2.8,11.8,1.9,16.2-2.2l50.6-47.7c56.7,46.5,126.6,71.9,198.3,71.9c0,0,0,0,0,0   c87.5,0,169.7-36.6,231.4-103.2c5-5.4,5-13.8,0-19.2c-61.8-66.5-144-103.2-231.4-103.2c-72,0-142.2,25.6-199,72.5l-50-47.1   c-4.4-4.1-10.9-5-16.2-2.2c-5.3,2.8-8.3,8.7-7.4,14.6l11.6,75L2.2,370.6C1.3,376.5,4.2,382.4,9.6,385.2z M380.9,230.8   c34.9,14.3,67.2,35.7,95.3,63.6c-10.1,10-20.8,19.2-31.9,27.5c-22.4-3.3-29.6-8.8-30.7-9.7c-4-5.7-11.8-7.7-18.1-4.4   c-6.9,3.6-9.5,12.2-5.9,19.1c1.9,3.5,7.3,10.3,22.4,16c-10.1,5.7-20.5,10.7-31.1,15.1C352.4,320.2,352.4,268.6,380.9,230.8z    M36.3,255.6l29.4,27.7c5.3,5,13.6,5.1,19.1,0.3c53.2-47.6,120.7-73.7,190-73.7c26.9,0,53.2,3.9,78.5,11.3   c-29.3,44.6-29.3,102,0,146.6c-25.3,7.4-51.6,11.3-78.5,11.3c-69,0-136.3-26-189.4-73.2c-2.7-2.4-13.4-6.3-19.1,0.3l-30.1,28.3   l5.7-40C42.2,293,36.3,255.6,36.3,255.6z&quot;</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cx</span>=<span class="hljs-string">&quot;398.8&quot;</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">&quot;273.8&quot;</span> <span class="hljs-attr">r</span>=<span class="hljs-string">&quot;14.1&quot;</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">g</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;wrapper&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>LOCAL TAPAS<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;plates&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Loading Tapas...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;add-items&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;item&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Item Name&quot;</span> <span class="hljs-attr">required</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;+ Add Item&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> addItems = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.add-items&#x27;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">const</span> itemsList = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.plates&#x27;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">const</span> items = [];</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">html</span> &#123;<br>  <span class="hljs-attribute">box-sizing</span>: border-box;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;http://wes.io/hx9M/oh-la-la.jpg&#x27;</span>) center no-repeat;<br>  <span class="hljs-attribute">background-size</span>: cover;<br>  <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: center;<br>  <span class="hljs-attribute">align-items</span>: center;<br>  <span class="hljs-attribute">text-align</span>: center;<br>  <span class="hljs-attribute">font-family</span>: Futura,<span class="hljs-string">&quot;Trebuchet MS&quot;</span>,Arial,sans-serif;<br>&#125;<br><br>*, *:before, *:after &#123;<br>  box-sizing: inherit; <br>&#125;<br><br>svg &#123;<br>  fill:white;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>);<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>;<br>  <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">50px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.wrapper</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;<br>  <span class="hljs-attribute">max-width</span>: <span class="hljs-number">350px</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.95</span>);<br>  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>);<br>&#125;<br><br><span class="hljs-selector-tag">h2</span> &#123;<br>  <span class="hljs-attribute">text-align</span>: center;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">200</span>;<br>&#125;<br><br><span class="hljs-selector-class">.plates</span> &#123;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">text-align</span>: left;<br>  <span class="hljs-attribute">list-style</span>: none;<br>&#125;<br><br><span class="hljs-selector-class">.plates</span> <span class="hljs-selector-tag">li</span> &#123;<br>  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.2</span>);<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">100</span>;<br>  <span class="hljs-attribute">display</span>: flex;<br>&#125;<br><br><span class="hljs-selector-class">.plates</span> <span class="hljs-selector-tag">label</span> &#123;<br>  <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;<br>  <span class="hljs-attribute">cursor</span>: pointer;<br>&#125;<br><br><span class="hljs-selector-class">.plates</span> <span class="hljs-selector-tag">input</span> &#123;<br>  <span class="hljs-attribute">display</span>: none;<br>&#125;<br><br><span class="hljs-selector-class">.plates</span> <span class="hljs-selector-tag">input</span> + <span class="hljs-selector-tag">label</span>:before &#123;<br>  content: <span class="hljs-string">&#x27;⬜️&#x27;</span>;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">10px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.plates</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:checked</span> + <span class="hljs-selector-tag">label</span>:before &#123;<br>  content: <span class="hljs-string">&#x27;🌮&#x27;</span>;<br>&#125;<br><br><span class="hljs-selector-class">.add-items</span> &#123;<br>  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">20px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.add-items</span> <span class="hljs-selector-tag">input</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="JS-step-by-step"><a href="#JS-step-by-step" class="headerlink" title="JS - step by step"></a>JS - step by step</h2><p>首先開始前先將最後完成檔copy一份先把資料add到本地端的<code>localStorage</code>，方便等等開始寫來 <code>console</code> 。在這個範例檔當中，我們將從 <code>localStorage</code> 抓到的資料設為變數 <code>items</code> 後，產生出 HTML 塞進Class <code>plates</code> 之中，值得一提的是，我們該如何抓到資料、資料不會是空的造成 <code>undefined </code>呢？</p>
+<p>在 <code>localStorage</code> 中，需要了解抓資料跟存資料的兩種方法： <code>getItem</code>、<code>setItem</code> ，並因為抓出來的一個字串，因此透過之前所提過的 <code>JSON.parse()</code> 轉換為物件，為了確保 <code>undefined</code> 的問題，如果抓不到的資料的話預設為空陣列</p>
+<p>Storage.getItem()：<a target="_blank" rel="noopener" href="https://tinyurl.com/mfx39k9">https://tinyurl.com/mfx39k9</a></p>
+<p>JSON.parse()：<a target="_blank" rel="noopener" href="https://tinyurl.com/y48zz9vd">https://tinyurl.com/y48zz9vd</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> addItems = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.add-items&#x27;</span>);<br>  <span class="hljs-keyword">const</span> itemsList = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.plates&#x27;</span>);<br>  <span class="hljs-keyword">const</span> items = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&#x27;items&#x27;</span>)) || [];<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">populateList</span>(<span class="hljs-params">plates = [], platesList</span>) </span>&#123;<br>    platesList.innerHTML = plates.map(<span class="hljs-function">(<span class="hljs-params">plate, i</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">`</span><br><span class="hljs-string">        &lt;li&gt;</span><br><span class="hljs-string">          &lt;input type=&quot;checkbox&quot; data-index=&quot;<span class="hljs-subst">$&#123;i&#125;</span>&quot; id=&quot;item<span class="hljs-subst">$&#123;i&#125;</span>&quot; </span><br><span class="hljs-string">											 <span class="hljs-subst">$&#123;plate.done ? <span class="hljs-string">&#x27;checked&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>&#125;</span> /&gt;</span><br><span class="hljs-string">          &lt;label for=&quot;item<span class="hljs-subst">$&#123;i&#125;</span>&quot;&gt;<span class="hljs-subst">$&#123;plate.text&#125;</span>&lt;/label&gt;</span><br><span class="hljs-string">        &lt;/li&gt;</span><br><span class="hljs-string">      `</span>;<br>    &#125;).join(<span class="hljs-string">&#x27;&#x27;</span>);<br>  &#125;<br><br>  populateList(items, itemsList);<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>接下來，我們來寫 <code>addItem</code> 的function，首先我們應該將輸入的資料抓到後 <code>push</code> 進去變數中 <code>items.push(item)</code> ，並且再次更新畫面 <code>populateList(items, itemsList)</code> 、更新資料 <code>localStorage.setItem(&#39;items&#39;, JSON.stringify(items))</code> ，將輸入的數值重整不要停留在畫面上<code>this.reset();</code></p>
+<p>Event.preventDefault()：<a target="_blank" rel="noopener" href="https://tinyurl.com/kkh9hmd">https://tinyurl.com/kkh9hmd</a></p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-comment">// 上略</span><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span>(<span class="hljs-params">e</span>) </span>&#123;<br>      e.preventDefault();<br>      <span class="hljs-keyword">const</span> text = (<span class="hljs-built_in">this</span>.querySelector(<span class="hljs-string">&#x27;[name=item]&#x27;</span>)).value;<br>      <span class="hljs-keyword">const</span> item = &#123;<br>        text,<br>        done: <span class="hljs-literal">false</span><br>      &#125;;<br><br>      items.push(item);<br>      populateList(items, itemsList);<br>      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;items&#x27;</span>, <span class="hljs-built_in">JSON</span>.stringify(items));<br>      <span class="hljs-built_in">this</span>.reset();<br>    &#125;<br><br>    addItems.addEventListener(<span class="hljs-string">&#x27;submit&#x27;</span>, addItem);<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>與上方的概念相同，我們有個 <code>toggleDone</code> 的function</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>	<span class="hljs-comment">// 上略</span><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleDone</span>(<span class="hljs-params">e</span>) </span>&#123;<br>      <span class="hljs-keyword">if</span> (!e.target.matches(<span class="hljs-string">&#x27;input&#x27;</span>)) <span class="hljs-keyword">return</span>; <span class="hljs-comment">// skip this unless it&#x27;s an input</span><br>      <span class="hljs-keyword">const</span> el = e.target;<br>      <span class="hljs-keyword">const</span> index = el.dataset.index;<br>      items[index].done = !items[index].done;<br>      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;items&#x27;</span>, <span class="hljs-built_in">JSON</span>.stringify(items));<br>      populateList(items, itemsList);<br>    &#125;<br><br>  itemsList.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, toggleDone);<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>就大功告成啦！</p>
+<h2 id="JS-final"><a href="#JS-final" class="headerlink" title="JS - final"></a>JS - final</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> addItems = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.add-items&#x27;</span>);<br>  <span class="hljs-keyword">const</span> itemsList = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.plates&#x27;</span>);<br>  <span class="hljs-keyword">const</span> items = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&#x27;items&#x27;</span>)) || [];<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span>(<span class="hljs-params">e</span>) </span>&#123;<br>    e.preventDefault();<br>    <span class="hljs-keyword">const</span> text = (<span class="hljs-built_in">this</span>.querySelector(<span class="hljs-string">&#x27;[name=item]&#x27;</span>)).value;<br>    <span class="hljs-keyword">const</span> item = &#123;<br>      text,<br>      done: <span class="hljs-literal">false</span><br>    &#125;;<br><br>    items.push(item);<br>    populateList(items, itemsList);<br>    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;items&#x27;</span>, <span class="hljs-built_in">JSON</span>.stringify(items));<br>    <span class="hljs-built_in">this</span>.reset();<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">populateList</span>(<span class="hljs-params">plates = [], platesList</span>) </span>&#123;<br>    platesList.innerHTML = plates.map(<span class="hljs-function">(<span class="hljs-params">plate, i</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">`</span><br><span class="hljs-string">        &lt;li&gt;</span><br><span class="hljs-string">          &lt;input type=&quot;checkbox&quot; data-index=<span class="hljs-subst">$&#123;i&#125;</span> id=&quot;item<span class="hljs-subst">$&#123;i&#125;</span>&quot; <span class="hljs-subst">$&#123;plate.done ? <span class="hljs-string">&#x27;checked&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>&#125;</span> /&gt;</span><br><span class="hljs-string">          &lt;label for=&quot;item<span class="hljs-subst">$&#123;i&#125;</span>&quot;&gt;<span class="hljs-subst">$&#123;plate.text&#125;</span>&lt;/label&gt;</span><br><span class="hljs-string">        &lt;/li&gt;</span><br><span class="hljs-string">      `</span>;<br>    &#125;).join(<span class="hljs-string">&#x27;&#x27;</span>);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleDone</span>(<span class="hljs-params">e</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (!e.target.matches(<span class="hljs-string">&#x27;input&#x27;</span>)) <span class="hljs-keyword">return</span>; <span class="hljs-comment">// skip this unless it&#x27;s an input</span><br>    <span class="hljs-keyword">const</span> el = e.target;<br>    <span class="hljs-keyword">const</span> index = el.dataset.index;<br>    items[index].done = !items[index].done;<br>    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;items&#x27;</span>, <span class="hljs-built_in">JSON</span>.stringify(items));<br>    populateList(items, itemsList);<br>  &#125;<br><br>  addItems.addEventListener(<span class="hljs-string">&#x27;submit&#x27;</span>, addItem);<br>  itemsList.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, toggleDone);<br><br>  populateList(items, itemsList);<br><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>本刊同步於個人網站：<a target="_blank" rel="noopener" href="http://chestertang.site/">http://chestertang.site/</a></p>
+<p>本次範例程式碼原作者來源：<a target="_blank" rel="noopener" href="https://tinyurl.com/yavm5f5n">https://tinyurl.com/yavm5f5n</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/">前端新手村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/html/">html</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/01/javascript16/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手村16 - Mouse Move Shadow</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/29/javascript14/">
+                        <span class="hidden-mobile">新手村14 - JS Reference VS Copy</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

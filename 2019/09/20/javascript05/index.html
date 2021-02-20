@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>新手村05 - Flex Panel Gallery - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手村05 - Flex Panel Gallery">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-20 07:28" pubdate>
+        September 20, 2019 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手村05 - Flex Panel Gallery</h1>
+            
+            <div class="markdown-body">
+              <h1 id="05-Flex-Panel-Gallery"><a href="#05-Flex-Panel-Gallery" class="headerlink" title="05 - Flex Panel Gallery"></a>05 - Flex Panel Gallery</h1><p>俗話說的好，一天一蘋果，醫生遠離我</p>
+<p>一天一 JS，What the f*ck JavaScript？</p>
+<p>small steps every day - 記錄著新手村日記</p>
+<h2 id="完成目標"><a href="#完成目標" class="headerlink" title="完成目標"></a>完成目標</h2><ul>
+<li>功能（CSS居多）<ul>
+<li>點擊指定的區塊有兩段式的動畫變化</li>
+<li>再點擊一次，恢復原狀</li>
+</ul>
+</li>
+<li>畫面<ul>
+<li>改用 Flex 排版</li>
+<li>標籤 p 中間的字變大</li>
+<li>變大之後上下的字要進來</li>
+</ul>
+</li>
+</ul>
+<h2 id="index-START-html"><a href="#index-START-html" class="headerlink" title="index_START.html"></a>index_START.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Flex Panels 💪<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#x27;https://fonts.googleapis.com/css?family=Amatic+SC&#x27;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&#x27;stylesheet&#x27;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&#x27;text/css&#x27;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-tag">html</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">box-sizing</span>: border-box;</span><br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#ffc600</span>;</span><br><span class="css">      <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;helvetica neue&#x27;</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">200</span>;</span><br>    &#125;<br>    <br><span class="css">    <span class="hljs-selector-tag">body</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br>    &#125;<br>    <br>    *, *:before, *:after &#123;<br><span class="css">      <span class="hljs-attribute">box-sizing</span>: inherit;</span><br>    &#125;<br><br>    .panels &#123;<br><span class="css">      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;</span><br><span class="css">      <span class="hljs-attribute">overflow</span>: hidden;</span><br>    &#125;<br><br>    .panel &#123;<br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#6B0F9C</span>;</span><br><span class="css">      <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.1</span>);</span><br><span class="css">      <span class="hljs-attribute">color</span>: white;</span><br><span class="css">      <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br><span class="css">      <span class="hljs-comment">/* Safari transitionend event.propertyName === flex */</span></span><br><span class="css">      <span class="hljs-comment">/* Chrome + FF transitionend event.propertyName === flex-grow */</span></span><br><span class="css">      <span class="hljs-attribute">transition</span>:</span><br><span class="css">        <span class="hljs-attribute">font-size</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">flex</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">background</span> <span class="hljs-number">0.2s</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">background-size</span>: cover;</span><br><span class="css">      <span class="hljs-attribute">background-position</span>: center;</span><br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.panel1</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/gYl-UtwNg_I/1500x1500</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel2</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/rFKUFzjPYiQ/1500x1500</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel3</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=faces&amp;cs=tinysrgb&amp;w=1500&amp;h=1500&amp;fit=crop&amp;s=967e8a713a4e395260793fc8c802901d</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel4</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/ITjiVXcwVng/1500x1500</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel5</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/3MNzGlQM7qs/1500x1500</span>); &#125;</span><br><br><span class="css">    <span class="hljs-comment">/* Flex Children */</span></span><br>    .panel &gt; * &#123;<br><span class="css">      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">      <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.5s</span>;</span><br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.panel</span> <span class="hljs-selector-tag">p</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">text-transform</span>: uppercase;</span><br><span class="css">      <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Amatic SC&#x27;</span>, cursive;</span><br><span class="css">      <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.72</span>), <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">14px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.45</span>);</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span>;</span><br>    &#125;<br>    <br><span class="css">    <span class="hljs-selector-class">.panel</span> <span class="hljs-selector-tag">p</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>) &#123;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4em</span>;</span><br>    &#125;<br><br>    .panel.open &#123;<br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;</span><br>    &#125;<br><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;panels&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;panel panel1&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hey<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Let&#x27;s<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Dance<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;panel panel2&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Give<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Take<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Receive<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;panel panel3&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Experience<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>It<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Today<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;panel panel4&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Give<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>All<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>You can<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;panel panel5&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Life<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>In<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Motion<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="CSS-step-by-step"><a href="#CSS-step-by-step" class="headerlink" title="CSS - step by step"></a>CSS - step by step</h2><p>原本的 <code>.panels</code> 為直行，現在透過 <code>flex</code> 來改變排列方式，變為橫排並將內容 <code>.panel</code> 佔據整個版面一等份</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-comment">/* 上略 */</span></span><br>    .panels &#123;<br><span class="css">      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;</span><br><span class="css">      <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex; </span><br><span class="css">			<span class="hljs-comment">/* flex 橫排 */</span>      </span><br>    &#125;<br><br>    .panel &#123;<br><span class="css">    	<span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>; </span><br><span class="css">      <span class="hljs-comment">/* 均等份 */</span></span><br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#6B0F9C</span>;</span><br><span class="css">      <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.1</span>);</span><br><span class="css">      <span class="hljs-attribute">color</span>: white;</span><br><span class="css">      <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br><span class="css">      <span class="hljs-attribute">transition</span>:</span><br><span class="css">        <span class="hljs-attribute">font-size</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">flex</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">background</span> <span class="hljs-number">0.2s</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">background-size</span>: cover;</span><br><span class="css">      <span class="hljs-attribute">background-position</span>: center;</span><br>    &#125;<br><span class="css">    <span class="hljs-comment">/* 下略 */</span></span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>Flex</code> 主軸為橫向（文字會左到右），內層的 <code>.panel</code> 要來改變主軸方向並置中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-comment">/* 上略 */</span></span><br>    .panels &#123;<br><span class="css">      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;</span><br><span class="css">      <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;  </span><br>    &#125;<br><br>    .panel &#123;<br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">      <span class="hljs-attribute">flex-direction</span>: column;</span><br><span class="css">      <span class="hljs-attribute">justify-content</span>: center;</span><br><span class="css">      <span class="hljs-comment">/* 改變主軸方向並置中 */</span></span><br>      <br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#6B0F9C</span>;</span><br><span class="css">      <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.1</span>);</span><br><span class="css">      <span class="hljs-attribute">color</span>: white;</span><br><span class="css">      <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br><span class="css">      <span class="hljs-attribute">transition</span>:</span><br><span class="css">        <span class="hljs-attribute">font-size</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">flex</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">background</span> <span class="hljs-number">0.2s</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">background-size</span>: cover;</span><br><span class="css">      <span class="hljs-attribute">background-position</span>: center;</span><br>    &#125;<br><span class="css">    <span class="hljs-comment">/* 下略 */</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>子層 <code>.panel &gt; *</code> 也要有垂直置中效果，並讓上下的標籤 <code>p</code> 文字偏移出去中間的標籤 <code>p</code> 文字後才能加入動畫</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-comment">/* 上略 */</span></span><br><br>    .panels &#123;<br><span class="css">      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;</span><br><span class="css">      <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;  </span><br>    &#125;<br><br>    .panel &#123;<br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">      <span class="hljs-attribute">flex-direction</span>: column;</span><br><span class="css">      <span class="hljs-attribute">justify-content</span>: center;</span><br><br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#6B0F9C</span>;</span><br><span class="css">      <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.1</span>);</span><br><span class="css">      <span class="hljs-attribute">color</span>: white;</span><br><span class="css">      <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br><span class="css">      <span class="hljs-attribute">transition</span>:</span><br><span class="css">        <span class="hljs-attribute">font-size</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">flex</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">background</span> <span class="hljs-number">0.2s</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">background-size</span>: cover;</span><br><span class="css">      <span class="hljs-attribute">background-position</span>: center;</span><br>    &#125;<br><br><span class="css">    <span class="hljs-comment">/* 略 */</span></span><br><br><span class="css">    <span class="hljs-comment">/* Flex Children */</span></span><br>    .panel &gt; * &#123;<br><span class="css">      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">      <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.5s</span>;</span><br><br><span class="css">			<span class="hljs-comment">/* 等份並垂直置中 */</span></span><br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">      <span class="hljs-attribute">justify-content</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br>    &#125;<br>  <br><span class="css">  	<span class="hljs-comment">/* 上下的文字偏移中間的文字 */</span></span><br><span class="css">  	<span class="hljs-selector-class">.panel</span> &gt; *<span class="hljs-selector-pseudo">:first</span>-child&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">100%</span>);</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-class">.panel</span> &gt; *<span class="hljs-selector-pseudo">:last-child</span>&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">100%</span>);</span><br>    &#125;<br>  <br><span class="css">  	<span class="hljs-comment">/* JS時需要toggle的class 讓文字偏移回來 */</span></span><br><span class="css">    <span class="hljs-selector-class">.panel</span><span class="hljs-selector-class">.open-active</span> &gt; *<span class="hljs-selector-pseudo">:first</span>-child&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">0%</span>);</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-class">.panel</span><span class="hljs-selector-class">.open-active</span> &gt; *<span class="hljs-selector-pseudo">:last-child</span>&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">0%</span>);</span><br>    &#125;<br><span class="css">		<span class="hljs-comment">/* JS時需要toggle的class 文字放大及flex等份要變大 */</span></span><br>  	.panel.open &#123;<br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;</span><br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">3</span>;</span><br>    &#125;<br><span class="css">    <span class="hljs-comment">/* 下略 */</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="JS-step-by-step"><a href="#JS-step-by-step" class="headerlink" title="JS - step by step"></a>JS - step by step</h2><p>首先，抓出整個外層的 NodeList 並設為變數 panels 吧！忘記有 All 跟沒有 All 的差別可以看 Day 1 JavaScript Drum Kit 的文章，或者在這個程式碼中直接 console.log 印出來看看～</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;.panel&quot;</span>)</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(panels)</span><br><br><span class="javascript">		<span class="hljs-comment">// NodeList(5) [div.panel.panel1, div.panel.panel2, div.panel.panel3, </span></span><br><span class="javascript">    <span class="hljs-comment">// div.panel.panel4, div.panel.panel5]</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>記得 panels 不是一個陣列所以透過 <code>foreach</code> 讀出每個 List，方法中監聽假設使用者有 <code>click</code> 的話，就會呼叫方法 <code>clickHandler</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;.panel&quot;</span>)</span><br><span class="javascript">    panels.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">panel</span>)</span>&#123;</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,clickHandler)</span><br>    &#125;)<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>clickHandler</code> 方法來對 <code>.panel</code> 增加 Class <code>.panel.open</code> (字體放大、Flex 等份變大)，因為要能放大後再點又能縮小，所以用 <code>toggle</code> 來新增、移除，與Jquery的概念相同，對應如下：</p>
+<p>JS：classList.add / classList.remove / classList.toogle<br>Jquery：addClass / removeClass / googleClass</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>  <br><span class="javascript">    <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;.panel&quot;</span>)</span><br><span class="javascript">    panels.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">panel</span>)</span>&#123;</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,clickHandler)</span><br>    &#125;)<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;open&#x27;</span>)</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>現在要來做第二段動畫，在這邊我們希望在第一段動畫完成之後再做第二段動畫，所以我們來 <code>transitionend</code> 呼叫 <code>transitionendHandler</code> 方法看看 click 動畫結束後回傳什麼</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;.panel&quot;</span>)</span><br><span class="javascript">    panels.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">panel</span>)</span>&#123;</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,clickHandler)</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;transitionend&#x27;</span>,transitionendHandler)</span><br>    &#125;)<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;open&#x27;</span>)</span><br>    &#125;<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transitionendHandler</span>(<span class="hljs-params">e</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">console</span>.log(e)</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// TransitionEvent &#123;isTrusted: true, propertyName: &quot;font-size&quot;, elapsedTime: 0.7, pseudoElement: &quot;&quot;, type: &quot;transitionend&quot;, …&#125;</span><br><span class="hljs-comment">// TransitionEvent &#123;isTrusted: true, propertyName: &quot;flex-grow&quot;, elapsedTime: 0.7, pseudoElement: &quot;&quot;, type: &quot;transitionend&quot;, …&#125;</span><br></code></pre></td></tr></table></figure>
+<p>看到了觸發兩個事件有什麼關聯呢？其實會有個Bug，因為假設直接寫了 toogle 在 <code>transitionendHandler</code> 中的話，事件有兩個所以被觸發了兩次，導致上下的文字進來了又出去，但如果今天回傳的事件是奇數又會可以觸發。因此，我們要寫個判斷式來觸發 Class <code>open-active</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;.panel&quot;</span>)</span><br><span class="javascript">    panels.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">panel</span>)</span>&#123;</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,clickHandler)</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;transitionend&#x27;</span>,transitionendHandler)</span><br>    &#125;)<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;open&#x27;</span>)</span><br>    &#125;<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transitionendHandler</span>(<span class="hljs-params">e</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">console</span>.log(e)</span><br><span class="javascript">      <span class="hljs-keyword">if</span>(e.propertyName.indexOf(<span class="hljs-string">&#x27;flex&#x27;</span>) !== -<span class="hljs-number">1</span>)&#123;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;open-active&#x27;</span>)</span><br>      &#125;<br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>indexOf()：方法會回傳給定元素於陣列中第一個被找到之索引，若不存在於陣列中則回傳 -1。</p>
+<p>Array.prototype.indexOf()：<a target="_blank" rel="noopener" href="https://ubin.io/zgWY3u">https://ubin.io/zgWY3u</a>    </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> beasts = [<span class="hljs-string">&#x27;ant&#x27;</span>, <span class="hljs-string">&#x27;bison&#x27;</span>, <span class="hljs-string">&#x27;camel&#x27;</span>, <span class="hljs-string">&#x27;duck&#x27;</span>, <span class="hljs-string">&#x27;bison&#x27;</span>];<br><br><span class="hljs-built_in">console</span>.log(beasts.indexOf(<span class="hljs-string">&#x27;bison&#x27;</span>));<br><span class="hljs-comment">// expected output: 1</span><br><br><span class="hljs-built_in">console</span>.log(beasts.indexOf(<span class="hljs-string">&#x27;bison&#x27;</span>, <span class="hljs-number">2</span>));<br><span class="hljs-comment">// expected output: 4</span><br><br><span class="hljs-built_in">console</span>.log(beasts.indexOf(<span class="hljs-string">&#x27;giraffe&#x27;</span>));<br><span class="hljs-comment">// expected output: -1</span><br></code></pre></td></tr></table></figure>
+<p>就大功告成啦！</p>
+</li>
+</ul>
+<h2 id="CSS-Final"><a href="#CSS-Final" class="headerlink" title="CSS - Final"></a>CSS - Final</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-tag">html</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">box-sizing</span>: border-box;</span><br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#ffc600</span>;</span><br><span class="css">      <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;helvetica neue&#x27;</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">200</span>;</span><br>    &#125;<br>    <br><span class="css">    <span class="hljs-selector-tag">body</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br>    &#125;<br>    <br>    *, *:before, *:after &#123;<br><span class="css">      <span class="hljs-attribute">box-sizing</span>: inherit;</span><br>    &#125;<br><br>    .panels &#123;<br><span class="css">      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">100vh</span>;</span><br><span class="css">      <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;  </span><br>    &#125;<br><br>    .panel &#123;<br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">      <span class="hljs-attribute">flex-direction</span>: column;</span><br><span class="css">      <span class="hljs-attribute">justify-content</span>: center;</span><br><br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-number">#6B0F9C</span>;</span><br><span class="css">      <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">0.1</span>);</span><br><span class="css">      <span class="hljs-attribute">color</span>: white;</span><br><span class="css">      <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br><span class="css">      <span class="hljs-attribute">transition</span>:</span><br><span class="css">        <span class="hljs-attribute">font-size</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">flex</span> <span class="hljs-number">0.7s</span> cubic-bezier(<span class="hljs-number">0.61</span>,-<span class="hljs-number">0.19</span>, <span class="hljs-number">0.7</span>,-<span class="hljs-number">0.11</span>),</span><br><span class="css">        <span class="hljs-attribute">background</span> <span class="hljs-number">0.2s</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;</span><br><span class="css">      <span class="hljs-attribute">background-size</span>: cover;</span><br><span class="css">      <span class="hljs-attribute">background-position</span>: center;</span><br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.panel1</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/gYl-UtwNg_I/1500x1500</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel2</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/rFKUFzjPYiQ/1500x1500</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel3</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=faces&amp;cs=tinysrgb&amp;w=1500&amp;h=1500&amp;fit=crop&amp;s=967e8a713a4e395260793fc8c802901d</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel4</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/ITjiVXcwVng/1500x1500</span>); &#125;</span><br><span class="css">    <span class="hljs-selector-class">.panel5</span> &#123; <span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://source.unsplash.com/3MNzGlQM7qs/1500x1500</span>); &#125;</span><br><br><span class="css">    <span class="hljs-comment">/* Flex Children */</span></span><br>    .panel &gt; * &#123;<br><span class="css">      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">      <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.5s</span>;</span><br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br><span class="css">      <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">      <span class="hljs-attribute">justify-content</span>: center;</span><br><span class="css">      <span class="hljs-attribute">align-items</span>: center;</span><br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.panel</span> <span class="hljs-selector-tag">p</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">text-transform</span>: uppercase;</span><br><span class="css">      <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Amatic SC&#x27;</span>, cursive;</span><br><span class="css">      <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">4px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.72</span>), <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">14px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.45</span>);</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span>;</span><br>    &#125;<br>    <br><span class="css">    <span class="hljs-selector-class">.panel</span> &gt; *<span class="hljs-selector-pseudo">:first</span>-child&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">100%</span>);</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-class">.panel</span> &gt; *<span class="hljs-selector-pseudo">:last-child</span>&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">100%</span>);</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-class">.panel</span><span class="hljs-selector-class">.open-active</span> &gt; *<span class="hljs-selector-pseudo">:first</span>-child&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">0%</span>);</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-class">.panel</span><span class="hljs-selector-class">.open-active</span> &gt; *<span class="hljs-selector-pseudo">:last-child</span>&#123;</span><br><span class="css">      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(<span class="hljs-number">0%</span>);</span><br>    &#125;<br>    <br><span class="css">    <span class="hljs-selector-class">.panel</span> <span class="hljs-selector-tag">p</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>) &#123;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4em</span>;</span><br>    &#125;<br><br>    .panel.open &#123;<br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;</span><br><span class="css">      <span class="hljs-attribute">flex</span>: <span class="hljs-number">3</span>;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="JS-Final"><a href="#JS-Final" class="headerlink" title="JS - Final"></a>JS - Final</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;.panel&quot;</span>)</span><br><span class="javascript">    panels.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">panel</span>)</span>&#123;</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,clickHandler)</span><br><span class="javascript">      panel.addEventListener(<span class="hljs-string">&#x27;transitionend&#x27;</span>,transitionendHandler)</span><br>    &#125;)<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;open&#x27;</span>)</span><br>    &#125;<br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transitionendHandler</span>(<span class="hljs-params">e</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">console</span>.log(e)</span><br><span class="javascript">      <span class="hljs-keyword">if</span>(e.propertyName.indexOf(<span class="hljs-string">&#x27;flex&#x27;</span>) !== -<span class="hljs-number">1</span>)&#123;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.classList.toggle(<span class="hljs-string">&#x27;open-active&#x27;</span>)</span><br>      &#125;<br>    &#125;<br> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>本次範例程式碼原作者來源：<a target="_blank" rel="noopener" href="https://reurl.cc/M7Z0xW">https://reurl.cc/M7Z0xW</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/">前端新手村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/html/">html</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/21/javascript06/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手村06 - Type Ahead</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/19/javascript04/">
+                        <span class="hidden-mobile">新手村04 - Array Cardio Day 1</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

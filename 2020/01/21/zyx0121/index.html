@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>Docker 是什麼？ - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Docker 是什麼？">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-21 14:49" pubdate>
+        January 21, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker 是什麼？</h1>
+            
+            <div class="markdown-body">
+              <h1 id="What’s-Docker？"><a href="#What’s-Docker？" class="headerlink" title="What’s Docker？"></a>What’s Docker？</h1><p>直接破題好惹w</p>
+<ul>
+<li><p>Docker 想解決的問題：<br>改善傳統虛擬機器因為需要額外安裝作業系統（Guest OS），導致啟動慢、佔較大記憶體的問題</p>
+</li>
+<li><p>Docker 要提供的解法：<br>以應用程式為核心虛擬化，取代傳統需要 Guest OS 的虛擬化技術</p>
+</li>
+</ul>
+<p>白話文的翻譯就像是：</p>
+<blockquote>
+<p>「我寫好了一支程式，在我的電腦上可以正常運作，然後在你的電腦上運作就爆掉惹 ouo」</p>
+</blockquote>
+<p>就像是我的 Ruby 版本跟你的 Ruby 版本不同，結果根本沒有那個方法可以用。又或者是小菜的電腦是 windows 其他人的都是 mac，光作業系統與硬體配置就不盡相同了！更何況是他的程式可能跟其他人電腦上的環境又都不相容，而透過「<code>虛擬化</code>」的方式模擬一個環境，讓程式可以在不同硬體上執行，都以為自己在同一個環境中執行。</p>
+<p>最為熟悉的莫過於在買 mac 電腦時，很想裝個 <code>虛擬機器</code> 來打電動或者是開啟專屬於 windows 的軟體，而目前常見用來比較的虛擬化技術有兩種：</p>
+<ol>
+<li>傳統方式是在硬體層面實現虛擬化，需要額外的虛擬機器管理軟體和虛擬機器作業系統層（Guest OS），如 <a target="_blank" rel="noopener" href="https://www.virtualbox.org/">Oracle VM VirtualBox</a>。</li>
+<li>Docker 容器是在作業系統層上實現虛擬化，直接使用本機的作業系統（Host OS），如 <a target="_blank" rel="noopener" href="https://www.docker.com/">dotCloud Docker</a>。</li>
+</ol>
+<h1 id="所以什麼是-Docker？"><a href="#所以什麼是-Docker？" class="headerlink" title="所以什麼是 Docker？"></a>所以什麼是 Docker？</h1><p>如同前面破題的內容，知道了要解決的問題，因此來跟傳統的虛擬機技術來比較不同之處。傳統虛擬機技術是模擬出一套硬體後，在這系統上再運行所需要應用到的軟體；而 Docker 透過在容器內的應用直接運行於宿主的內核（Docker Engine），也不用模擬出虛擬的硬體（Guest OS）。</p>
+<p>傳統虛擬機器：<br><img src="https://i.imgur.com/ZhbX4F4.png" srcset="/img/loading.gif" alt="image"></p>
+<p>Docker：<br><img src="https://i.imgur.com/NX7mfR4.png" srcset="/img/loading.gif" alt="image"></p>
+<h2 id="圖中名詞介紹（Host-OS-Guest-OS-Hypervisor）"><a href="#圖中名詞介紹（Host-OS-Guest-OS-Hypervisor）" class="headerlink" title="圖中名詞介紹（Host OS / Guest OS / Hypervisor）"></a>圖中名詞介紹（Host OS / Guest OS / Hypervisor）</h2><h3 id="Host-OS-Guest-OS"><a href="#Host-OS-Guest-OS" class="headerlink" title="Host OS | Guest OS"></a>Host OS | Guest OS</h3><p>Host（Host OS）指的是用來安裝虛擬機器軟體的作業系統，而 Guest（Guest OS）則是指安裝在虛擬機器上的作業系統。</p>
+<p>舉例來說，我在筆電上裝了 Winodws 7，然後在 Windows 7 上安裝 VirtualBox，接著再透過 VirtualBox 建立的虛擬機上又建立了 Windows 10 環境。由此例推導，VirtualBox 虛擬機器的 Windows 10 就是 Guest OS，而原本筆電上安裝的 Windows 7 就是 Host OS。</p>
+<h3 id="Hypervisor"><a href="#Hypervisor" class="headerlink" title="Hypervisor"></a>Hypervisor</h3><p>又稱虛擬機器監視器（Virtual machine monitor），是用來建立與執行虛擬機器的軟體、韌體或硬體。</p>
+<p>被 Hypervisor 用來執行一個或多個虛擬機器的電腦稱為宿主機（Host machine），這些虛擬機器則稱為客戶機（Guest machine）。Hypervisor 提供虛擬的作業平台來執行 Guest OS，負責管理其他 Guest OS 的執行階段，而這些 Guest OS 又共同分享虛擬化後的硬體資源。</p>
+<h1 id="虛擬機器-vs-容器"><a href="#虛擬機器-vs-容器" class="headerlink" title="虛擬機器 vs 容器"></a>虛擬機器 vs 容器</h1><h2 id="虛擬機器（Virtual-machine）"><a href="#虛擬機器（Virtual-machine）" class="headerlink" title="虛擬機器（Virtual machine）"></a>虛擬機器（Virtual machine）</h2><p>虛擬機器是在系統層上虛擬化，透過 Hypervisor 在目標的機器上提供可以執行一個或多個虛擬機器的平台。而這些虛擬機器可以執行完整的作業系統。簡單來說，Hypervisor 就是一個可以讓你在作業系統（Host OS）上面再裝一個作業系統（Guest OS）。</p>
+<p>透過選擇不同的 Guest OS，虛擬機器的技術就可以確保只要我的程式在該 Guest OS 上可以正常運作，那放到你的電腦上跑時，可以不管你的 Host OS 是什麼，只要在你的 Host OS 上先裝上我的 Guest OS，我的程式就可以正常在你的電腦上運作。</p>
+<h2 id="容器（Container）"><a href="#容器（Container）" class="headerlink" title="容器（Container）"></a>容器（Container）</h2><p>容器是在作業系統層上虛擬化，透過 Container Manager（ex: Docker Engine） 直接將一個應用程式所需的程式碼、函式庫打包，建立資源控管機制隔離各個容器，並分配 Host OS 上的系統資源。透過容器，應用程式不需要再另外安裝作業系統（Guest OS）也可以執行。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>容器</th>
+<th>虛擬機器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>啟動速度</td>
+<td>秒</td>
+<td>分鐘</td>
+</tr>
+<tr>
+<td>硬碟使用</td>
+<td>通常為 MB</td>
+<td>通常為 GB</td>
+</tr>
+<tr>
+<td>電腦效能</td>
+<td>接近於原本</td>
+<td>弱於容器</td>
+</tr>
+<tr>
+<td>系統支援數量</td>
+<td>支持上千個容器</td>
+<td>通常幾十個</td>
+</tr>
+</tbody></table>
+<p>好了，寫到這邊應該都對 Docker 技術、優勢及背景知識有了大概的了解，現在終於要來切入 Docker 啦～</p>
+<hr>
+<h1 id="Docker-三大元素"><a href="#Docker-三大元素" class="headerlink" title="Docker 三大元素"></a>Docker 三大元素</h1><p>在了解完基本概念後，接下來我們要進一步了解要使用 Docker 時最重要的三個元素：映像檔（Docker Image，文中簡稱 Image）、容器（Docker Container，文中簡稱 Container）、倉庫（Docker Repository，文中簡稱 Repository）。</p>
+<p>白話文的翻譯就像是：</p>
+<blockquote>
+<p>我有一個很大的樂高積木箱子（Repository），裡面專門放置很多很多的樂高積木（Image），而透過積木產生的樂高，則是容器（Container）。</p>
+</blockquote>
+<h2 id="映像檔（Image）"><a href="#映像檔（Image）" class="headerlink" title="映像檔（Image）"></a>映像檔（Image）</h2><p>Docker Image 是一個模板，用來重複產生 Container。如同一個 Image 裡可以包含一個完整的 PostgreSQL 資料庫服務、一個 Ruby 的編譯環境、或是一個 Ubuntu 作業系統。</p>
+<p>透過 Image 我們可以快速的產生可以執行應用程式的 Container。而 Docker Image 可以透過撰寫 Dockerfile 建立，或甚至可以從公開的地方下載已經做好的 Image 來使用。另外要注意的是，Docker Image 是唯讀（Read-only）的。</p>
+<blockquote>
+<p> Docker 設計時，充分利用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Union_mount">Union FS</a> 的技術，來設計分層儲存的架構。因此，Image 在建構時，會一層層建構，前一層是後一層的基礎。每一層建構完就不會再發生改變，後一層上的任何改變只會發生在自己這一層。</p>
+</blockquote>
+<h2 id="容器（Container）-1"><a href="#容器（Container）-1" class="headerlink" title="容器（Container）"></a>容器（Container）</h2><p>Container 是用 Image 建立出來的執行實例，他們之間的關係，就像是實體與類別的概念一樣，Image 是靜態的定義，Container 是 Image 運行的實體。它可以被創建、啟動、刪除、停止等，且每個容器都是相互隔離。</p>
+<p>又可以把 Container 看做是一個執行的應用程式加上執行它的簡易版 Linux 環境（包括 root 使用者權限、程式空間、使用者空間和網路空間等），就好像在獨立的系統下操作一樣。</p>
+<blockquote>
+<p>Container 與 Image 都是使用分層儲存。其儲存層的生命週期和 Container 一樣，Container 刪除時，容器儲存層也隨之結束。因此，任何保存於裡面的資訊都會隨 Container 刪除而丟失。</p>
+</blockquote>
+<h2 id="倉庫（Repository）"><a href="#倉庫（Repository）" class="headerlink" title="倉庫（Repository）"></a>倉庫（Repository）</h2><p>Image 建構完成後，可以很容易的當前的電腦上運行，但是如果需要在其他伺服器使用這個 Image 時候，就需要一個集中儲存 Image 的服務，<code>Docker Registry</code> 就是這樣的服務。</p>
+<p>一個 Docker Registry 中可以包含多個 Repository；每個 Repository 又可以包含多個版本；每個版本對應一個 Image。</p>
+<p>最常用的 Registry 公開服務是官方的 Docker Hub，也就是 Docker 倉庫註冊伺服器的代表，此外還有像是 Google 的 <a target="_blank" rel="noopener" href="https://cloud.google.com/container-registry/">Google Container Registry</a>，Kubernetes 的 Image 使用的就是這個服務。且概念及使用方式跟 Github 類似，你可以在上面建立多個倉庫，然後透過 push、pull 的方式上傳、存取。</p>
+<hr>
+<h3 id="狀況題"><a href="#狀況題" class="headerlink" title="狀況題"></a>狀況題</h3><p>如同上述的灰色區塊可知，如果今天我想升級 mysql 的版本，於是我把正在跑的 mysql:5.5 關掉，然後重新跑一個 mysql:5.7 的 Container，那資料庫裡面的資料不就不見了嗎？</p>
+<blockquote>
+<p>沒錯，這時候就需要 Volume 了，簡單來說 Volume 的生命週期獨立於 Container，Container 的結束不會影響 Volume 的存亡，因此使用 <code>volume</code> 就是用來保存容器內的資料。</p>
+</blockquote>
+<p>那又是另一個主題了…</p>
+<hr>
+<h1 id="資料來源"><a href="#資料來源" class="headerlink" title="資料來源"></a>資料來源</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.arthurtoday.com/2009/12/host-guest.html">Host OS 和 Guest OS 是什麼 ?</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hypervisor">Hypervisor Wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/16047306/how-is-docker-different-from-a-virtual-machine#">How is Docker different from a virtual machine?</a></li>
+<li><a target="_blank" rel="noopener" href="http://epaper.gotop.com.tw/pdf/ACA020700.pdf">Docker 入門</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/unorthodox-paranoid/docker-tutorial-101-c3808b899ac6">Docker 基礎教學與介紹 101</a></li>
+<li><a target="_blank" rel="noopener" href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">Docker – 從入門到實踐</a></li>
+<li><a target="_blank" rel="noopener" href="https://5xruby.tw/posts/deploying-your-docker-rails-app/">Johnson God 用 Docker 部署 Rails，原來是這樣！？</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Docker/">Docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/note/">note</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/30/zyx0130/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">再談 Docker Image</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/13/zyx0113/">
+                        <span class="hidden-mobile">AWS - Cloud Services Overview</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

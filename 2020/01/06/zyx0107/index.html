@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>環境架設 macOS - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="環境架設 macOS">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-06 15:24" pubdate>
+        January 6, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">環境架設 macOS</h1>
+            
+            <div class="markdown-body">
+              <h1 id="環境架設-macOS"><a href="#環境架設-macOS" class="headerlink" title="環境架設 macOS"></a>環境架設 macOS</h1><p>這兩天上班架設環境發現一些問題，重新灌了好幾次，於是就想說來把所有的問題都列下來，這樣也好等問題遇到也可以重新來看看ouo</p>
+<h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2><p>  Homebrew 是 Mac OSX 上的的套件管理工具，是方便安裝管理 OSX 裡需要用到但預設沒安裝的套件。Homebrew 的安裝只需要打開終端機輸入安裝指令</p>
+<p>  安裝指令：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">/usr/bin/ruby -e <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p>  確認是否有安裝成功：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">brew --version<br></code></pre></td></tr></table></figure>
+<h2 id="終端機-iTerm2"><a href="#終端機-iTerm2" class="headerlink" title="終端機 iTerm2"></a>終端機 iTerm2</h2><p>  iTerm2 是一個可以用來取代 MAC 原生終端機的工具，只需到官網下載，或在 terminal 中輸入以下指令，直接透過 homebrew 安裝</p>
+<p>  安裝指令：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 如果你從來沒有用過 brew cask 的話需要先跑這行</span><br>brew tap caskroom/cask<br><br><span class="hljs-comment"># 安裝 iTerm2</span><br>brew cask instal iterm2<br></code></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="iTerm2-主題配色"><a href="#iTerm2-主題配色" class="headerlink" title="iTerm2 主題配色"></a>iTerm2 主題配色</h2></blockquote>
+<p>  可以參考以下這個連結來進行主題配色，綜合整篇，我整理我有使用的指令配色等等如下：</p>
+<h3 id="安裝-powerline-font"><a href="#安裝-powerline-font" class="headerlink" title="安裝 powerline font"></a>安裝 powerline font</h3><p>  因為我們要用的 theme 會用一些特殊 icon，所以 iTerm2 選用的字型必需要支援這種特殊 icon font，沒有安裝這個 icon 的話，符號會變成正方形包問號的框框</p>
+<p>  安裝指令：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 安裝指令</span><br>brew cask install font-sourcecodepro-nerd-font<br></code></pre></td></tr></table></figure>
+<p>  裝完後，記得修改 iTerm2 字型。改成 SauceCodePro Nerd Font<br>  設定路徑：<code>Preferences</code> &gt; <code>Profiles</code> &gt; <code>Text</code> &gt; <code>Change Font</code> &gt; <code>SauceCodePro Nerd Font</code></p>
+<h2 id="安裝-zsh"><a href="#安裝-zsh" class="headerlink" title="安裝 zsh"></a>安裝 zsh</h2><p>  zsh 是個取代 bash 的強大 shell，比 bash 好用幾百倍。這篇文章介紹的 command line 設定一定要跑在 zsh。沒用過的一定要試一下</p>
+<p>  安裝指令：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 安裝指令</span><br>brew install zsh<br></code></pre></td></tr></table></figure>
+<p>  設定為你的預設終端機為 zsh：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">sudo sh -c <span class="hljs-string">&quot;echo <span class="hljs-subst">$(which zsh)</span> &gt;&gt; /etc/shells&quot;</span> <br>chsh -s $(<span class="hljs-built_in">which</span> zsh)<br></code></pre></td></tr></table></figure>
+<h2 id="安裝-oh-my-zsh"><a href="#安裝-oh-my-zsh" class="headerlink" title="安裝 oh-my-zsh"></a>安裝 oh-my-zsh</h2><p>  原始的 zsh設定太難搞，所以來安裝 framework oh-my-zsh。現在幾乎所有 zsh 好用的工具都有支援 oh-my-zsh，所以裝就對惹…</p>
+<p>  安裝指令：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="zsh-theme-powerlevel9k"><a href="#zsh-theme-powerlevel9k" class="headerlink" title="zsh theme powerlevel9k"></a>zsh theme powerlevel9k</h2></blockquote>
+<p>  安裝 powerlevel9k ：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">git <span class="hljs-built_in">clone</span> https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k<br></code></pre></td></tr></table></figure>
+<p>  更改 ZSH_THEME 的主題：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># 透過 vscode 打開檔案並編輯 code ~/.zshrc</span><br>ZSH_THEME=”ZSH_THEME=<span class="hljs-string">&quot;powerlevel9k/powerlevel9k&quot;</span>” <br></code></pre></td></tr></table></figure>
+<p>  重新執行以下指令才會生效：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-built_in">exec</span> <span class="hljs-variable">$SHELL</span><br></code></pre></td></tr></table></figure>
+<p>  更改一些我推薦的內容：</p>
+  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># command line 左邊圖示 + 版控</span><br>POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs) <span class="hljs-comment"># &lt;= left prompt 設了 &quot;dir&quot; / &quot;vcs&quot; 版本控制的資訊</span><br><span class="hljs-comment"># command line 右邊時間圖示</span><br>POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time) <span class="hljs-comment"># &lt;= right prompt 設了 &quot;time&quot;</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h1 id="好用的工具"><a href="#好用的工具" class="headerlink" title="好用的工具"></a>好用的工具</h1><ol>
+<li><h2 id="Spectacle"><a href="#Spectacle" class="headerlink" title="Spectacle"></a><a target="_blank" rel="noopener" href="https://www.spectacleapp.com/">Spectacle</a></h2><p> mac 版本的分割視窗，可以設定在哪個 app 中啟用，快速鍵也都能客製化，習慣把 app 視窗全螢幕，或者是切割螢幕左右查找文件的好幫手</p>
+</li>
+<li><h2 id="Alfred-4"><a href="#Alfred-4" class="headerlink" title="Alfred 4"></a><a target="_blank" rel="noopener" href="https://www.alfredapp.com/">Alfred 4</a></h2><p> 跟內建的 Spotlight 搜尋其實滿像的，不過個人覺得好用些，如果查詢不到的資料就可以透過瀏覽器開啟（Spotlight 沒有此項功能，單純搜尋本機的檔案）</p>
+</li>
+<li><h2 id="Dash"><a href="#Dash" class="headerlink" title="Dash"></a><a target="_blank" rel="noopener" href="https://kapeli.com/dash">Dash</a></h2><p> 找程式語法的app，同時軟體也支援 Stackoverflow，不管是框架、語法，基本上你能想到的東西都能查，應該說最常用到的工具，前提是你要知道那個語法XDDD</p>
+</li>
+<li><h2 id="Sourcetree"><a href="#Sourcetree" class="headerlink" title="Sourcetree"></a><a target="_blank" rel="noopener" href="https://www.sourcetreeapp.com/">Sourcetree</a></h2><p> 看 Git branch / commit 圖像工具，同時也可以在 app 按按鈕完成 merge / pull 指令，有時候輔助整體看 branch / commit 的好工具</p>
+</li>
+<li><h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a><a target="_blank" rel="noopener" href="https://www.getpostman.com/">Postman</a></h2><p> 測試 API 的工具，還有出 Postwoman 也是相同的～</p>
+</li>
+<li><h2 id="Quiver-APP-Store-付費軟體"><a href="#Quiver-APP-Store-付費軟體" class="headerlink" title="Quiver (APP Store 付費軟體)"></a><a target="_blank" rel="noopener" href="https://apps.apple.com/tw/app/quiver-take-better-notes/id866773894?mt=12">Quiver (APP Store 付費軟體)</a></h2><p> 之前用 <code>Typora</code> 也是大推，不過缺點是沒有同步功能，且想同時在 mac / Pad / Iphone 下使用基本上是不可能，這款付費軟體一次就買斷，寫寫文章也好用，搭配 Dropbox 可以直接備份同步</p>
+</li>
+<li><h2 id="TablePlus"><a href="#TablePlus" class="headerlink" title="TablePlus"></a><a target="_blank" rel="noopener" href="https://tableplus.com/">TablePlus</a></h2><p> 導入 DB 的好工具，目前工作專案才用，之後有什麼心得會補上ouo</p>
+</li>
+</ol>
+<hr>
+<h1 id="從-rvm-切換到-rbenv"><a href="#從-rvm-切換到-rbenv" class="headerlink" title="從 rvm 切換到 rbenv"></a>從 rvm 切換到 rbenv</h1><p>說一下原因好惹，因為發現工作專案要 Ruby 2.3.7 版本，原本的電腦為 2.6.3，在新版 2.6.3 的狀況下，把專案 clone 下來之後，跑 bundle 正常，不過  rails s 會噴錯滿正常的，因為專案內容中的 images 是 2.3.7 版本</p>
+<p>因此透過 <code>rvm</code> 安裝 2.3.7，結果跑 bundle 噴出以下錯誤：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs zsh">Could not load OpenSSL.<br>You must recompile Ruby with OpenSSL support or change the sources <span class="hljs-keyword">in</span> your Gemfile from <span class="hljs-string">&#x27;https&#x27;</span> to <span class="hljs-string">&#x27;http&#x27;</span>. Instructions<br><span class="hljs-keyword">for</span> compiling with OpenSSL using RVM are available at http://rvm.io/packages/openssl.<br></code></pre></td></tr></table></figure>
+<p>去安裝 openssl 後</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs zsh">~ brew install openssl                                                                                  <br>Warning: openssl@1.1 1.1.1d is already installed and up-to-date<br>To reinstall 1.1.1d, run `brew reinstall openssl@1.1`<br></code></pre></td></tr></table></figure>
+<p>經過研究之後，發現好像踩到地雷了… 所以忍痛割愛（誤</p>
+<h2 id="清理-rvm"><a href="#清理-rvm" class="headerlink" title="清理 rvm"></a>清理 rvm</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">rvm implode<br>sudo rm -rf ~/.rvm<br></code></pre></td></tr></table></figure>
+<h2 id="安裝-rbenv"><a href="#安裝-rbenv" class="headerlink" title="安裝 rbenv"></a>安裝 rbenv</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs zsh">brew doctor<br>brew update<br>brew install rbenv<br>brew install ruby-build<br></code></pre></td></tr></table></figure>
+<h2 id="設置-rbenv-的環境"><a href="#設置-rbenv-的環境" class="headerlink" title="設置 rbenv 的環境"></a>設置 rbenv 的環境</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># Unubtu请放到 ~/.bashrc 里, zsh用戶是 ~/.zshrc</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;/Users/andy/.rbenv/shims:<span class="hljs-variable">$PATH</span>&quot;</span> <span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(rbenv init -)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<h2 id="安裝-Ruby"><a href="#安裝-Ruby" class="headerlink" title="安裝 Ruby"></a>安裝 Ruby</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">rbenv install --list         <span class="hljs-comment"># 列出所有 ruby 版本</span><br>rbenv install 2.3.7          <span class="hljs-comment"># 安装 2.3.7</span><br></code></pre></td></tr></table></figure>
+<h2 id="列出版本"><a href="#列出版本" class="headerlink" title="列出版本"></a>列出版本</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">rbenv versions               <span class="hljs-comment"># 列出安装的版本</span><br>rbenv version                <span class="hljs-comment"># 列出正在使用的版本</span><br></code></pre></td></tr></table></figure>
+<h2 id="设置版本"><a href="#设置版本" class="headerlink" title="设置版本"></a>设置版本</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">rbenv global 2.3.7           <span class="hljs-comment"># 預設使用 2.3.7</span><br>rbenv shell 2.3.7            <span class="hljs-comment"># 目前的 shell 使用 2.3.7</span><br></code></pre></td></tr></table></figure>
+<h2 id="重啟"><a href="#重啟" class="headerlink" title="重啟"></a>重啟</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">rbenv <span class="hljs-built_in">rehash</span>                 <span class="hljs-comment"># 切換ruby 版本和執行 bundle 後須執行的指令</span><br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%92%B0%E5%A2%83%E6%9E%B6%E8%A8%ADmacOS/">環境架設macOS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/rvm/">rvm</a>
+                    
+                      <a class="hover-with-bg" href="/tags/rbenv/">rbenv</a>
+                    
+                      <a class="hover-with-bg" href="/tags/zsh/">zsh</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Oh-my-zsh/">Oh-my-zsh</a>
+                    
+                      <a class="hover-with-bg" href="/tags/iTrem2/">iTrem2</a>
+                    
+                      <a class="hover-with-bg" href="/tags/macOS/">macOS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/09/zyx0109/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Haml 是什麼？</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/12/29/Interview2019/">
+                        <span class="hidden-mobile">2019 面試分享</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

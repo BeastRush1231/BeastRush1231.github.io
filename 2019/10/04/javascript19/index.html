@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>新手村19 - Webcam Fun - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手村19 - Webcam Fun">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-10-04 14:23" pubdate>
+        October 4, 2019 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手村19 - Webcam Fun</h1>
+            
+            <div class="markdown-body">
+              <h2 id="19-Webcam-Fun"><a href="#19-Webcam-Fun" class="headerlink" title="19 - Webcam Fun"></a>19 - Webcam Fun</h2><p>俗話說的好，一天一蘋果，醫生遠離我</p>
+<p>一天一 JS，What the f*ck JavaScript？</p>
+<p>small steps every day - 記錄著新手村日記</p>
+<h1 id="完成目標"><a href="#完成目標" class="headerlink" title="完成目標"></a>完成目標</h1><ul>
+<li><p>使用Webcam進行以下動作</p>
+<ul>
+<li><p>功能</p>
+<ul>
+<li>拍照功能</li>
+<li>拍照檔案儲存.png檔</li>
+<li>拉動上面的range會改變濾鏡參數</li>
+</ul>
+</li>
+<li><p>畫面</p>
+<ul>
+<li><p>右上角出現webcam的畫面</p>
+</li>
+<li><p>中間的大圖是<code>canvas</code>輸出結果</p>
+</li>
+<li><p>出現照片縮圖列表</p>
+</li>
+<li><p>加上濾鏡(redEffect、rgbSplit、globalAlpha、Green screen)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="index-START-html"><a href="#index-START-html" class="headerlink" title="index_START.html"></a>index_START.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Get User Media Code Along!<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;style.css&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;photobooth&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;controls&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&quot;takePhoto()&quot;</span>&gt;</span>Take Photo<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-comment">&lt;!--       &lt;div class=&quot;rgb&quot;&gt;</span><br><span class="hljs-comment">        &lt;label for=&quot;rmin&quot;&gt;Red Min:&lt;/label&gt;</span><br><span class="hljs-comment">        &lt;input type=&quot;range&quot; min=0 max=255 name=&quot;rmin&quot;&gt;</span><br><span class="hljs-comment">        &lt;label for=&quot;rmax&quot;&gt;Red Max:&lt;/label&gt;</span><br><span class="hljs-comment">        &lt;input type=&quot;range&quot; min=0 max=255 name=&quot;rmax&quot;&gt;</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        &lt;br&gt;</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        &lt;label for=&quot;gmin&quot;&gt;Green Min:&lt;/label&gt;</span><br><span class="hljs-comment">        &lt;input type=&quot;range&quot; min=0 max=255 name=&quot;gmin&quot;&gt;</span><br><span class="hljs-comment">        &lt;label for=&quot;gmax&quot;&gt;Green Max:&lt;/label&gt;</span><br><span class="hljs-comment">        &lt;input type=&quot;range&quot; min=0 max=255 name=&quot;gmax&quot;&gt;</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        &lt;br&gt;</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        &lt;label for=&quot;bmin&quot;&gt;Blue Min:&lt;/label&gt;</span><br><span class="hljs-comment">        &lt;input type=&quot;range&quot; min=0 max=255 name=&quot;bmin&quot;&gt;</span><br><span class="hljs-comment">        &lt;label for=&quot;bmax&quot;&gt;Blue Max:&lt;/label&gt;</span><br><span class="hljs-comment">        &lt;input type=&quot;range&quot; min=0 max=255 name=&quot;bmax&quot;&gt;</span><br><span class="hljs-comment">      &lt;/div&gt; --&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;photo&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;player&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;strip&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">audio</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;snap&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://wesbos.com/demos/photobooth/snap.mp3&quot;</span> <span class="hljs-attr">hidden</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">audio</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;scripts.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="Script-js"><a href="#Script-js" class="headerlink" title="Script.js"></a>Script.js</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.player&#x27;</span>);<br><span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.photo&#x27;</span>);<br><span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br><span class="hljs-keyword">const</span> strip = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.strip&#x27;</span>);<br><span class="hljs-keyword">const</span> snap = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.snap&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<h2 id="JS-step-by-step"><a href="#JS-step-by-step" class="headerlink" title="JS - step by step"></a>JS - step by step</h2><p>首先，我們需要使用者先允許瀏覽器可以使用現在裝置的相機，否則這個範例就在此結束，我們就跟大家下一篇見面了…允許之後，使用者能在瀏覽器上看見自己的螢幕呈現於畫面上，至於應該怎麼抓呢？可以在後面設定要開啟的只有影片還是聲音，以及影片的大小寬高等等。此外，如果沒有開啟攝像頭成功應該在 console 中告訴使用者這件事情，詳細的範例連結可以直接在這個地方了解：<a target="_blank" rel="noopener" href="https://tinyurl.com/y22tls2h">https://tinyurl.com/y22tls2h</a></p>
+<p>Navigator：<a target="_blank" rel="noopener" href="https://tinyurl.com/y2s2bozg">https://tinyurl.com/y2s2bozg</a><br>MediaDevices.getUserMedia()：<a target="_blank" rel="noopener" href="https://tinyurl.com/ojzyz72">https://tinyurl.com/ojzyz72</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// script.js</span><br><span class="hljs-keyword">const</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.player&#x27;</span>);<br><span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.photo&#x27;</span>);<br><span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br><span class="hljs-keyword">const</span> strip = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.strip&#x27;</span>);<br><span class="hljs-keyword">const</span> snap = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.snap&#x27;</span>);<br><br><span class="hljs-comment">// 舊語法 navigator.getUserMedia();</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getVideo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  navigator.mediaDevices.getUserMedia(&#123; <span class="hljs-attr">video</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">audio</span>: <span class="hljs-literal">false</span> &#125;)<br>    .then(<span class="hljs-function"><span class="hljs-params">localMediaStream</span> =&gt;</span> &#123;<br>      <span class="hljs-built_in">console</span>.log(localMediaStream);<br>      <br>      video.srcObject = localMediaStream;<br>      video.play();<br>    &#125;)<br>    .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>      <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`OH NO!!!`</span>, err);<br>    &#125;);<br>&#125;<br><br>getVideo();<br></code></pre></td></tr></table></figure>
+<p>能開啟攝像頭之後，我們來將攝像頭的螢幕透過 Canvas 繪圖畫在螢幕上</p>
+<p>window.setInterval：<a target="_blank" rel="noopener" href="https://tinyurl.com/y6ae337q">https://tinyurl.com/y6ae337q</a></p>
+<p>CanvasRenderingContext2D.drawImage()：<a target="_blank" rel="noopener" href="https://tinyurl.com/y4wzme56">https://tinyurl.com/y4wzme56</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paintToCanvas</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> width = video.videoWidth;<br>  <span class="hljs-keyword">const</span> height = video.videoHeight;<br>  canvas.width = width;<br>  canvas.height = height;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    ctx.drawImage(video, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);<br>    <span class="hljs-keyword">let</span> pixels = ctx.getImageData(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);<br>    ctx.putImageData(pixels, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  &#125;, <span class="hljs-number">16</span>);<br>&#125;<br><br>video.addEventListener(<span class="hljs-string">&#x27;canplay&#x27;</span>, paintToCanvas);<br></code></pre></td></tr></table></figure>
+<p>接下來，我們要來處理在RGBA情況下，我們要的顏色是什麼，其中這邊會跑一個FOR迴圈。而為什麼會是 +=4 就很明顯了，我們抓到的 <code>pixels.data</code> 會有四個值，如果你在前段有把螢幕轉換成 Canvas 的點的時候，有把點印出來就會發現，轉出來的點會是原來的值的四倍，也就是這邊的RGBA四個點。因此，如果是第一個也就是紅色、第二個是綠色…</p>
+<p>迴圈內的數字也就是分別調整紅、綠、藍要加上多少的顏色了！並透過三個色版分開並做位移</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">redEffect</span>(<span class="hljs-params">pixels</span>) </span>&#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; pixels.data.length; i+=<span class="hljs-number">4</span>) &#123;<br>    pixels.data[i + <span class="hljs-number">0</span>] = pixels.data[i + <span class="hljs-number">0</span>] + <span class="hljs-number">200</span>; <span class="hljs-comment">// RED</span><br>    pixels.data[i + <span class="hljs-number">1</span>] = pixels.data[i + <span class="hljs-number">1</span>] - <span class="hljs-number">50</span>; <span class="hljs-comment">// GREEN</span><br>    pixels.data[i + <span class="hljs-number">2</span>] = pixels.data[i + <span class="hljs-number">2</span>] * <span class="hljs-number">0.5</span>; <span class="hljs-comment">// Blue</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> pixels;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rgbSplit</span>(<span class="hljs-params">pixels</span>) </span>&#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; pixels.data.length; i+=<span class="hljs-number">4</span>) &#123;<br>    pixels.data[i - <span class="hljs-number">150</span>] = pixels.data[i + <span class="hljs-number">0</span>]; <span class="hljs-comment">// RED</span><br>    pixels.data[i + <span class="hljs-number">500</span>] = pixels.data[i + <span class="hljs-number">1</span>]; <span class="hljs-comment">// GREEN</span><br>    pixels.data[i - <span class="hljs-number">550</span>] = pixels.data[i + <span class="hljs-number">2</span>]; <span class="hljs-comment">// Blue</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> pixels;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">greenScreen</span>(<span class="hljs-params">pixels</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> levels = &#123;&#125;;<br><br>  <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;.rgb input&#x27;</span>).forEach(<span class="hljs-function">(<span class="hljs-params">input</span>) =&gt;</span> &#123;<br>    levels[input.name] = input.value;<br>  &#125;);<br><br>  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; pixels.data.length; i = i + <span class="hljs-number">4</span>) &#123;<br>    red = pixels.data[i + <span class="hljs-number">0</span>];<br>    green = pixels.data[i + <span class="hljs-number">1</span>];<br>    blue = pixels.data[i + <span class="hljs-number">2</span>];<br>    alpha = pixels.data[i + <span class="hljs-number">3</span>];<br><br>    <span class="hljs-keyword">if</span> (red &gt;= levels.rmin<br>      &amp;&amp; green &gt;= levels.gmin<br>      &amp;&amp; blue &gt;= levels.bmin<br>      &amp;&amp; red &lt;= levels.rmax<br>      &amp;&amp; green &lt;= levels.gmax<br>      &amp;&amp; blue &lt;= levels.bmax) &#123;<br>      <span class="hljs-comment">// take it out!</span><br>      pixels.data[i + <span class="hljs-number">3</span>] = <span class="hljs-number">0</span>;<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> pixels;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>最後，再來拍張照片吧！如果 canvas 的高度或是寬度為 0,，將會回傳字串 “data:,”，如果要求的圖像類型並非 image/png，但是回傳的類型卻是 data:image/png，表示要求的圖像類型並不支援！</p>
+<p>HTMLCanvasElement.toDataURL()：<a target="_blank" rel="noopener" href="https://tinyurl.com/y2swfgtb">https://tinyurl.com/y2swfgtb</a></p>
+<p>人臉辨識opencv.js：<a target="_blank" rel="noopener" href="https://tinyurl.com/yyg498jc">https://tinyurl.com/yyg498jc</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">takePhoto</span>(<span class="hljs-params"></span>) </span>&#123;<br>  snap.currentTime = <span class="hljs-number">0</span>;<br>  snap.play();<br><br>  <span class="hljs-keyword">const</span> data = canvas.toDataURL(<span class="hljs-string">&#x27;image/jpeg&#x27;</span>);<br>  <span class="hljs-keyword">const</span> link = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;a&#x27;</span>);<br>  link.href = data;<br>  link.setAttribute(<span class="hljs-string">&#x27;download&#x27;</span>, <span class="hljs-string">&#x27;handsome&#x27;</span>);<br>  link.innerHTML = <span class="hljs-string">`&lt;img src=&quot;<span class="hljs-subst">$&#123;data&#125;</span>&quot; alt=&quot;Handsome Man&quot; /&gt;`</span>;<br>  strip.insertBefore(link, strip.firstChild);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>就大功告成啦！</p>
+<h2 id="JS-final"><a href="#JS-final" class="headerlink" title="JS - final"></a>JS - final</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.player&#x27;</span>);<br><span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.photo&#x27;</span>);<br><span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br><span class="hljs-keyword">const</span> strip = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.strip&#x27;</span>);<br><span class="hljs-keyword">const</span> snap = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.snap&#x27;</span>);<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getVideo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  navigator.mediaDevices.getUserMedia(&#123; <span class="hljs-attr">video</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">audio</span>: <span class="hljs-literal">false</span> &#125;)<br>    .then(<span class="hljs-function"><span class="hljs-params">localMediaStream</span> =&gt;</span> &#123;<br>      <span class="hljs-built_in">console</span>.log(localMediaStream);<br>      <br>      video.srcObject = localMediaStream;<br>      video.play();<br>    &#125;)<br>    .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>      <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`OH NO!!!`</span>, err);<br>    &#125;);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">paintToCanvas</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> width = video.videoWidth;<br>  <span class="hljs-keyword">const</span> height = video.videoHeight;<br>  canvas.width = width;<br>  canvas.height = height;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    ctx.drawImage(video, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);<br>    <span class="hljs-keyword">let</span> pixels = ctx.getImageData(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);<br>    pixels = rgbSplit(pixels);<br>    ctx.putImageData(pixels, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>  &#125;, <span class="hljs-number">16</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">redEffect</span>(<span class="hljs-params">pixels</span>) </span>&#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; pixels.data.length; i+=<span class="hljs-number">4</span>) &#123;<br>    pixels.data[i + <span class="hljs-number">0</span>] = pixels.data[i + <span class="hljs-number">0</span>] + <span class="hljs-number">200</span>; <br>    pixels.data[i + <span class="hljs-number">1</span>] = pixels.data[i + <span class="hljs-number">1</span>] - <span class="hljs-number">50</span>;<br>    pixels.data[i + <span class="hljs-number">2</span>] = pixels.data[i + <span class="hljs-number">2</span>] * <span class="hljs-number">0.5</span>;<br>  &#125;<br>  <span class="hljs-keyword">return</span> pixels;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rgbSplit</span>(<span class="hljs-params">pixels</span>) </span>&#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; pixels.data.length; i+=<span class="hljs-number">4</span>) &#123;<br>    pixels.data[i - <span class="hljs-number">150</span>] = pixels.data[i + <span class="hljs-number">0</span>]; <br>    pixels.data[i + <span class="hljs-number">500</span>] = pixels.data[i + <span class="hljs-number">1</span>]; <br>    pixels.data[i - <span class="hljs-number">550</span>] = pixels.data[i + <span class="hljs-number">2</span>]; <br>  &#125;<br>  <span class="hljs-keyword">return</span> pixels;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">greenScreen</span>(<span class="hljs-params">pixels</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> levels = &#123;&#125;;<br><br>  <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;.rgb input&#x27;</span>).forEach(<span class="hljs-function">(<span class="hljs-params">input</span>) =&gt;</span> &#123;<br>    levels[input.name] = input.value;<br>  &#125;);<br><br>  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; pixels.data.length; i = i + <span class="hljs-number">4</span>) &#123;<br>    red = pixels.data[i + <span class="hljs-number">0</span>];<br>    green = pixels.data[i + <span class="hljs-number">1</span>];<br>    blue = pixels.data[i + <span class="hljs-number">2</span>];<br>    alpha = pixels.data[i + <span class="hljs-number">3</span>];<br><br>    <span class="hljs-keyword">if</span> (red &gt;= levels.rmin<br>      &amp;&amp; green &gt;= levels.gmin<br>      &amp;&amp; blue &gt;= levels.bmin<br>      &amp;&amp; red &lt;= levels.rmax<br>      &amp;&amp; green &lt;= levels.gmax<br>      &amp;&amp; blue &lt;= levels.bmax) &#123;<br>      <span class="hljs-comment">// take it out!</span><br>      pixels.data[i + <span class="hljs-number">3</span>] = <span class="hljs-number">0</span>;<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> pixels;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">takePhoto</span>(<span class="hljs-params"></span>) </span>&#123;<br>  snap.currentTime = <span class="hljs-number">0</span>;<br>  snap.play();<br>  <span class="hljs-keyword">const</span> data = canvas.toDataURL(<span class="hljs-string">&#x27;image/jpeg&#x27;</span>);<br>  <span class="hljs-keyword">const</span> link = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;a&#x27;</span>);<br>  link.href = data;<br>  link.setAttribute(<span class="hljs-string">&#x27;download&#x27;</span>, <span class="hljs-string">&#x27;handsome&#x27;</span>);<br>  link.innerHTML = <span class="hljs-string">`&lt;img src=&quot;<span class="hljs-subst">$&#123;data&#125;</span>&quot; alt=&quot;Handsome Man&quot; /&gt;`</span>;<br>  strip.insertBefore(link, strip.firstChild);<br>&#125;<br><br>getVideo();<br>video.addEventListener(<span class="hljs-string">&#x27;canplay&#x27;</span>, paintToCanvas);<br></code></pre></td></tr></table></figure>
+<p>本刊同步於個人網站：<a target="_blank" rel="noopener" href="http://chestertang.site/">http://chestertang.site/</a></p>
+<p>本次範例程式碼原作者來源：<a target="_blank" rel="noopener" href="https://tinyurl.com/yavm5f5n">https://tinyurl.com/yavm5f5n</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/">前端新手村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/html/">html</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/05/javascript20/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手村20 - Speech Detection</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/03/javascript18/">
+                        <span class="hidden-mobile">新手村18 - Adding Up Times with Reduce</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

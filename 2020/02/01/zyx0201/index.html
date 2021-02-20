@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>再談 Docker Repository - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="再談 Docker Repository">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-01 10:30" pubdate>
+        February 1, 2020 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">再談 Docker Repository</h1>
+            
+            <div class="markdown-body">
+              <p>在上篇的 <a target="_blank" rel="noopener" href="https://chestertang.site/2020/01/31/zyx0131/">再談 Docker Container</a> 的介紹中對於 Docker Container 有了更深入的了解，接下來換來更深入瞭解 Docker Repository 吧！下篇就是 Deploy ～快到惹www</p>
+<h1 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h1><blockquote>
+<p>Repository(倉庫)、Registry(伺服器)，傻傻分不清楚？</p>
+</blockquote>
+<p>每個 Registry 上可以有多個 Repository，而每個 Repository 下面有多個 Image。簡單來說，Repository 可以被認為是一個具體的專案或目錄，例如對於 Repository 位址 dl.dockerpool.com/ubuntu 來說，dl.dockerpool.com 是註冊 Registry 位址，ubuntu 是 Repository 名稱。</p>
+<h2 id="Docker-Hub"><a href="#Docker-Hub" class="headerlink" title="Docker Hub"></a>Docker Hub</h2><p>目前 Docker 官方維護了一個 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>，其中包括了超過 15,000 的 Image。大部分需求，都可以透過 Docker Hub 直接下載 Image 來實作。</p>
+<h3 id="登入"><a href="#登入" class="headerlink" title="登入"></a>登入</h3><p>可以透過執行 docker login 指令來輸入使用者名稱、密碼和電子信箱來完成註冊和登錄。 註冊成功後，本地使用者目錄的 <code>.dockercfg</code> 中將保存使用者的認證資訊。</p>
+<p>或者可以直接到官方註冊帳號密碼：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>使用者無需登錄即可透過 <code>docker search</code> 指令來查詢 Docker Hub 中的 Image，並利用 <code>docker pull</code> 將它下載到 local 端。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker search ruby<br><br>NAME                         DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED<br>ruby                         Ruby is a dynamic, reflective, object-orient…   1823                [OK]<br>circleci/ruby                Ruby is a dynamic, reflective, object-orient…   67<br>starefossen/ruby-node        Docker Image with Ruby and Node.js installed    34                                      [OK]<br>heroku/ruby                  Docker Image <span class="hljs-keyword">for</span> Heroku Ruby                    22                                      [OK]<br>...<br></code></pre></td></tr></table></figure>
+<p>下載官方 ruby Image 到 local 端</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker pull ruby<br><br>Using default tag: latest<br>latest: Pulling from library/ruby<br>8f0fdd3eaac0: Pull complete<br>d918eaefd9de: Pull complete<br>43bf3e3107f5: Pull complete<br>27622921edb2: Pull complete<br>dcfa0aa1ae2c: Pull complete<br>0e1f1dc37f65: Pull complete<br>ebd3e50ed509: Pull complete<br>660f560ba0a3: Pull complete<br>Digest: sha256:...<br>Status: Downloaded newer image <span class="hljs-keyword">for</span> ruby:latest<br>docker.io/library/ruby:latest<br></code></pre></td></tr></table></figure>
+<p>看看剛剛下載的 ruby Image 吧！</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker images<br><br>REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE<br>chestertang/sinatra   v2                  3bae0e76683f        8 days ago          447MB<br>ruby                  latest              fb53c5f433da        3 weeks ago         842MB<br></code></pre></td></tr></table></figure>
+<p>反之當然，也可以在登錄後透過 docker push 將 Image 推送到 Docker Hub</p>
+<h3 id="自動建立"><a href="#自動建立" class="headerlink" title="自動建立"></a>自動建立</h3><p>自動建立（Automated Builds）功能對於需要經常升級 Image 的人來說很方便。有時候，使用者建立了 Image，安裝了某個軟體，如果軟體發布新版本則需要手動更新 Image。</p>
+<p>此外，也允許使用者透過 Docker Hub 指定跟蹤一個目標網站（目前支援 GitHub 或 BitBucket）上的專案，一旦專案發生新的 push，則自動執行建立。</p>
+<p>設定自動建立，包括以下的步驟：</p>
+<ul>
+<li>建立並登入 Docker Hub，以及目標網站</li>
+<li>在目標網站中連接帳戶到 Docker Hub</li>
+<li>在 Docker Hub 中設定自動建立</li>
+<li>選取一個目標網站中的專案（需要含 Dockerfile）和分支</li>
+<li>指定 Dockerfile 的位置，並提交建立</li>
+</ul>
+<p>之後，可以在 Docker Hub 的自動建立頁面 中跟蹤每次建立的狀態</p>
+<h2 id="私有-Repository"><a href="#私有-Repository" class="headerlink" title="私有 Repository"></a>私有 Repository</h2><p>有時候使用 Docker Hub 這樣的公共 Repository 可能不方便，使用者可以建立一個本地 Repository 供私人使用。</p>
+<h2 id="安裝執行-docker-registry"><a href="#安裝執行-docker-registry" class="headerlink" title="安裝執行 docker-registry"></a>安裝執行 docker-registry</h2><h3 id="容器執行"><a href="#容器執行" class="headerlink" title="容器執行"></a>容器執行</h3><p>在安裝了 Docker 後，可以透過取得官方 registry Image 來執行</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker run -d -p 5000:5000 registry<br></code></pre></td></tr></table></figure>
+<p>這將使用官方的 registry Image 來啟動本地的私有 Repository。 使用者可以透過指定參數來設定私有 Repository 位置，例如設定 Iamge 儲存到 Amazon S3 服務。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker run \<br>       -e SETTINGS_FLAVOR=s3 \<br>       -e AWS_BUCKET=acme-docker \<br>       -e STORAGE_PATH=/registry \<br>       -e AWS_KEY=AKIAHSHB43HS3J92MXZ \<br>       -e AWS_SECRET=xdDowwlK7TJajV1Y7EoOZrmuPEJlHYcNP2k4j49T \<br>       -e SEARCH_BACKEND=sqlalchemy \<br>       -p 5000:5000 \<br>       registry<br></code></pre></td></tr></table></figure>
+<h3 id="在私有-Repository-上傳、下載、搜索-Image"><a href="#在私有-Repository-上傳、下載、搜索-Image" class="headerlink" title="在私有 Repository 上傳、下載、搜索 Image"></a>在私有 Repository 上傳、下載、搜索 Image</h3><p>建立好私有 Repository 之後，就可以使用 docker tag 來標記一個 Image，然後推送它到 Repository，別的機器上就可以下載下了。例如私有 Repository 位址為 192.168.7.26:5000。</p>
+<p>先來複製一個 Image</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker images<br><br>REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE<br>registry              latest              708bc6af7e5e        7 days ago          25.8MB<br>chestertang/sinatra   v2                  3bae0e76683f        8 days ago          447MB<br><br>docker tag 708bc6af7e5e 192.168.7.26:5000/<span class="hljs-built_in">test</span><br>~<br><br>docker images<br><br>REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE<br>registry                 latest              708bc6af7e5e        7 days ago          25.8MB<br>192.168.7.26:5000/<span class="hljs-built_in">test</span>   latest              708bc6af7e5e        7 days ago          25.8MB<br>chestertang/sinatra      v2                  3bae0e76683f        8 days ago          447MB<br></code></pre></td></tr></table></figure>
+<p>使用 <code>docker push</code> 上傳 <code>192.168.7.26:5000/test</code> Image</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker push 192.168.7.26:5000/<span class="hljs-built_in">test</span><br><br>The push refers to a repository [192.168.7.26:5000/<span class="hljs-built_in">test</span>] (len: 1)<br>Sending image list<br>Pushing repository 192.168.7.26:5000/<span class="hljs-built_in">test</span> (1 tags)<br>Image 511136ea3c5a already pushed, skipping<br>Image 9bad880da3d2 already pushed, skipping<br>Image 25f11f5fb0cb already pushed, skipping<br>Image ebc34468f71d already pushed, skipping<br>Image 2318d26665ef already pushed, skipping<br>Image ba5877dc9bec already pushed, skipping<br>Pushing tag <span class="hljs-keyword">for</span> rev [ba5877dc9bec] on &#123;http://192.168.7.26:5000/v1/repositories/<span class="hljs-built_in">test</span>/tags/latest&#125;<br></code></pre></td></tr></table></figure>
+<p>用 <code>curl</code> 查看倉庫中的映像檔</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs zsh">curl http://192.168.7.26:5000/v1/search<br><br>&#123;<span class="hljs-string">&quot;num_results&quot;</span>: 7, <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;results&quot;</span>: [&#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;library/miaxis_j2ee&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;library/tomcat&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;library/ubuntu&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;library/ubuntu_office&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;library/desktop_ubu&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;dockerfile/ubuntu&quot;</span>&#125;, &#123;<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;library/test&quot;</span>&#125;]&#125;<br></code></pre></td></tr></table></figure>
+<p>這樣就代表完成啦！</p>
+<h2 id="設定檔案"><a href="#設定檔案" class="headerlink" title="設定檔案"></a>設定檔案</h2><p>Docker 的 Registry 利用設定檔案提供了一些 REPOSITORY 的模組（flavor），使用者可以來進行開發或部署。</p>
+<h3 id="模組"><a href="#模組" class="headerlink" title="模組"></a>模組</h3><p>在 <code>config_sample.yml</code> 檔案中，可以如下：</p>
+<ul>
+<li><code>common</code>：基礎設定</li>
+<li><code>local</code>：儲存資料到本地檔案系統</li>
+<li><code>s3</code>：儲存資料到 AWS S3 中</li>
+<li><code>dev</code>：使用 local 模組的基本設定</li>
+<li><code>test</code>：單元測試使用</li>
+<li><code>prod</code>：生產環境設定（基本上跟s3設定類似）</li>
+<li><code>gcs</code>：儲存資料到 Google 的雲端</li>
+<li><code>swift</code>：儲存資料到 OpenStack Swift 服務</li>
+<li><code>glance</code>：儲存資料到 OpenStack Glance 服務，本地檔案系統為後備</li>
+<li><code>glance-swift</code>：儲存資料到 OpenStack Glance 服務，Swift 為後備</li>
+<li><code>elliptics</code>：儲存資料到 Elliptics key/value 儲存</li>
+</ul>
+<h3 id="範例設定"><a href="#範例設定" class="headerlink" title="範例設定"></a>範例設定</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs zsh">common:<br>  loglevel: info<br>  search_backend: <span class="hljs-string">&quot;_env:SEARCH_BACKEND:&quot;</span><br>  sqlalchemy_index_database: <span class="hljs-string">&quot;_env:SQLALCHEMY_INDEX_DATABASE:sqlite:////tmp/docker-registry.db&quot;</span><br><br>prod:<br>  loglevel: warn<br>  storage: s3<br>  s3_access_key: _env:AWS_S3_ACCESS_KEY<br>  s3_secret_key: _env:AWS_S3_SECRET_KEY<br>  s3_bucket: _env:AWS_S3_BUCKET<br>  boto_bucket: _env:AWS_S3_BUCKET<br>  storage_path: /srv/docker<br>  smtp_host: localhost<br>  from_addr: docker@myself.com<br>  to_addr: my@myself.com<br><br>dev:<br>  loglevel: debug<br>  storage: <span class="hljs-built_in">local</span><br>  storage_path: /home/myself/docker<br><br><span class="hljs-built_in">test</span>:<br>  storage: <span class="hljs-built_in">local</span><br>  storage_path: /tmp/tmpdockertmp<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Docker/">Docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/note/">note</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/05/zyx0205/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">R 筆記 - try、try! 和 &.</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/31/zyx0131/">
+                        <span class="hidden-mobile">再談 Docker Container</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

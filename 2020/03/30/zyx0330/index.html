@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>S3 Cross-Account Access - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="S3 Cross-Account Access">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-30 12:00" pubdate>
+        March 30, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">S3 Cross-Account Access</h1>
+            
+            <div class="markdown-body">
+              <h1 id="AWS-Organizations"><a href="#AWS-Organizations" class="headerlink" title="AWS Organizations"></a>AWS Organizations</h1><p>這篇首先前半段是跟 S3 比較沒有直接相關的部分，不過因為為了後面要分享 S3 權限給其他帳號，所以必須先設定 Organization 才有辦法完成。</p>
+<p>另外文中的主帳號為 <code>m0761005</code>，分享的帳號為 <code>chester.tang</code> 這隻帳號（寫在前頭方便觀看這篇圖例中現在的角色關係）</p>
+<p>首先，要分享權限給其他人，可以透過兩種方式進入到 <code>AWS Organizations</code>:</p>
+<ol>
+<li>點選右上方帳號 <code>My Organization</code></li>
+<li><code>Management &amp; Governance / AWS Organizations</code></li>
+</ol>
+<p>進入到頁面後，點選 <code>Create organization</code> 按鈕來建立組織吧！ </p>
+<p><img src="https://i.imgur.com/lLIbo7V.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>完成後可以看到，目前的使用者前面有個星號，而我們要透過點選 <code>Add account</code> 來新增使用者</p>
+<p><img src="https://i.imgur.com/xMMNQfl.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>選擇要 <code>Invite account</code> 按鈕，並輸入 Email 帳戶或 <code>account ID</code> 來寄送邀請 Mail</p>
+<p><img src="https://i.imgur.com/Nb0jBk0.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>收到信件後，切換帳號到剛剛寄送的 AWS 帳號，並 <code>Accept</code> 邀請後就可以加入了！</p>
+<p><img src="https://i.imgur.com/h2PkXnr.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>然後裡面就會出現現在擁有的成員～</p>
+<p><img src="https://i.imgur.com/N1PwEGx.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<hr>
+<h1 id="Lab-Sharing-S3-Buckets-Across-Accounts"><a href="#Lab-Sharing-S3-Buckets-Across-Accounts" class="headerlink" title="Lab - Sharing S3 Buckets Across Accounts"></a>Lab - Sharing S3 Buckets Across Accounts</h1><h2 id="3-differents-ways-to-share-S3-buckets-across-accounts"><a href="#3-differents-ways-to-share-S3-buckets-across-accounts" class="headerlink" title="3 differents ways to share S3 buckets across accounts"></a>3 differents ways to share S3 buckets across accounts</h2><ul>
+<li>Using Bucket Policies &amp; IAM (applies across the entire bucket). Programmatic Access Only.</li>
+<li>Using Bucket ACLs &amp; IAM (individual objects). Programmatic Access Only.</li>
+<li>Cross-Account IAM Roles. Programmatic AND Console access.</li>
+</ul>
+<h3 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h3><p>完成上述的 AWS Organizations 之後，可以看到目前組織的畫面，接下來我們來 <code>Cross-Account Access</code> 給其他帳戶</p>
+<p><img src="https://i.imgur.com/N1PwEGx.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>在 <code>Sharing S3 Buckets Across Accounts</code> 給其他帳號之前，我們先來了解一下整個的流程，如果底下內容有點忘記是什麼了可以參考之前的這篇文章 <a target="_blank" rel="noopener" href="https://chestertang.site/2020/03/24/zyx0324/">IAM</a>，流程大致如下： </p>
+<ul>
+<li><code>m0761005</code> 帳號需要建立一個 <code>Roles</code> (輸入要給權限的 AWS Account ID)，並且選取擁有的 <code>Policy</code> (e.g. AmazonS3FullAccess)，完成後會有個專屬連結來給分享的帳號做登入</li>
+<li><code>chester.tang</code> 帳號需要建立一個 <code>Users</code> 來切換身份來知道我現在登入的是 <code>m0761005</code> 開出來的登入權限，因此選取擁有的 <code>Policy</code> (e.g. AdminstrationAccess)，使得帳號可以 <code>Switch Role</code></li>
+</ul>
+<p>首先，在 <code>m0761005</code> 帳戶的 <code>IAM</code> 中先建立 <code>Roles</code></p>
+<p><img src="https://i.imgur.com/sqpHNfr.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>因為是要分享給另一個帳號，所以選取 <code>Another AWS account</code> 來 <code>Create role</code>，不過首先要知道另一個帳號的 Account ID 才有辦法進行</p>
+<p><img src="https://i.imgur.com/WMS4V7j.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>這個部分應該就滿好懂的，我給這個帳戶要開啟什麼權限，能做什麼操作，都可以透過 <code>policy</code> 來達成，這邊就直接以 S3 ( <code>AmazonS3FullAccess</code> ) 來做範例</p>
+<p><img src="https://i.imgur.com/eGzX6TY.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>今天我們分享這個權限給其他人不會每次都需要上面的步驟，我們可以設定一個 <code>Role name</code> 專門在分享某一個權限給特定的人，這樣就不用一直選取要給的權限。</p>
+<p>好比我現在想分享 S3 的權限給我的同事們，我就直接把這個 <code>Role name</code> 叫做 <code>S3_Cross_Account_Access</code> 直接清楚明瞭，也方便之後知道這個 <code>Role</code> 裡面擁有的 <code>Policy</code> 是什麼…</p>
+<p><img src="https://i.imgur.com/waiqGGj.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>到這個步驟就完成了上述流程的一半步驟，我們 <code>m0761005</code> 帳戶就有可以給其他帳戶 <code>S3</code> 權限的 <code>Role</code></p>
+<p><img src="https://i.imgur.com/MAOQeDK.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<blockquote>
+<p>圖中的 <code>Give this link to users who can switch roles in the console</code> 此段後的連結可以先存起來，此段為其他帳號要 <code>Switch Roles</code> 的連結</p>
+</blockquote>
+<p>接下來，我們來切換帳戶到 <code>Chester.tang</code>。如果上段的 <code>AWS Organizations</code> 有完成的話，會看到目前帳號的是在哪個 <code>Organizations</code> 下，並且會有個 ID</p>
+<p><img src="https://i.imgur.com/eAfqYF4.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p><code>Chester.tang</code> 的帳戶中，如上述的流程，我們先要來建立一個 <code>Users</code> 來跟 <code>m0761005</code> 連結，並且方便我們切換角色</p>
+<p><img src="https://i.imgur.com/cDdQB7Z.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>點選 <code>Add user</code> 後，首先先取一個 <code>User name</code> 的名字（記住這個名字將會是日後登入 AWS 的帳戶名稱），並且自己設定密碼</p>
+<p><img src="https://i.imgur.com/dx3tuG5.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>當然地，這邊擁有的 <code>Policy</code> 就是登入了～跟之前 <code>m0761005</code> 在建立 <code>Roles</code> 是相同的</p>
+<p><img src="https://i.imgur.com/IgALPgm.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>完成後可以再次確認一下前面所選取的項目</p>
+<p><img src="https://i.imgur.com/d5TAtBm.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>到這邊完成後，我們就登出並再登入剛剛建立的帳戶名稱，這時候就會看到有 <code>Switch Roles</code> 的按鈕可以選取，然後來設定 <code>Role</code></p>
+<p><img src="https://i.imgur.com/0LwDZSC.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<blockquote>
+<p>還記得在 <code>m0761005</code> 在建立 <code>Roles</code> 的時候有的 <code>Give this link to users who can switch roles in the console</code> 後存起來的連結嗎？這邊也可以直接貼那段連結就會挑轉到這個頁面了</p>
+</blockquote>
+<p><img src="https://i.imgur.com/8mULcNq.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<p>完成後，就可以看到目前的 <code>Role</code> 並且還有其他資訊</p>
+<p><img src="https://i.imgur.com/KR9Px3x.png" srcset="/img/loading.gif" alt="IMAGE"></p>
+<h1 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h1><ul>
+<li>Always enable multi-factor authentication on root account </li>
+<li>Always using a strong and complex password on root account</li>
+<li>Paying account should be used for billing purposes only. Do not deploy resources into the paying payment.</li>
+<li>Enable/Disable AWS services using Service Control Policies(SCP) either on OU or on individual accounts.</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Amazon-Web-Services/">Amazon Web Services</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/AWS/">AWS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/S3-Cross-Account-Access/">S3 Cross-Account Access</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/31/zyx0331/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">S3 Cross Region Replication</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/28/zyx0328/">
+                        <span class="hidden-mobile">S3 Lifecycle Management</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

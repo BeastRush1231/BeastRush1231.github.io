@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>新手村08 - HTML5 Canvas - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手村08 - HTML5 Canvas">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-23 08:12" pubdate>
+        September 23, 2019 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手村08 - HTML5 Canvas</h1>
+            
+            <div class="markdown-body">
+              <h1 id="08-Fun-with-HTML5-Canvas"><a href="#08-Fun-with-HTML5-Canvas" class="headerlink" title="08 - Fun with HTML5 Canvas"></a>08 - Fun with HTML5 Canvas</h1><p>俗話說的好，一天一蘋果，醫生遠離我</p>
+<p>一天一 JS，What the f*ck JavaScript？</p>
+<p>small steps every day - 記錄著新手村日記</p>
+<h2 id="完成目標"><a href="#完成目標" class="headerlink" title="完成目標"></a>完成目標</h2><ul>
+<li>功能<ul>
+<li>可以畫圖的書布</li>
+<li>粗細、顏色變化</li>
+</ul>
+</li>
+<li>畫面<ul>
+<li>邊畫邊換色、粗細</li>
+<li>停下來，再繼續畫，粗細和顏色與上次停筆相同</li>
+</ul>
+</li>
+</ul>
+<h2 id="index-START-html"><a href="#index-START-html" class="headerlink" title="index_START.html"></a>index_START.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>HTML5 Canvas<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;draw&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;800&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;800&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">  <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br>  &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="JS-step-by-step"><a href="#JS-step-by-step" class="headerlink" title="JS - step by step"></a>JS - step by step</h2><p>首先，這次的範例只是Canvas的基本、滑鼠的操作，如果很喜歡 Canvas 的人，歡迎來我的 Codepen 看更多範例</p>
+<p>繪圖基礎語法與動畫原理：<a target="_blank" rel="noopener" href="https://tinyurl.com/yxftfxoz">https://tinyurl.com/yxftfxoz</a></p>
+<p>畫布的座標系操作：<a target="_blank" rel="noopener" href="https://tinyurl.com/y4s8fxjr">https://tinyurl.com/y4s8fxjr</a></p>
+<p>從事件的角度，先來寫使用者的觸發事件吧！分別是 <code>mousedown</code>、<code>mousemove</code>、<code>mouseup</code>、<code>mouseleave</code> 四種事件，記得 <code>mousemove</code> 這個事件是會一直觸發，使用者在脫離 Canvas 這個 800x800 畫布的時候，也會觸發脫離框框事件，分別有兩種作法：一個是 <code>mouseout</code>、<code>mouseleave</code>，而兩者的差別在 DOM 的層級。</p>
+<p>另外，因為要使用者按下去才能畫，因此在 <code>mousemove</code> 方法中，我們要假設如果狀態不能畫畫的 <code>if(!drawing) return</code>，就不能畫畫</p>
+<p>mouveseout v.s mouse leave：<a target="_blank" rel="noopener" href="https://tinyurl.com/y282qc3g">https://tinyurl.com/y282qc3g</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#draw&quot;</span>);<br>  <span class="hljs-keyword">let</span> drawing = <span class="hljs-literal">false</span>;<br><br>  canvas.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">true</span>;<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mousemove&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span>(!drawing) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;move&quot;</span>); <span class="hljs-comment">// 假設console視為畫畫</span><br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseup&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>透過 <code>CanvasRenderingContext2D</code> 來操作 Canvas 的 Context，記得不是操作它的 DOM！處理一下要畫畫線條的顏色 <code>ctx.fillStyle</code>，它是透過HSL 色環來計算顏色 <code>&quot;hsl(0,100%,50%)&quot;</code>，各欄位分別意思是（顏色、飽和度、明亮度）、調整筆畫粗細 <code>linewidth </code>、筆畫收尾的形狀 <code>lineCap</code>、轉折角 <code>lineJoin</code> </p>
+<p>CanvasRenderingContext2D：<a target="_blank" rel="noopener" href="https://tinyurl.com/y39wgnms">https://tinyurl.com/y39wgnms</a><br>CanvasRenderingContext2D.fillStyle：<a target="_blank" rel="noopener" href="https://tinyurl.com/y5j8zu5g">https://tinyurl.com/y5j8zu5g</a><br>CanvasRenderingContext2D.lineWidth：<a target="_blank" rel="noopener" href="https://tinyurl.com/q3pm3aw">https://tinyurl.com/q3pm3aw</a><br>CanvasRenderingContext2D.lineCap：<a target="_blank" rel="noopener" href="https://tinyurl.com/y63rq9rf">https://tinyurl.com/y63rq9rf</a><br>CanvasRenderingContext2D.lineJoin：<a target="_blank" rel="noopener" href="https://tinyurl.com/yxesyrbw">https://tinyurl.com/yxesyrbw</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br>  ctx.strokeStyle = <span class="hljs-string">`hsl(0,100%,50%)`</span>;<br>  ctx.lineWidth = <span class="hljs-number">100</span>;<br>  ctx.lineCap = <span class="hljs-string">&#x27;round&#x27;</span>;<br>	<span class="hljs-comment">// 下略</span><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>現在來製作畫畫吧！（點對點的概念，按下去會是一個點，然後會連到結束時候的點成為一條線），必須將按下時的點及結束的點存起來，透過 x、y 變數存下 <code>offsetX、offsetY</code> </p>
+<p>MouseEvent.offsetX：<a target="_blank" rel="noopener" href="https://tinyurl.com/phhseue">https://tinyurl.com/phhseue</a><br>MouseEvent.offsetY：<a target="_blank" rel="noopener" href="https://tinyurl.com/yys9e773">https://tinyurl.com/yys9e773</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#draw&quot;</span>);<br>  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br>  ctx.strokeStyle = <span class="hljs-string">`hsl(0,100%,50%)`</span>;<br>  ctx.lineWidth = <span class="hljs-number">50</span>;<br>  ctx.lineCap = <span class="hljs-string">&#x27;round&#x27;</span>;<br>  ctx.lineJoin = <span class="hljs-string">&#x27;round&#x27;</span>;<br>  <span class="hljs-keyword">let</span> x = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">let</span> y = <span class="hljs-number">0</span>;<br><br>  <span class="hljs-keyword">let</span> drawing = <span class="hljs-literal">false</span>;<br>  canvas.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">true</span>;<br>    [x,y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mousemove&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span>(!drawing) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;move&quot;</span>);<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseup&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>畫製 Canvas 圖的規則滿前顯易懂的，可以參考下面的範例連結（切記在製作Canvas的時候程式結束一定要有分號，不然都會出錯喔！）</p>
+<p>CanvasRenderingContext2D.beginPath()：<a target="_blank" rel="noopener" href="https://tinyurl.com/ycrkznet">https://tinyurl.com/ycrkznet</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#draw&quot;</span>);<br>  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br>  ctx.strokeStyle = <span class="hljs-string">`hsl(0,100%,50%)`</span>;<br>  ctx.lineWidth = <span class="hljs-number">50</span>;<br>  ctx.lineCap = <span class="hljs-string">&#x27;round&#x27;</span>;<br>  ctx.lineJoin = <span class="hljs-string">&#x27;round&#x27;</span>;<br><br>  <span class="hljs-keyword">let</span> drawing = <span class="hljs-literal">false</span><br>  <span class="hljs-keyword">let</span> x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>;<br><br>  canvas.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">true</span>;<br>    [x, y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mousemove&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span>(!drawing) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;move&quot;</span>);<br><br>    ctx.beginPath();<br>    ctx.moveTo(x, y);<br>    ctx.lineTo(e.offsetX, e.offsetY);<br>    ctx.stroke();<br>    [x, y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseup&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>讓顏色會隨著紅橙黃綠藍靛紫 &amp; 粗細會持續變化：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#draw&quot;</span>);<br>  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br><br>  colorDeg = <span class="hljs-number">0</span>;<br>  lineWidth = <span class="hljs-number">50</span>;<br>  dir = <span class="hljs-number">1</span>;<br>  ctx.strokeStyle = <span class="hljs-string">`hsl(<span class="hljs-subst">$&#123;colorDeg&#125;</span>,100%,50%)`</span>;<br>  ctx.lineWidth = lineWidth;<br>  ctx.lineCap = <span class="hljs-string">&#x27;round&#x27;</span>;<br>  ctx.lineJoin = <span class="hljs-string">&#x27;round&#x27;</span>;<br><br>  <span class="hljs-keyword">let</span> drawing = <span class="hljs-literal">false</span><br>  <span class="hljs-keyword">let</span> x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>;<br><br>  canvas.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">true</span>;<br>    [x, y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mousemove&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span>(!drawing) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;move&quot;</span>);<br><br>    ctx.beginPath();<br>    <br>    <span class="hljs-comment">// 讓角度持續的在 0-360 變化</span><br>    colorDeg = colorDeg &lt; <span class="hljs-number">360</span> ? colorDeg + <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>    ctx.strokeStyle = <span class="hljs-string">`hsl(<span class="hljs-subst">$&#123;colorDeg&#125;</span>,100%,50%)`</span>;<br>    <br>    <span class="hljs-comment">// 從大到變小 再到變大</span><br>    <span class="hljs-keyword">if</span> (lineWidth &lt; <span class="hljs-number">1</span> || lineWidth &gt; <span class="hljs-number">50</span>) &#123;<br>      dir *= -<span class="hljs-number">1</span>;<br>    &#125;<br>    lineWidth -= dir ;<br>    <br>    ctx.lineWidth = lineWidth;<br>    ctx.moveTo(x, y);<br>    ctx.lineTo(e.offsetX, e.offsetY);<br>    ctx.stroke();<br>    [x, y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseup&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>就大功告成啦！</p>
+<h2 id="JS-Final"><a href="#JS-Final" class="headerlink" title="JS - Final"></a>JS - Final</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#draw&quot;</span>);<br>  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br><br>  colorDeg = <span class="hljs-number">0</span>;<br>  lineWidth = <span class="hljs-number">50</span>;<br>  dir = <span class="hljs-number">1</span>;<br>  ctx.strokeStyle = <span class="hljs-string">`hsl(<span class="hljs-subst">$&#123;colorDeg&#125;</span>,100%,50%)`</span>;<br>  ctx.lineWidth = lineWidth;<br>  ctx.lineCap = <span class="hljs-string">&#x27;round&#x27;</span>;<br>  ctx.lineJoin = <span class="hljs-string">&#x27;round&#x27;</span>;<br><br>  <span class="hljs-keyword">let</span> drawing = <span class="hljs-literal">false</span><br>  <span class="hljs-keyword">let</span> x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>;<br><br>  canvas.addEventListener(<span class="hljs-string">&quot;mousedown&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">true</span>;<br>    [x, y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mousemove&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span>(!drawing) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;move&quot;</span>);<br><br>    ctx.beginPath();<br>    colorDeg = colorDeg &lt; <span class="hljs-number">360</span> ? colorDeg + <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>    ctx.strokeStyle = <span class="hljs-string">`hsl(<span class="hljs-subst">$&#123;colorDeg&#125;</span>,100%,50%)`</span>;<br>    <span class="hljs-keyword">if</span> (lineWidth &lt; <span class="hljs-number">1</span> || lineWidth &gt; <span class="hljs-number">50</span>) &#123;<br>      dir *= -<span class="hljs-number">1</span>;<br>    &#125;<br>    lineWidth -= dir ;<br>    ctx.lineWidth = lineWidth;<br>    ctx.moveTo(x, y);<br>    ctx.lineTo(e.offsetX, e.offsetY);<br>    ctx.stroke();<br>    [x, y] = [e.offsetX, e.offsetY];<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseup&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>  canvas.addEventListener(<span class="hljs-string">&quot;mouseleave&quot;</span>,<span class="hljs-function">()=&gt;</span> &#123;<br>    drawing = <span class="hljs-literal">false</span>;<br>  &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<p>本刊同步於個人網站：<a target="_blank" rel="noopener" href="http://chestertang.site/">http://chestertang.site/</a></p>
+<p>本次範例程式碼原作者來源：<a target="_blank" rel="noopener" href="https://tinyurl.com/yxhsxcnl">https://tinyurl.com/yxhsxcnl</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/">前端新手村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/html/">html</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/24/javascript09/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手村09 - Dev Tools</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/22/javascript07/">
+                        <span class="hidden-mobile">新手村07 - Array Cardio Day 2</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

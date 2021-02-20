@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>J 筆記 - Date 時間的運算 - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="J 筆記 - Date 時間的運算">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-03 12:00" pubdate>
+        March 3, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      880 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">J 筆記 - Date 時間的運算</h1>
+            
+            <div class="markdown-body">
+              <h1 id="J-筆記-Date-時間的運算"><a href="#J-筆記-Date-時間的運算" class="headerlink" title="J 筆記 - Date 時間的運算"></a>J 筆記 - Date 時間的運算</h1><p>早上一進公司除了看到要來面試的下一屆學弟，還有機器服務又壞掉之外，被強大的好朋友問了一個考驗我的問題～剛好要用到 JS 計算時間，所以有了這篇的誕生…</p>
+<h2 id="先來看一下-MDN-的解釋"><a href="#先來看一下-MDN-的解釋" class="headerlink" title="先來看一下 MDN 的解釋"></a>先來看一下 MDN 的解釋</h2><blockquote>
+<p>JavaScript Date objects represent a single moment in time in a platform-independent format. Date objects contain a Number that represents milliseconds since 1 January 1970 UTC.</p>
+</blockquote>
+<p>語法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(value);<br><span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(dateString);<br><span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]]);<br></code></pre></td></tr></table></figure>
+<p>好了，我想你大概懂的（誤</p>
+<h3 id="Date-物件-多個參數指定年、月、日、時、分、秒、毫秒"><a href="#Date-物件-多個參數指定年、月、日、時、分、秒、毫秒" class="headerlink" title="Date 物件 - 多個參數指定年、月、日、時、分、秒、毫秒"></a>Date 物件 - 多個參數指定年、月、日、時、分、秒、毫秒</h3><p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> birthday = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">1996</span>, <span class="hljs-number">01</span>, <span class="hljs-number">15</span>);<br><span class="hljs-comment">// 1996-02-14T16:00:00.000Z</span><br></code></pre></td></tr></table></figure>
+<p>有沒有發現一件事情，明明指定的時間是 (1996, 01, 15) 但是最後印出來的時間卻跑出了我的生日（欸？</p>
+<p>其實 JS 不管怎麼輸入，都會是這樣子的（大誤）</p>
+<blockquote>
+<p>JavaScript 表達月份 (month) 是從 0 到 11，0 是一月；11 是十二月。且Date 物件參數的日期，預設的時區 (time zone) 是本地時區 (local time)，也就是你瀏覽器作業系統設定的時區。</p>
+</blockquote>
+<h3 id="日期時間比較-Compare-Dates"><a href="#日期時間比較-Compare-Dates" class="headerlink" title="日期時間比較 (Compare Dates)"></a>日期時間比較 (Compare Dates)</h3><p>可以用 <code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;==</code> 或 <code>&gt;==</code> 運算子來比較兩個 Date 物件的時間前後關係：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> today = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><span class="hljs-keyword">var</span> someday = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2022</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>);<br><br><span class="hljs-keyword">if</span> (someday &gt; today) &#123;<br>  alert(<span class="hljs-string">&#x27;Today is before 2022/3/3.&#x27;</span>);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>  alert(<span class="hljs-string">&#x27;Today is after 2022/3/3.&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>但如果你要比較兩個日期是否相等 - 運算子 <code>==</code>, <code>!=</code>, <code>===</code> 或 <code>!==</code>，你沒辦法直接比較，而是要先將 Date 物件用 <code>date.getTime()</code> 轉換為數值型態才能比較：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> d1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2020</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>);<br><span class="hljs-keyword">var</span> d2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2020</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>);<br><br><span class="hljs-keyword">var</span> same = d1.getTime() === d2.getTime();    <span class="hljs-comment">// true</span><br><span class="hljs-keyword">var</span> notSame = d1.getTime() !== d2.getTime(); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>大概簡述是這樣子，如果真正要用到什麼其他的方法，說實在的還是去查文件是比較快的選擇，所以我的同學到底問了我什麼呢？</p>
+<h3 id="JavaScript：將指定日期加上-X-天"><a href="#JavaScript：將指定日期加上-X-天" class="headerlink" title="JavaScript：將指定日期加上 X 天"></a>JavaScript：將指定日期加上 X 天</h3><p>首先，需要先新增一個時間並指定變數</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> dateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br></code></pre></td></tr></table></figure>
+<p>加天數</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">dateTime = dateTime.setDate(dateTime.getDate()+<span class="hljs-number">1</span>);<br>dateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(dateTime);<br></code></pre></td></tr></table></figure>
+<p>有人可能會想到用 <code>getDate()</code> 這樣子抓天數後 或許會超過 31 或者是 小於等於 0，不過因為前面有 <code>setDate()</code> 所以會幫你轉換：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&gt; <span class="hljs-keyword">var</span> dateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><span class="hljs-literal">undefined</span><br>&gt; dateTime = dateTime.setDate(dateTime.getDate()+<span class="hljs-number">1</span>);<br><span class="hljs-number">1583292207881</span><br>&gt; dateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(dateTime);<br><span class="hljs-number">2020</span>-<span class="hljs-number">03</span>-04T03:<span class="hljs-number">23</span>:<span class="hljs-number">27.</span>881Z<br><br>&gt; dateTime = dateTime.setDate(dateTime.getDate()-<span class="hljs-number">4</span>);<br><span class="hljs-number">1582946607881</span><br>&gt; dateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(dateTime);<br><span class="hljs-number">2020</span>-<span class="hljs-number">02</span>-29T03:<span class="hljs-number">23</span>:<span class="hljs-number">27.</span>881Z<br></code></pre></td></tr></table></figure>
+<p>後來看到桑莫大神寫的</p>
+<p>由於「this」即是指定的時間物件，因此就使用 this 取得「日」再加 -3 天，最後將這個更新後的日期設定給這個時間物件即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Date</span>.prototype.addDays = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">days</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.setDate(<span class="hljs-built_in">this</span>.getDate() + days);<br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>加減天數</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> today = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><br>today <span class="hljs-comment">// 2020-03-03T03:38:34.674Z</span><br>today.addDays(-<span class="hljs-number">3</span>) <span class="hljs-comment">// 2020-02-29T03:38:34.674Z</span><br></code></pre></td></tr></table></figure>
+<h3 id="日期的轉換"><a href="#日期的轉換" class="headerlink" title="日期的轉換"></a>日期的轉換</h3><ul>
+<li><p>Date.prototype.toLocaleString() - 日期與時間</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&gt; today.toLocaleString()<br><span class="hljs-string">&#x27;2020-3-3 11:38:34&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>Date.prototype.toLocaleDateString() - 日期</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&gt; today.toLocaleDateString()  <br><span class="hljs-string">&#x27;2020-3-3&#x27;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Date.prototype.toLocaleTimeString() - 時間</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&gt; today.toLocaleTimeString()<br><span class="hljs-string">&#x27;11:38:34&#x27;</span><br></code></pre></td></tr></table></figure>
+<h3 id="取得其他國家的日期-amp-時間"><a href="#取得其他國家的日期-amp-時間" class="headerlink" title="取得其他國家的日期 &amp; 時間"></a>取得其他國家的日期 &amp; 時間</h3></li>
+</ul>
+<blockquote>
+<p>dateObj.toLocaleString([locales[, options]])</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&gt; today.toLocaleString(<span class="hljs-string">&#x27;zh-TW&#x27;</span>); <span class="hljs-comment">//台灣</span><br><span class="hljs-string">&#x27;2020-3-3 11:38:34&#x27;</span><br>&gt; today.toLocaleString(<span class="hljs-string">&#x27;en-GB&#x27;</span>); <span class="hljs-comment">//英國</span><br><span class="hljs-string">&#x27;3/3/2020, 11:38:34 AM&#x27;</span><br>&gt; today.toLocaleString(<span class="hljs-string">&#x27;ko-KR&#x27;</span>); <span class="hljs-comment">//韓國</span><br><span class="hljs-string">&#x27;2020-3-3 11:38:34&#x27;</span><br>&gt; today.toLocaleString(<span class="hljs-string">&#x27;en-AU&#x27;</span>); <span class="hljs-comment">//澳洲</span><br><span class="hljs-string">&#x27;3/3/2020, 11:38:34 AM&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>options 就查一查惹ouo</p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Date">[MDN] Date</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.fooish.com/javascript/date/parse.html">JavaScript Date parse()</a></li>
+<li><a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/05/17/javascript-date-add-days/">Summer。桑莫。夏天</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/09/zyx0309/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTML5 筆記 - 打字 + 閃爍游標</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/26/zyx0226/">
+                        <span class="hidden-mobile">CodeWar Weekly - 0224~0301</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

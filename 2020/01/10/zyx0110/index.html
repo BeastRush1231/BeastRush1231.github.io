@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>CoffeeScript 是什麼？ - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CoffeeScript 是什麼？">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-10 11:40" pubdate>
+        January 10, 2020 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CoffeeScript 是什麼？</h1>
+            
+            <div class="markdown-body">
+              <h2 id="CoffeeScript"><a href="#CoffeeScript" class="headerlink" title="CoffeeScript"></a>CoffeeScript</h2><p><strong>CoffeeScript 是個能夠編譯成 JavaScript 的簡易語言</strong>。受到 Ruby、Python 與 Haskell 等語言的啟發，CoffeeScript 增強了 JavaScript 的簡潔性與可讀性。</p>
+<h3 id="直接來個簡單的概觀看看"><a href="#直接來個簡單的概觀看看" class="headerlink" title="直接來個簡單的概觀看看"></a>直接來個簡單的概觀看看</h3><p>賦值：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-comment"># 賦值：</span><br>number   = <span class="hljs-number">42</span><br>opposite = <span class="hljs-literal">true</span><br><br><span class="hljs-comment"># 條件式：</span><br>number = <span class="hljs-number">-42</span> <span class="hljs-keyword">if</span> opposite<br><br><span class="hljs-comment"># 函式：</span><br><span class="hljs-function"><span class="hljs-title">square</span> = <span class="hljs-params">(x)</span> -&gt;</span> x * x<br><br><span class="hljs-comment"># 陣列：</span><br>list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><br><span class="hljs-comment"># 物件：</span><br>math =<br>  root:   <span class="hljs-built_in">Math</span>.sqrt<br>  square: square<br>  cube:   <span class="hljs-function"><span class="hljs-params">(x)</span> -&gt;</span> x * square x<br><br><span class="hljs-comment"># 變參：</span><br><span class="hljs-function"><span class="hljs-title">race</span> = <span class="hljs-params">(winner, runners...)</span> -&gt;</span><br>  <span class="hljs-built_in">print</span> winner, runners<br><br><span class="hljs-comment"># 空值偵測：</span><br>alert <span class="hljs-string">&quot;I knew it!&quot;</span> <span class="hljs-keyword">if</span> elvis?<br><br><span class="hljs-comment"># 陣列推導：</span><br>cubes = (math.cube num <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> list)<br></code></pre></td></tr></table></figure>
+<p>編譯成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 賦值：</span><br><span class="hljs-keyword">var</span> cubes, list, math, num, number, opposite, race, square;<br><br>number = <span class="hljs-number">42</span>;<br><br>opposite = <span class="hljs-literal">true</span>;<br><br><span class="hljs-keyword">if</span> (opposite) &#123;<br>  <span class="hljs-comment">// 條件式：</span><br>  number = -<span class="hljs-number">42</span>;<br>&#125;<br><br><span class="hljs-comment">// 函式：</span><br>square = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> x * x;<br>&#125;;<br><br><span class="hljs-comment">// 陣列：</span><br>list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];<br><br><span class="hljs-comment">// 物件：</span><br>math = &#123;<br>  root: <span class="hljs-built_in">Math</span>.sqrt,<br>  square: square,<br>  cube: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> x * square(x);<br>  &#125;<br>&#125;;<br><br><span class="hljs-comment">// 變參：</span><br>race = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">winner, ...runners</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> print(winner, runners);<br>&#125;;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> elvis !== <span class="hljs-string">&quot;undefined&quot;</span> &amp;&amp; elvis !== <span class="hljs-literal">null</span>) &#123;<br>  <span class="hljs-comment">// 空值偵測：</span><br>  alert(<span class="hljs-string">&quot;I knew it!&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">// 陣列推導：</span><br>cubes = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> i, len, results;<br>  results = [];<br>  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>, len = list.length; i &lt; len; i++) &#123;<br>    num = list[i];<br>    results.push(math.cube(num));<br>  &#125;<br>  <span class="hljs-keyword">return</span> results;<br>&#125;)();<br></code></pre></td></tr></table></figure>
+<h2 id="CoffeeScript-2"><a href="#CoffeeScript-2" class="headerlink" title="CoffeeScript 2"></a>CoffeeScript 2</h2><p>在 CoffeeScript 2 中，最大的改變莫過於輸出的 JavaScript 程式碼格式（現在會輸出成較新的 ES6 或 ES2015 風格）。</p>
+<p>而 CoffeeScript 中的 <code>=&gt;</code> 亦會變成 JS 中的 <code>=&gt;</code>，且 CoffeeScript 的 class 也會等同於 JS 的 class 類別標籤…等。還有主要追加的新功能，像是：非同步函式和 JSX。</p>
+<h3 id="非同步函式"><a href="#非同步函式" class="headerlink" title="非同步函式"></a>非同步函式</h3><p>ES2017 的非同步函式現在能夠透過 <code>await</code> 關鍵字進行使用，不需要額外使用 <code>async</code>，使得非同步函式在 CoffeeScript 中寫起來就像一般的函式。</p>
+<p><code>yield return</code> 可以強迫函式成為一個產生器函式，而 <code>await return</code> 則能夠強迫讓一個函式成為非同步函式。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span> (resolve) -&gt;<br><span class="hljs-built_in">window</span>.<span class="hljs-built_in">setTimeout</span> resolve, ms<br><br><span class="hljs-function"><span class="hljs-title">say</span> = <span class="hljs-params">(text)</span> -&gt;</span><br>  <span class="hljs-built_in">window</span>.speechSynthesis.cancel()<br>  <span class="hljs-built_in">window</span>.speechSynthesis.speak <span class="hljs-keyword">new</span> SpeechSynthesisUtterance text<br><br><span class="hljs-function"><span class="hljs-title">countdown</span> = <span class="hljs-params">(seconds)</span> -&gt;</span><br>  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [seconds.<span class="hljs-number">.1</span>]<br>    say i<br>    <span class="hljs-keyword">await</span> sleep <span class="hljs-number">1000</span> <span class="hljs-comment"># 等個一秒</span><br>  say <span class="hljs-string">&quot;Blastoff!&quot;</span><br><br>countdown <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<p>編譯成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> countdown, say, sleep;<br><br>sleep = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.setTimeout(resolve, ms);<br>  &#125;);<br>&#125;;<br><br>say = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">text</span>) </span>&#123;<br>  <span class="hljs-built_in">window</span>.speechSynthesis.cancel();<br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.speechSynthesis.speak(<span class="hljs-keyword">new</span> SpeechSynthesisUtterance(text));<br>&#125;;<br><br>countdown = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">seconds</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> i, j, ref;<br>  <span class="hljs-keyword">for</span> (i = j = ref = seconds; (ref &lt;= <span class="hljs-number">1</span> ? j &lt;= <span class="hljs-number">1</span> : j &gt;= <span class="hljs-number">1</span>); i = ref &lt;= <span class="hljs-number">1</span> ? ++j : --j) &#123;<br>    say(i);<br>    <span class="hljs-keyword">await</span> sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// 等個一秒</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> say(<span class="hljs-string">&quot;Blastoff!&quot;</span>);<br>&#125;;<br><br>countdown(<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JSX 是能夠帶有類 XML 元素結構的 JavaScript。雖然初期是為了 React 所設計的，但這並不是一個框架或者函式庫。</p>
+<p>CoffeeScript 不需要任何的額外擴充套件或設定，就能夠支援類 XML 元素。XML 元素會被編譯並輸出成一般的 JSX 結果，就像 Babel 與 React JSX 的轉化。不過 CoffeeScript 並不會輸出用以呼叫 <code>React.createElement</code> 的函式，亦不會有任何與 React 和其他框架有關的程式碼。</p>
+<p>就像 JSX 和 HTML 那樣，你可以使用 <code>&lt;</code> 與 <code>&gt;</code> 符號。你也能在 { 和 } 標籤中使用 CoffeeScript。為了避免編譯器錯誤，當 <code>&lt;</code> 和 <code>&gt;</code> 是用作「小於」或「大於」符號時，你應該透過空白來避免它們被誤認為 XML 標籤。所以你該使用 <code>i &lt; len</code> 而不是 <code>i&lt;len</code>。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-function"><span class="hljs-title">renderStarRating</span> = <span class="hljs-params">(&#123; rating, maxStars &#125;)</span> -&gt;</span><br>  &lt;aside title=&#123;<span class="hljs-string">&quot;Rating: <span class="hljs-subst">#&#123;rating&#125;</span> of <span class="hljs-subst">#&#123;maxStars&#125;</span> stars&quot;</span>&#125;&gt;<br>    &#123;<span class="hljs-keyword">for</span> wholeStar <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..<span class="hljs-built_in">Math</span>.floor(rating)]<br>      &lt;Star className=<span class="hljs-string">&quot;wholeStar&quot;</span> key=&#123;wholeStar&#125; /&gt;&#125;<br>    &#123;<span class="hljs-keyword">if</span> rating % <span class="hljs-number">1</span> <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span><br>      &lt;Star className=<span class="hljs-string">&quot;halfStar&quot;</span> /&gt;&#125;<br>    &#123;<span class="hljs-keyword">for</span> emptyStar <span class="hljs-keyword">in</span> [<span class="hljs-built_in">Math</span>.ceil(rating)...maxStars]<br>      &lt;Star className=<span class="hljs-string">&quot;emptyStar&quot;</span> key=&#123;emptyStar&#125; /&gt;&#125;<br>  &lt;/aside&gt;<br></code></pre></td></tr></table></figure>
+<p>編譯成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript">  <span class="hljs-keyword">var</span> renderStarRating;<br><br>renderStarRating = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">&#123;rating, maxStars&#125;</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> emptyStar, wholeStar;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">aside</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&#123;</span>`<span class="hljs-attr">Rating:</span> $&#123;<span class="hljs-attr">rating</span>&#125; <span class="hljs-attr">of</span> $&#123;<span class="hljs-attr">maxStars</span>&#125; <span class="hljs-attr">stars</span>`&#125;&gt;</span></span><br><span class="xml">    &#123;(function() &#123;</span><br><span class="xml">    var i, ref, results;</span><br><span class="xml">    results = [];</span><br><span class="xml">    for (wholeStar = i = 0, ref = Math.floor(rating); (0 &lt;= ref ? i &lt; ref : i &gt; ref); wholeStar = 0 &lt;= ref ? ++i : --i) &#123;</span><br><span class="xml">      results.push(<span class="hljs-tag">&lt;<span class="hljs-name">Star</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;wholeStar&quot;</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;wholeStar&#125;</span> /&gt;</span>);</span><br><span class="xml">    &#125;</span><br><span class="xml">    return results;</span><br><span class="xml">  &#125;)()&#125;</span><br><span class="xml">    &#123;(rating % 1 !== 0 ? <span class="hljs-tag">&lt;<span class="hljs-name">Star</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;halfStar&quot;</span> /&gt;</span> : void 0)&#125;</span><br><span class="xml">    &#123;(function() &#123;</span><br><span class="xml">    var i, ref, ref1, results;</span><br><span class="xml">    results = [];</span><br><span class="xml">    for (emptyStar = i = ref = Math.ceil(rating), ref1 = maxStars; (ref &lt;= ref1 ? i &lt; ref1 : i &gt; ref1); emptyStar = ref &lt;= ref1 ? ++i : --i) &#123;</span><br><span class="xml">      results.push(<span class="hljs-tag">&lt;<span class="hljs-name">Star</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;emptyStar&quot;</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;emptyStar&#125;</span> /&gt;</span>);</span><br><span class="xml">    &#125;</span><br><span class="xml">    return results;</span><br><span class="xml">  &#125;)()&#125;</span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">aside</span>&gt;</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Markup-Language/">Markup Language</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CoffeeScript/">CoffeeScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/javascript/">javascript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/13/zyx0113/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AWS - Cloud Services Overview</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/09/zyx0109/">
+                        <span class="hidden-mobile">Haml 是什麼？</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

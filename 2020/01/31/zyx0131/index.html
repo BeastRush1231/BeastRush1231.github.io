@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>再談 Docker Container - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="再談 Docker Container">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-31 12:04" pubdate>
+        January 31, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">再談 Docker Container</h1>
+            
+            <div class="markdown-body">
+              <p>在上篇 <a target="_blank" rel="noopener" href="https://chestertang.site/2020/01/30/zyx0130/">再談 Docker Image</a> 的介紹中對於 Docker Image 有了更深入的了解，接下來換 Docker Container 吧！下篇還有 Docker Repository，再來就是實際 Deploy 惹～再等等啊w</p>
+<h1 id="再談-Docker-Container"><a href="#再談-Docker-Container" class="headerlink" title="再談 Docker Container"></a>再談 Docker Container</h1><h2 id="啟動-Container"><a href="#啟動-Container" class="headerlink" title="啟動 Container"></a>啟動 Container</h2><p>啟動容器有兩種方式，一種是將 Docker Image 新建一個 Container 並啟動，另外一個是將終止狀態（stopped）的 Container 重新啟動。</p>
+<h3 id="新建並啟動"><a href="#新建並啟動" class="headerlink" title="新建並啟動"></a>新建並啟動</h3><p>透過 <code>docker run</code> 給他新建啟動起來～</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker run -t -i ubuntu:14.04 /bin/bash<br></code></pre></td></tr></table></figure>
+<p>其中，<code>-t</code> 指令讓 Docker 分配一個虛擬終端（pseudo-tty）並綁定到 Container 的 stdin 上，<code>-i</code> 則讓 Container 的 stdin 保持打開。意思是，使用者可以透過所建立的終端來輸入指令，例如：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs zsh">root@af8bae53bdd3:/<span class="hljs-comment"># pwd</span><br>/<br>root@af8bae53bdd3:/<span class="hljs-comment"># ls</span><br>bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr var<br></code></pre></td></tr></table></figure>
+<p>當利用 <code>docker run</code> 來建立 Container 時，Docker 在後臺執行的標準操作包括：</p>
+<ul>
+<li>檢查本地是否存在指定的 Image，不存在就從 Repository Hub 下載</li>
+<li>利用 Image 建立並啟動一個 Container</li>
+<li>分配一個檔案系統，並在 Read-only 的 Image 層外面掛載一層可讀寫層</li>
+<li>從宿主主機設定的網路橋界面中橋接一個虛擬埠到容器中去</li>
+<li>從位址池中設定一個 IP 位址給 Container </li>
+<li>執行使用者指定的應用程式</li>
+<li>執行完畢後 Container 被終止</li>
+</ul>
+<h3 id="啟動已終止-Container"><a href="#啟動已終止-Container" class="headerlink" title="啟動已終止 Container"></a>啟動已終止 Container</h3><p>首先，先來看看目前的 Container 狀態</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker ps -a<br><br>CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS                          NAMES<br>dd1c54fef918        ubuntu:14.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         10 minutes ago      Exited (0) 3 seconds ago        agitated_boyd<br>2f902d9238f5        chestertang/sinatra:v2   <span class="hljs-string">&quot;/bin/bash&quot;</span>         5 days ago          Exited (0) About a minute ago   confident_ritchie<br>d7b639b8385a        ubuntu:12.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         7 days ago          Exited (127) 7 days ago         dreamy_hypatia<br></code></pre></td></tr></table></figure>
+<p>從狀態（STATUS）中可以知道目前有啟動的 Container，現在透過 <code>docker start</code>，直接將已經終止的 Container（dd1c54fef918）啟動起來w</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker start dd1c54fef918<br><br>CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS                          NAMES<br>dd1c54fef918        ubuntu:14.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         10 minutes ago      Up 3 seconds                    agitated_boyd<br>2f902d9238f5        chestertang/sinatra:v2   <span class="hljs-string">&quot;/bin/bash&quot;</span>         5 days ago          Exited (0) About a minute ago   confident_ritchie<br>d7b639b8385a        ubuntu:12.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         7 days ago          Exited (127) 7 days ago         dreamy_hypatia<br></code></pre></td></tr></table></figure>
+<h2 id="停止-Container"><a href="#停止-Container" class="headerlink" title="停止 Container"></a>停止 Container</h2><p>跟上面就很類似了，相對的有 <code>start</code> 就會有 <code>stop</code></p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker ps -a<br><br>CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS                          NAMES<br>dd1c54fef918        ubuntu:14.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         10 minutes ago      Up 3 seconds                    agitated_boyd<br>2f902d9238f5        chestertang/sinatra:v2   <span class="hljs-string">&quot;/bin/bash&quot;</span>         5 days ago          Exited (0) About a minute ago   confident_ritchie<br>d7b639b8385a        ubuntu:12.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         7 days ago          Exited (127) 7 days ago         dreamy_hypatia<br><br>docker stop dd1c54fef918<br><br>CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS                          NAMES<br>dd1c54fef918        ubuntu:14.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         10 minutes ago      Exited (0) 2 seconds ago        agitated_boyd<br>2f902d9238f5        chestertang/sinatra:v2   <span class="hljs-string">&quot;/bin/bash&quot;</span>         5 days ago          Exited (0) About a minute ago   confident_ritchie<br>d7b639b8385a        ubuntu:12.04             <span class="hljs-string">&quot;/bin/bash&quot;</span>         7 days ago          Exited (127) 7 days ago         dreamy_hypatia<br></code></pre></td></tr></table></figure>
+<p>此外，當 Docker Container 中指定的應用停止時，Container 也自動停止。例如退出啟動的一個終端機 Container，使用者透過 exit 命令或 Ctrl+d 來退出終端機時，所建立的 Container 也隨之結束。</p>
+<blockquote>
+<p><code>docker restart</code> 命令會將一個執行中的 Container 終止，然後再重新啟動。</p>
+</blockquote>
+<h2 id="Daemonized-執行"><a href="#Daemonized-執行" class="headerlink" title="Daemonized 執行"></a>Daemonized 執行</h2><p>更多的時候，需要讓 Docker Container 在後臺以 Daemonized 形式執行。此時，可以透過新增 -d 參數來實作</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker run -d ubuntu:14.04 /bin/sh -c <span class="hljs-string">&quot;while true; do echo hello world; sleep 1; done&quot;</span><br>31cec6c9afae51cd0adad62ac18b837e4d5caa80c141d7a8b0f7688670cb6e37<br></code></pre></td></tr></table></figure>
+<p>Container 啟動後會返回一個唯一的 id，也可以透過 <code>docker ps</code> 指令來查看 Container 訊息</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              NAMES<br>31cec6c9afae        ubuntu:14.04        <span class="hljs-string">&quot;/bin/sh -c &#x27;while t…&quot;</span>   11 seconds ago      Up 10 seconds       confident_mirzakhani<br></code></pre></td></tr></table></figure>
+<p>要取得 Container 的輸出訊息，可以透過 docker logs 指令來查看～</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker logs 31cec6c9afae<br><br>hello world<br>hello world<br>hello world<br>...<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_basic/0560daemons.php">何謂 Daemonized ?</a></p>
+</blockquote>
+<h2 id="進入-Container"><a href="#進入-Container" class="headerlink" title="進入 Container"></a>進入 Container</h2><p>有些時候不能只是在背景執行而已，需要透過進入 Container 來進行操作，其中有以下幾種方法</p>
+<h3 id="exec-指令"><a href="#exec-指令" class="headerlink" title="exec 指令"></a>exec 指令</h3><p>首先先列出想要進入的 Container（相信已經很熟悉像是：列出 Container、Image 這類型的操作，更或者是連新增刪除都很熟悉惹w）</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker ps<br><br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              NAMES<br>31cec6c9afae        ubuntu:14.04        <span class="hljs-string">&quot;/bin/sh -c &#x27;while t…&quot;</span>   18 minutes ago      Up 18 minutes       confident_mirzakhani<br><br>docker <span class="hljs-built_in">exec</span> -ti pensive_agnesi bash<br>root@f4bf4c32b4c9:/<span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+<h3 id="attach-指令"><a href="#attach-指令" class="headerlink" title="attach 指令"></a>attach 指令</h3><p>與 <code>exec</code> 要輸入的指令是完完全全相同的，只差在 <code>exec</code>、<code>attach</code> 這兩個字</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker ps<br><br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              NAMES<br>31cec6c9afae        ubuntu:14.04        <span class="hljs-string">&quot;/bin/sh -c &#x27;while t…&quot;</span>   18 minutes ago      Up 18 minutes       confident_mirzakhani<br><br>docker attach -ti pensive_agnesi bash<br>root@f4bf4c32b4c9:/<span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/30960686/difference-between-docker-attach-and-docker-exec/43864530">所以 attach / exec 到底哪裡不同呢？</a></p>
+</blockquote>
+<h2 id="Import-and-Export-Container"><a href="#Import-and-Export-Container" class="headerlink" title="Import and Export Container"></a>Import and Export Container</h2><h3 id="Import-Container"><a href="#Import-Container" class="headerlink" title="Import Container"></a>Import Container</h3><p>如果要匯入別人的 Container 的話，可以透過 <code>docker import</code> 從 Container 檔案中再匯入為 Image</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh">cat ubuntu.tar | sudo docker import - <span class="hljs-built_in">test</span>/ubuntu:v1.0<br>docker images<br><br>REPOSITORY          TAG                 IMAGE ID            CREATED              VIRTUAL SIZE<br><span class="hljs-built_in">test</span>/ubuntu         v1.0                9d37a6082e97        About a minute ago   171.3 MB<br></code></pre></td></tr></table></figure>
+<h3 id="Export-Container"><a href="#Export-Container" class="headerlink" title="Export Container"></a>Export Container</h3><p>反之，如果要匯出 local 端的某一個 Container，可以使用 docker export 指令來進行</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker ps<br><br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              NAMES<br>31cec6c9afae        ubuntu:14.04        <span class="hljs-string">&quot;/bin/sh -c &#x27;while t…&quot;</span>   18 minutes ago      Up 18 minutes       confident_mirzakhani<br><br>docker <span class="hljs-built_in">export</span> 31cec6c9afae &gt; ubuntu1404.tar<br></code></pre></td></tr></table></figure>
+<p>就會匯出檔案囉～～</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">ls<br>ubuntu1404.tar<br></code></pre></td></tr></table></figure>
+<h2 id="刪除-Container"><a href="#刪除-Container" class="headerlink" title="刪除 Container"></a>刪除 Container</h2><p>在上一篇當中，就有提到過如果要刪除 Image 時，如果還有 Container 還在使用這個 Image 會導致無法刪除的問題，這時候就可以用 <code>docker rm</code> 指令來刪除</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh">docker rm confident_mirzakhani<br>confident_mirzakhani<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>單純上方的指令只能刪除一個處於<code>終止狀態</code>的 Container，如果想要刪除正在執行中的 Container，可以新增 -f 參數指令，已完成需求。</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Docker/">Docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/note/">note</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/01/zyx0201/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">再談 Docker Repository</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/30/zyx0130/">
+                        <span class="hidden-mobile">再談 Docker Image</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

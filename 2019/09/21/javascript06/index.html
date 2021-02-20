@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>新手村06 - Type Ahead - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新手村06 - Type Ahead">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-21 10:44" pubdate>
+        September 21, 2019 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新手村06 - Type Ahead</h1>
+            
+            <div class="markdown-body">
+              <h1 id="06-Type-Ahead"><a href="#06-Type-Ahead" class="headerlink" title="06 - Type Ahead"></a>06 - Type Ahead</h1><p>俗話說的好，一天一蘋果，醫生遠離我</p>
+<p>一天一 JS，What the f*ck JavaScript？</p>
+<p>small steps every day - 記錄著新手村日記</p>
+<h2 id="完成目標"><a href="#完成目標" class="headerlink" title="完成目標"></a>完成目標</h2><ul>
+<li>功能<ul>
+<li>接收到 Json</li>
+<li>列出符合關鍵字的項目</li>
+</ul>
+</li>
+<li>畫面<ul>
+<li>列出符合關鍵字的項目</li>
+<li>將關鍵字的部份mark起來</li>
+<li>顯示該項目的「歡迎程度」數字</li>
+</ul>
+</li>
+</ul>
+<h2 id="index-START-html"><a href="#index-START-html" class="headerlink" title="index_START.html"></a>index_START.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Type Ahead 👀<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;style.css&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;search-form&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;search&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;City or State&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;suggestions&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Filter for a city<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>or a state<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">const</span> endpoint = <span class="hljs-string">&#x27;https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json&#x27;</span>;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* style.css */</span><br><br><span class="hljs-selector-tag">html</span> &#123;<br>  <span class="hljs-attribute">box-sizing</span>: border-box;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#ffc600</span>;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;helvetica neue&#x27;</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;<br>  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">200</span>;<br>&#125;<br><br>*, *:before, *:after &#123;<br>  box-sizing: inherit;<br>&#125;<br><br><span class="hljs-selector-tag">input</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.search-form</span> &#123;<br>  <span class="hljs-attribute">max-width</span>: <span class="hljs-number">400px</span>;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">50px</span> auto;<br>&#125;<br><br><span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.search</span> &#123;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">text-align</span>: center;<br>  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">10px</span> solid <span class="hljs-number">#F7F7F7</span>;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">120%</span>;<br>  <span class="hljs-attribute">left</span>: -<span class="hljs-number">10%</span>;<br>  <span class="hljs-attribute">position</span>: relative;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;<br>  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.12</span>), inset <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.19</span>);<br>&#125;<br><br><span class="hljs-selector-class">.suggestions</span> &#123;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">position</span>: relative;<br>  <span class="hljs-comment">/*perspective: 20px;*/</span><br>&#125;<br><br><span class="hljs-selector-class">.suggestions</span> <span class="hljs-selector-tag">li</span> &#123;<br>  <span class="hljs-attribute">background</span>: white;<br>  <span class="hljs-attribute">list-style</span>: none;<br>  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#D8D8D8</span>;<br>  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.14</span>);<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;<br>  <span class="hljs-attribute">transition</span>: background <span class="hljs-number">0.2s</span>;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: space-between;<br>  <span class="hljs-attribute">text-transform</span>: capitalize;<br>&#125;<br><br><span class="hljs-selector-class">.suggestions</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(even) &#123;<br>  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">perspective</span>(<span class="hljs-number">100px</span>) <span class="hljs-built_in">rotateX</span>(<span class="hljs-number">3deg</span>) <span class="hljs-built_in">translateY</span>(<span class="hljs-number">2px</span>) <span class="hljs-built_in">scale</span>(<span class="hljs-number">1.001</span>);<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to bottom,  <span class="hljs-number">#ffffff</span> <span class="hljs-number">0%</span>,<span class="hljs-number">#EFEFEF</span> <span class="hljs-number">100%</span>);<br>&#125;<br><br><span class="hljs-selector-class">.suggestions</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(odd) &#123;<br>  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">perspective</span>(<span class="hljs-number">100px</span>) <span class="hljs-built_in">rotateX</span>(-<span class="hljs-number">3deg</span>) <span class="hljs-built_in">translateY</span>(<span class="hljs-number">3px</span>);<br>  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to top,  <span class="hljs-number">#ffffff</span> <span class="hljs-number">0%</span>,<span class="hljs-number">#EFEFEF</span> <span class="hljs-number">100%</span>);<br>&#125;<br><br><span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.population</span> &#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">15px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.hl</span> &#123;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#ffc600</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="JS-step-by-step"><a href="#JS-step-by-step" class="headerlink" title="JS - step by step"></a>JS - step by step</h2><p>首先，先來學一下如何抓  Json 檔吧！不知道大家習慣用這種舊式的寫法還是新的 ES6 語法 <code>cities</code> 宣告為 const 並設為空陣列，並再底下將 return 回來的結果 …拆開 <code>push</code> 回來呢？我是比較喜歡舊的下面這種寫法啦w</p>
+<p>Using Fetch：<a target="_blank" rel="noopener" href="https://ubin.io/cz5PZD">https://ubin.io/cz5PZD</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span> <br><span class="javascript">  <span class="hljs-keyword">const</span> endpoint = <span class="hljs-string">&#x27;https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json&#x27;</span>;</span><br><br><span class="javascript">  <span class="hljs-keyword">let</span> cities = <span class="hljs-literal">null</span></span><br>  fetch(endpoint)<br><span class="javascript">    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">blog</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> blog.json()</span><br>    &#125;)<br><span class="javascript">    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">myJson</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> cities = myJson</span><br>    &#125;)<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>瀏覽器 console 看看有沒有抓到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// cities</span><br><span class="hljs-comment">// (1000) [&#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, …]</span><br></code></pre></td></tr></table></figure>
+<p>使用者在輸入 City or State 放開按鍵的時候，搜尋與Json的資料有哪幾筆符合？這邊我們必須透過正則RegExp 來寫，此外也來批純的方法xd</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">	<span class="hljs-comment">// 略</span></span><br><span class="javascript">  <span class="hljs-keyword">let</span> cities = <span class="hljs-literal">null</span></span><br>  fetch(endpoint)<br><span class="javascript">    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">blog</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> blog.json()</span><br>    &#125;)<br><span class="javascript">    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">myJson</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> cities = myJson</span><br>    &#125;)<br><br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.search&#x27;</span>).addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>, keyupHandler)</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keyupHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>在 pure function <code>findMatches</code>  中，wordToMatch 與 cities 兩個值不會變動，透過正則將 <code>wordToMatch</code> 丟進來，後面 ‘gi’ 裡的 g 代表全部的意思、i 代表不分大小寫，再回資料結構中有 city || state 回傳值…</p>
+<p>RegExp：<a target="_blank" rel="noopener" href="https://ubin.io/pjvYgJ">https://ubin.io/pjvYgJ</a><br>Pure function：<a target="_blank" rel="noopener" href="https://ubin.io/RpbKDT">https://ubin.io/RpbKDT</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">	<span class="hljs-comment">// 上略</span></span><br><span class="javascript">  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.search&#x27;</span>).addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>, keyupHandler)</span><br>  <br><span class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keyupHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> matchArray = findMatches(<span class="hljs-built_in">this</span>.value, cities)</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(matchArray)</span><br>  &#125;<br><span class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findMatches</span>(<span class="hljs-params">wordToMatch, cities</span>) </span>&#123;</span><br><span class="javascript">  <span class="hljs-keyword">return</span> cities.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">place</span>)</span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(wordToMatch, <span class="hljs-string">&#x27;gi&#x27;</span>)</span><br><span class="javascript">    <span class="hljs-keyword">return</span> place.city.match(regex) || place.state.match(regex)</span><br>  &#125;)<br>&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>接著來處理 DOM 的資料，並新增抓到的資料透過來新增HTML 到 Class <code>.suggestions</code> 裡，這邊單純只是做資料的處理，可能會看不懂的地方是，以前用單引號表示字串在 ES6 中換成蝌蚪按鍵的一點符號（這個該叫什麼好呢xd ），另一個為 <code>numberWithCommas</code> 方法中的 <code>toLocaleString()</code> ，在原作者中是用正則去做處理，不過感覺用這個會比較直接…</p>
+<p>Number.prototype.toLocaleString()：<a target="_blank" rel="noopener" href="https://reurl.cc/NaXNde">https://reurl.cc/NaXNde</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>	<br><span class="javascript">  <span class="hljs-comment">// 上略</span></span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keyupHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> matchArray = findMatches(<span class="hljs-built_in">this</span>.value, cities)</span><br><span class="javascript">    <span class="hljs-keyword">const</span> html = matchArray.map(<span class="hljs-function"><span class="hljs-params">place</span> =&gt;</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-built_in">this</span>.value, <span class="hljs-string">&#x27;gi&#x27;</span>)</span><br><span class="javascript">    <span class="hljs-keyword">const</span> cityName = place.city.replace(regex, <span class="hljs-string">`&lt;span class=&quot;hl&quot;&gt;<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.value&#125;</span>&lt;/span&gt;`</span>)</span><br><span class="javascript">    <span class="hljs-keyword">const</span> stateName = place.state.replace(regex, <span class="hljs-string">`&lt;span class=&quot;hl&quot;&gt;<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.value&#125;</span>&lt;/span&gt;`</span>)</span><br><span class="javascript">    <span class="hljs-keyword">return</span> <span class="hljs-string">`</span></span><br><span class="handlebars"><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>$&#123;cityName&#125;, $&#123;stateName&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;population&quot;</span>&gt;</span>$&#123;numberWithCommas(place.population)&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span></span><br>    `<br><span class="javascript">    &#125;).join(<span class="hljs-string">&#x27;&#x27;</span>)</span><br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.suggestions&#x27;</span>).innerHTML = html</span><br>  &#125;<br><br><span class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">numberWithCommas</span>(<span class="hljs-params">x</span>) </span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> x.toLocaleString()</span><br>  &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>就大功告成啦！</p>
+<h2 id="JS-Final"><a href="#JS-Final" class="headerlink" title="JS - Final"></a>JS - Final</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> endpoint = <span class="hljs-string">&#x27;https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json&#x27;</span>;</span><br><br><span class="javascript">  <span class="hljs-keyword">let</span> cities = <span class="hljs-literal">null</span></span><br>  fetch(endpoint)<br><span class="javascript">    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">blog</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> blog.json()</span><br>    &#125;)<br><span class="javascript">    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">myJson</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> cities = myJson</span><br>    &#125;)<br><br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.search&#x27;</span>).addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>, keyupHandler)</span><br><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keyupHandler</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">const</span> matchArray = findMatches(<span class="hljs-built_in">this</span>.value, cities)</span><br><span class="javascript">      <span class="hljs-keyword">const</span> html = matchArray.map(<span class="hljs-function"><span class="hljs-params">place</span> =&gt;</span> &#123;</span><br><span class="javascript">      <span class="hljs-keyword">const</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-built_in">this</span>.value, <span class="hljs-string">&#x27;gi&#x27;</span>)</span><br><span class="javascript">      <span class="hljs-keyword">const</span> cityName = place.city.replace(regex, <span class="hljs-string">`&lt;span class=&quot;hl&quot;&gt;<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.value&#125;</span>&lt;/span&gt;`</span>)</span><br><span class="javascript">      <span class="hljs-keyword">const</span> stateName = place.state.replace(regex, <span class="hljs-string">`&lt;span class=&quot;hl&quot;&gt;<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.value&#125;</span>&lt;/span&gt;`</span>)</span><br><span class="javascript">      <span class="hljs-keyword">return</span> <span class="hljs-string">`</span></span><br><span class="handlebars"><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>$&#123;cityName&#125;, $&#123;stateName&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;population&quot;</span>&gt;</span>$&#123;numberWithCommas(place.population)&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span></span><br>      `<br><span class="javascript">      &#125;).join(<span class="hljs-string">&#x27;&#x27;</span>)</span><br><span class="javascript">      <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.suggestions&#x27;</span>).innerHTML = html</span><br>    &#125;<br><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">numberWithCommas</span>(<span class="hljs-params">x</span>) </span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> x.toLocaleString()</span><br>    &#125;<br><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findMatches</span>(<span class="hljs-params">wordToMatch, cities</span>) </span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> cities.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">place</span>)</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">const</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(wordToMatch, <span class="hljs-string">&#x27;gi&#x27;</span>)</span><br><span class="javascript">      <span class="hljs-keyword">return</span> place.city.match(regex) || place.state.match(regex)</span><br>    &#125;)<br>  &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>本刊同步於個人網站：<a target="_blank" rel="noopener" href="http://chestertang.site/">http://chestertang.site/</a><br>本次範例程式碼原作者來源：<a target="_blank" rel="noopener" href="https://reurl.cc/yynKGl">https://reurl.cc/yynKGl</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/11th%E9%90%B5%E4%BA%BA%E8%B3%BD/">11th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91/">前端新手村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/html/">html</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/22/javascript07/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手村07 - Array Cardio Day 2</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/20/javascript05/">
+                        <span class="hidden-mobile">新手村05 - Flex Panel Gallery</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

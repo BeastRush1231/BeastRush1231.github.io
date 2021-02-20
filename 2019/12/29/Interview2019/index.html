@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>2019 面試分享 - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="2019 面試分享">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-12-29 16:40" pubdate>
+        December 29, 2019 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2019 面試分享</h1>
+            
+            <div class="markdown-body">
+              <h1 id="2019-面試分享-11-13-12-24"><a href="#2019-面試分享-11-13-12-24" class="headerlink" title="2019 面試分享(11/13-12/24)"></a>2019 面試分享(11/13-12/24)</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://starrocket.io/">三創基金會</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.vysioneer.com/">Vysioneer 醫隼智慧</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.square1research.com/">SquareOne</a></li>
+<li><a target="_blank" rel="noopener" href="https://aktsk.com.tw/">Akatsuki</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/a5hh36w">合勤集團科技</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/18m9x6ah?jobsource=jolist_a_relevance">T客邦</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/oe84aqo">德義資訊</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/1a2x6biidu">Pinkoi</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/1a2x6bjyqi">天旭國際科技</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/1a2x6bk0hw">塞席爾商悠福科技</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.104.com.tw/company/cqcrfnk">ThinkPower – 昕力資訊</a></li>
+</ul>
+<p>(公司排列順序以面試時間排列，以下將依照前、後和全端來分類)</p>
+<hr>
+<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><h2 id="三創基金會"><a href="#三創基金會" class="headerlink" title="三創基金會"></a>三創基金會</h2><p>鴻海集團下的基金會，技術主管兼副執行長Lawrence是ROR的前輩（第二屆的評審之一），很喜歡轉職的人，認為人的企圖心比你現在的實力重要，在意你是不是真的想變強，選擇信任他的人為主，是個認為前端會是這個世代的大耀進，團隊勇於嘗試用新的技術（EX: graphql、nuxtjs、now…），工程師人數就是副執行長，他的過往作品就應該不用多說了…</p>
+<ul>
+<li><p>面試問題：主要都在聊天了解個人特質居多，大多為軟性問題</p>
+<ul>
+<li>document.querySelectorAll / document.querySelector 的差別</li>
+<li>你未來想成為什麼樣的人？</li>
+<li>你認為怎樣才是強的人？</li>
+<li>等等… 聊天聊到忘記惹XD</li>
+</ul>
+</li>
+<li><p>工作環境：四顆星，三創11F，工作環境辦公室雖然小，但外面是一個咖啡廳～不一定要在辦公室內工作</p>
+</li>
+<li><p>工作內容：不太方便說，大多工作型態為remote，副執行長比較少在辦公室出現</p>
+</li>
+<li><p>投遞履歷方式(自)：<a target="_blank" rel="noopener" href="https://github.com/f2etw/jobs/issues/585">https://github.com/f2etw/jobs/issues/585</a></p>
+</li>
+</ul>
+<blockquote>
+<p>結果：GET</p>
+</blockquote>
+<h2 id="Vysioneer-醫隼智慧"><a href="#Vysioneer-醫隼智慧" class="headerlink" title="Vysioneer 醫隼智慧"></a>Vysioneer 醫隼智慧</h2><p>醫療產業的公司，基本上跟台大醫院合作，因此地點就在五倍附近的君悅排骨旁的大樓樓上，工程師主要為兩塊，大多為寫演算法的工程師(忘記多少人了好像10個人左右，都在寫醫療的數據等等)，另外處理前端的工程師只有一位Senior，包辦官網、醫療器材影像處理、舉辦大型研討會需要小的Demo作品等等。</p>
+<ul>
+<li><p>面試問題：以Demo Project的方式下去問問題，舉例來說</p>
+<ul>
+<li>你有用過 ROR 的 <code>cocoon</code> 這個 gem，那如果你用JS下去寫該如何實作？</li>
+<li>透過 Devise 及 Ouath2 來處理使用者登入問題，你可以解釋一下整個的流程嗎？</li>
+<li>Cookie / Session 的差別</li>
+<li>過往的工作經驗</li>
+<li>碩士論文也問ww</li>
+<li>等等…（不過沒有問到框架問題 ex：React）</li>
+</ul>
+</li>
+<li><p>工作環境：三顆星，空間為一層的大樓辦公室，出入的人大多都穿西裝</p>
+</li>
+<li><p>工作內容：大致上就是分擔主管的工作，畢竟是新創且只有他一個人，像是花兩個禮拜處理官方網站、之後處理實作一些小作品讓公司在研討會可以給人實作。</p>
+</li>
+<li><p>面試時間：只有一階段、也沒有人資面試(Senior工程師來面試而已)，約莫2.5hr左右～</p>
+</li>
+<li><p>遞履歷方式(自)：<a target="_blank" rel="noopener" href="https://github.com/f2etw/jobs/issues/605">https://github.com/f2etw/jobs/issues/605</a></p>
+</li>
+</ul>
+<blockquote>
+<p>結果：感謝信，主要原因為需要找更有經驗的Junior</p>
+</blockquote>
+<h2 id="天旭國際科技-101博弈業"><a href="#天旭國際科技-101博弈業" class="headerlink" title="天旭國際科技(101博弈業)"></a>天旭國際科技(101博弈業)</h2><p><del>博弈業就大概那樣子…不太好說～博弈業就大概那樣子…不太好說～</del></p>
+<ul>
+<li><p>面試問題：總共五個部分(JS、React、CSS、Web Tech、Git)</p>
+<ol>
+<li>JS<ul>
+<li>Promises 之於 Callbacks 的優劣？</li>
+<li>你曾經用過 Async/Await 嗎？它的好處是什麼？</li>
+<li>你曾經用過 Arrow Function 嗎？它與一般 <code>function() &#123;&#125;</code>的差異是什麼？</li>
+<li>請解釋 Closure 是什麼？</li>
+<li>請解釋 Hoisting 是什麼？</li>
+<li>請問你使用過 Array.prototype.filter 嗎？跟 map / reduce 的差異是什麼？</li>
+<li>你曾經用過哪些 Bundle 工具？為什麼會選擇它？</li>
+</ul>
+</li>
+<li>React<ul>
+<li>請問 State / Props 的使用時機是什麼？</li>
+<li>請問 Function Component / Class Component 的使用時機是什麼？</li>
+<li>請問什麼時候需要用到 PureComponent？</li>
+<li>你會如何預防非必要的 React 元件渲染？</li>
+<li>你曾經用過 Redux 嗎？請解釋它的優/缺點。</li>
+<li>你知道 RenderProps / HighOrderComponent 是什麼嗎？他們的使用時機？</li>
+</ul>
+</li>
+<li>CSS<ul>
+<li>你曾經使用過哪些 UI Framework 呢？他們的優缺點是什麼？你為什麼會選擇它？</li>
+<li>請解釋 CSS 的 Box Model</li>
+<li>請解釋 CSS 的 Flexbox</li>
+<li>請描述三種垂直置中的方式</li>
+</ul>
+</li>
+<li>Web Tech<ul>
+<li>請解釋 RWD 是什麼和實作方式。</li>
+<li>請解釋 PWA 是什麼和實作方式。</li>
+</ul>
+</li>
+<li>Git<ul>
+<li>你曾經在多人協作的專案中使用過 Git 嗎？</li>
+<li>你曾經使用過任何一個 Git Flow 嗎？請描述他們的優缺點</li>
+<li>你會怎麼解決 ConFlict 呢？</li>
+<li>什麼情況下你會用到 rebase 指令？</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>工作環境：五顆星，在101有兩層，一層大概一百多人左右…</p>
+</li>
+<li><p>工作內容：你知道的</p>
+</li>
+<li><p>面試時間：人資介紹公司1HR + 面談考試2HR，約莫3HR</p>
+</li>
+<li><p>投遞履歷方式(公司人資104訊息)：<a target="_blank" rel="noopener" href="https://www.104.com.tw/job/5vzsd?jobsource=company_job">https://www.104.com.tw/job/5vzsd?jobsource=company_job</a></p>
+</li>
+</ul>
+<blockquote>
+<p>結果：GET</p>
+</blockquote>
+<h2 id="ThinkPower-昕力"><a href="#ThinkPower-昕力" class="headerlink" title="ThinkPower 昕力"></a>ThinkPower 昕力</h2><p>類似接案公司，主力為數位金融Chatbox產品，公司有四個項目在做，一個是大型接案、小型接案、自有產品、一個忘記惹ouo，不過面試主管居然找了美術的部門來，多在問過往有沒有與UI/UX的經驗等等，主要的產品像是台新銀行的 Richart 、阿發…等等</p>
+<ul>
+<li><p>面試問題：總共兩個部分(邏輯測驗 + JS測驗)</p>
+<ol>
+<li><p>邏輯測驗(15mins)</p>
+<ul>
+<li>選擇*10<ul>
+<li>Ex: 數列 4, 6, 9, 13, 18，下個數字是多少？</li>
+</ul>
+</li>
+<li>多選*5<ul>
+<li>Ex: 有幾座塔是矮人，而有幾個矮人是碼頭工人，以下選項何者正確？ </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>JS測驗(20mins)</p>
+<ul>
+<li>選擇*15<ul>
+<li>好好看 Kuro 大大的 008 百分之百都在考前幾章的東西</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>工作環境：五顆星，在內湖仁寶電腦旁邊大樓，辦公室挺美的</p>
+</li>
+<li><p>工作內容：處理接案內容，依照 UI/UX設計師的 Sketch 設計稿來切版之類的～</p>
+</li>
+<li><p>面試時間：先考紙筆邏輯測驗 + JS測驗後，與 UI/UX設計師介紹，再跟人資面談，約莫2.5HR</p>
+</li>
+<li><p>投遞履歷方式(公司人資104訊息)：<a target="_blank" rel="noopener" href="https://www.104.com.tw/job/60fal?jobsource=company_job">https://www.104.com.tw/job/60fal?jobsource=company_job</a></p>
+</li>
+</ul>
+<blockquote>
+<p>結果：GET</p>
+</blockquote>
+<hr>
+<h1 id="後端"><a href="#後端" class="headerlink" title="後端"></a>後端</h1><h2 id="Akatsuki-Taiwan-曉數碼-手遊"><a href="#Akatsuki-Taiwan-曉數碼-手遊" class="headerlink" title="Akatsuki Taiwan 曉數碼(手遊)"></a>Akatsuki Taiwan 曉數碼(手遊)</h2><p>後端是ROR，流量非常大的日商遊戲產業公司，稍微去官網大概就知道它們的手遊產品有哪兩個～面試人資不會介紹公司，他們認為你應該先做好功課，有多麼想要近來這間公司才是重點（英文面試），下一關技術主管也是大大，主要是系統維運工程師，整體面談給人的感覺偏差。</p>
+<ul>
+<li><p>面試問題：</p>
+<ul>
+<li>可以參考小菜的文章 <a target="_blank" rel="noopener" href="https://github.com/River-Ye">https://github.com/River-Ye</a></li>
+</ul>
+</li>
+<li><p>工作環境：五顆星，新創的概念，很～美</p>
+</li>
+<li><p>工作內容：系統工程師，維護遊戲使用者的資料等等，開發手遊功能，像是轉蛋的概念</p>
+</li>
+<li><p>面試時間：人資1.5hr + 技術面談1.5hr，約莫3hr左右</p>
+</li>
+<li><p>投遞履歷方式(快速面試)</p>
+</li>
+</ul>
+<blockquote>
+<p>結果：感謝信</p>
+</blockquote>
+<h2 id="Pinkoi"><a href="#Pinkoi" class="headerlink" title="Pinkoi"></a>Pinkoi</h2><p>後端是python，人資面試相當親切，主要就是文創的電商平台，後端的面試主管剛好是我的學長，據說裡面有兩個python的大神，另外公司也就在228公園旁邊而已，離五倍距離基本上等於沒有，結束還有小禮物（唯一一個TT</p>
+<ul>
+<li><p>面試問題：</p>
+<ul>
+<li>leetcode * 2，大概都是簡單~中等的題目 ( Ex：ord() )，兩題的內容會再延伸為白板題</li>
+<li>SQL * 2，概念是要考會不會用關聯表，沒有ORM的方式下如何 join 兩個表單</li>
+<li>介紹一下資料結構，何謂陣列、Object、這類型等等…</li>
+<li>常用的 Git 指令 *3</li>
+</ul>
+</li>
+<li><p>工作環境：五顆星，非常美</p>
+</li>
+<li><p>工作內容：後端工程師，電商平台</p>
+</li>
+<li><p>面試時間：紙筆測驗0.5hr + 人資0.5hr + 技術面談1hr(有白板題)，約莫2hr左右</p>
+</li>
+<li><p>投遞履歷方式(自)：<a target="_blank" rel="noopener" href="https://www.pinkoi.com/about/careers#backend-engineer">https://www.pinkoi.com/about/careers#backend-engineer</a></p>
+</li>
+</ul>
+<blockquote>
+<p>結果：感謝信</p>
+</blockquote>
+<hr>
+<h1 id="全端"><a href="#全端" class="headerlink" title="全端"></a>全端</h1><h2 id="SquareOne"><a href="#SquareOne" class="headerlink" title="SquareOne"></a>SquareOne</h2><p>老闆接下一些國外的案子，此外前端框架主要是 React，裡頭的 Senior 大大非常強，性質主要是投資風險的平台，後端全端都要寫，個人覺得老闆的對談非常好，雖然是個小公司，但整體面談分數算這幾間滿高的。</p>
+<ul>
+<li><p>面試問題：</p>
+<ul>
+<li>主要以 DemoProject 來問問題居多</li>
+<li>透過 fb/google 做登入，如果換信箱該如何處理？</li>
+<li>如果想要自己手刻一個 CSS 框架，該如何實作？</li>
+</ul>
+</li>
+<li><p>工作環境：四顆星，cowork 的小公司，整體氣氛滿好的我認為</p>
+</li>
+<li><p>工作內容：全端工程師，前端技術只要是 React</p>
+</li>
+<li><p>面試時間：聊天0.5hr(全英) + Senior技術面談1hr，老闆0.5hr，約莫2.5hr左右</p>
+</li>
+<li><p>投遞履歷方式(快速面試)</p>
+</li>
+</ul>
+<blockquote>
+<p>結果：感謝信，被好朋友幹掉惹ouo</p>
+</blockquote>
+<h2 id="合勤集團科技"><a href="#合勤集團科技" class="headerlink" title="合勤集團科技"></a>合勤集團科技</h2><p>在新竹園區的傳統硬體大公司，主要多能接觸到AWS的部分，有80%的時間都在接觸後端打API之類的，前端偶爾會有網頁要稍微改一下，多為處理較複雜的商業邏輯</p>
+<ul>
+<li><p>面試問題：</p>
+<ul>
+<li>多在問 DemoProject 居多</li>
+<li>必須對 API 的操作跟方式很熟悉</li>
+</ul>
+</li>
+<li><p>工作環境：三顆星，傳統大公司</p>
+</li>
+<li><p>工作內容：全端工程師</p>
+</li>
+<li><p>面試時間：技術面談2hr，約莫2hr左右</p>
+</li>
+<li><p>投遞履歷方式(快速面試)</p>
+</li>
+</ul>
+<blockquote>
+<p>結果：GET</p>
+</blockquote>
+<h2 id="T客邦"><a href="#T客邦" class="headerlink" title="T客邦"></a>T客邦</h2><p>城邦集團底下公司，主要有四個產品(Ｔ客邦、MF變型男、T17)，包含三個論壇以及之後要開發的一個平台，裡面有一個大大 + 一個PM + 一個Senior，整體面試都挺和善，不過要同時經營三個平台的維護加上新平台的開發，新平台的開發前後台的是 React 框架，屬於電商、Ecommerce的平台</p>
+<ul>
+<li><p>面試問題：考卷共五張，前端 / 後端 / Git / Web Tech / 雲端</p>
+<ul>
+<li>一個小時的紙筆測驗(考卷五張)</li>
+<li>題目有點多… 當初忘記拍下來了ouo</li>
+<li>雲端這部分我都空白，單純只會 Heroku 的話基本上都看不懂，唯一看得懂 何謂 redis 而已</li>
+</ul>
+</li>
+<li><p>工作環境：三顆星，傳統小公司</p>
+</li>
+<li><p>工作內容：全端工程師</p>
+</li>
+<li><p>面試時間：紙筆面試*5張1hr  + 技術面談2hr，約莫3hr左右</p>
+</li>
+<li><p>投遞履歷方式(快速面試)</p>
+</li>
+</ul>
+<blockquote>
+<p>結果：GET</p>
+</blockquote>
+<h2 id="德義資訊"><a href="#德義資訊" class="headerlink" title="德義資訊"></a>德義資訊</h2><p>爆炸雷，叫你去學 Java，底下就不用看了</p>
+<ul>
+<li>面試問題：略</li>
+<li>工作環境：兩顆星，傳統公司那樣子</li>
+<li>工作內容：接樂天的案子，在裡面學JAVA？</li>
+<li>面試時間：筆試1hr + 技術面談1.5hr，約莫2.5hr左右</li>
+<li>投遞履歷方式(公司人資104訊息)：<a target="_blank" rel="noopener" href="https://www.104.com.tw/company/oe84aqo">https://www.104.com.tw/company/oe84aqo</a></li>
+</ul>
+<blockquote>
+<p>結果：GET</p>
+</blockquote>
+<h2 id="塞席爾商悠福科技"><a href="#塞席爾商悠福科技" class="headerlink" title="塞席爾商悠福科技"></a>塞席爾商悠福科技</h2><p>小雷，公司小又舊，人非常奇怪。主要在做下廣告的公司，包含 fb/google/SEO 這塊等等…雖然主管問問題都很到位，不管是從前端到後端，但是整體公司氣氛有點詭異，不打卡且要來公司不來都可以</p>
+<ul>
+<li>面試問題：略</li>
+<li>工作環境：一顆星，很小又很破舊</li>
+<li>工作內容：廣告分析的公司，前端要寫Vue</li>
+<li>面試時間：技術面談1.5hr，白板題0.5hr(遞迴數列)，約莫2hr左右</li>
+<li>投遞履歷方式(公司人資104訊息)：<a target="_blank" rel="noopener" href="https://www.104.com.tw/company/1a2x6bk0hw">https://www.104.com.tw/company/1a2x6bk0hw</a></li>
+</ul>
+<blockquote>
+<p>結果：無聲卡</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%A9%A6%E5%88%86%E4%BA%AB/">面試分享</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/2019-%E9%9D%A2%E8%A9%A6/">2019 面試</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Ruby-on-Rails/">Ruby on Rails</a>
+                    
+                      <a class="hover-with-bg" href="/tags/React/">React</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Frontend/">Frontend</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Backend/">Backend</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Fullstack/">Fullstack</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/06/zyx0107/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">環境架設 macOS</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/15/javascript30/">
+                        <span class="hidden-mobile">新手村30 - Whack A Mole</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
