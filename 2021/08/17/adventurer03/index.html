@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      562
+      566
       words
     </span>
   
@@ -205,11 +205,11 @@
             <h1 style="display: none">冒險村03 - Travis CI cookbook</h1>
             
             <div class="markdown-body">
-              <h1 id="03-Travis-CI-cookbook"><a href="#03-Travis-CI-cookbook" class="headerlink" title="03 - Travis CI cookbook"></a>03 - Travis CI cookbook</h1><p>既然都處理好 linter 來檢測我們的專案是否有符合規範，來把 Rails 放到 Travis CI 給他跑起乃吧！</p>
+              <h1 id="03-Travis-CI-cookbook"><a href="#03-Travis-CI-cookbook" class="headerlink" title="03 - Travis CI cookbook"></a>03 - Travis CI cookbook</h1><p>既然都處理好 linter 來檢測我們的專案是否有符合規範，來把 Rails 放到 Travis CI 給它跑起來吧！</p>
 <p>首先到 <a target="_blank" rel="noopener" href="https://www.travis-ci.com/">Travis CI</a> 首頁，透過 Github 或者其他方式登入（注意如果進入的是首頁是 <a target="_blank" rel="noopener" href="https://travis-ci.org/">https://travis-ci.org/</a> 可以點選上方黃色的 link 連到 <code>.com</code> 的網址，以前有分企業、免費版）</p>
 <p>登入完成後，點選 <code>my account</code> &gt; <code>repositories</code> &gt; <code>activate</code> 並選擇要加入的 Repo 然後 「Approve and install」加入，這樣子 Repo 有更新 code 推上去 CI 就會 trigger 到。</p>
 <blockquote>
-<p>註: 如下述設定檔完成，還是沒有觸發 CI 的話，須先到 <a target="_blank" rel="noopener" href="https://travis-ci.com/account/plan/usage">https://travis-ci.com/account/plan/usage</a> 設定 Plan usage，需要點選其中一種的 Plan 後，才會正常的執行。（第一次用應該都會碰到）</p>
+<p>註: 如下述設定檔 <code>.travis.yml</code> 已經完成，還是沒有觸發 CI 的話，須先到 <a target="_blank" rel="noopener" href="https://travis-ci.com/account/plan/usage">https://travis-ci.com/account/plan/usage</a> 設定 Plan usage，需要點選其中一種的 Plan 後，才會正常的執行。（第一次用應該都會碰到）</p>
 </blockquote>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby">Plan information<br><br>FreePlan Activation <span class="hljs-symbol">date:</span> August <span class="hljs-number">17</span>, <span class="hljs-number">2021</span><br>Plan Add-ons <span class="hljs-symbol">list:</span><br>  - <span class="hljs-symbol">Private:</span> Free <span class="hljs-number">10</span> <span class="hljs-number">000</span> credits<br>  - User <span class="hljs-symbol">license:</span> Unlimited users<br></code></pre></td></tr></table></figure>
 <h2 id="Setting-travis-yml"><a href="#Setting-travis-yml" class="headerlink" title="Setting .travis.yml"></a>Setting .travis.yml</h2><p>建立設定檔案於專案根目錄下，告訴 travis ci 我們要使用的環境設定。</p>
