@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村07 - Time format config - Chester Tang&#39;s Blog</title>
+  <title>冒險村07 - Update gems &amp; js - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村07 - Time format config">
+            <span class="h2" id="subtitle" title="冒險村07 - Update gems & js">
               
             </span>
 
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      531
+      440
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      4
       mins
     </span>
   
@@ -202,31 +202,20 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村07 - Time format config</h1>
+            <h1 style="display: none">冒險村07 - Update gems &amp; js</h1>
             
             <div class="markdown-body">
-              <h1 id="07-Time-format"><a href="#07-Time-format" class="headerlink" title="07 - Time format"></a>07 - Time format</h1><p>在專案中時常會有用到顯示時間的地方，可能格式只有一種，但是會散落在各個檔案裡，又或者是有許多種的格式。</p>
-<p>舉例來說，可能是某個前端 erb 檔案需要撈這筆資料被建立的時間 (create_at)，但是不想要 rails 預設給的 format 顯示給使用者。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">User.first.created_at.strftime(<span class="hljs-string">&quot;%F %H:%M&quot;</span>)<br></code></pre></td></tr></table></figure>
-<p>或者是某個 helper 裡面有個判斷來變更顯示的格式。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/helpers/user_helper.rb</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">UserHelper</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_last_update_password_at</span><span class="hljs-params">(last_update_password_at)</span></span><br>    <span class="hljs-keyword">if</span> last_update_password_at.<span class="hljs-literal">nil</span>?<br>      I18n.t(<span class="hljs-string">&#x27;user.labels.no_last_changed&#x27;</span>)<br>    <span class="hljs-keyword">else</span><br>      <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;I18n.t(<span class="hljs-string">&#x27;user.labels.last_changed_on&#x27;</span>)&#125;</span> <span class="hljs-subst">#&#123;resource.last_update_password_at.strftime(<span class="hljs-string">&#x27;%F %H:%M&#x27;</span>)&#125;</span>&quot;</span><br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>不過這樣子的做法會導致 <code>strftime</code> 格式會散落在許多檔案裡，可能 a 檔案跟 b 檔案的邏輯不同，但要顯示的格式相同，也不能整理在一起，更不易閱讀。</p>
+              <h1 id="07-Update-gems-amp-js"><a href="#07-Update-gems-amp-js" class="headerlink" title="07 - Update gems &amp; js"></a>07 - Update gems &amp; js</h1><p>專案如果要長久，套件升級是一定是不可或缺的事，從上篇的 <a href="https://chestertang.tw/2021/08/30/adventurer06/">Auto-update dependencies</a> 中，我們可以透過 <code>dependabot</code> 幫我們偵測需要更新的套件，當然不依賴它也可以透過下指令知道目前需要更新的套件。</p>
+<p>這篇就來介紹該如何升級吧！</p>
+<h2 id="Update-installed-gems"><a href="#Update-installed-gems" class="headerlink" title="Update installed gems"></a>Update installed gems</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># At the root directory of a Rails app</span><br>gem update &lt;gem_name&gt;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>註: ruby 內建的 <a target="_blank" rel="noopener" href="https://ruby-doc.org/core-2.3.4/Time.html#strftime-method">strftime</a> 格式顯示方式這邊就不詳細說明</p>
+<p>註: 如有指定版本的 gem 要更新，要記得先修改 <code>Gemfile</code></p>
 </blockquote>
-<p>雖然 rails 有提供 to_s 方法來達到這個需求</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ruby">datetime = DateTime.civil(<span class="hljs-number">2007</span>, <span class="hljs-number">12</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)   <span class="hljs-comment"># =&gt; Tue, 04 Dec 2007 00:00:00 +0000</span><br><br>datetime.to_formatted_s(<span class="hljs-symbol">:db</span>)            <span class="hljs-comment"># =&gt; &quot;2007-12-04 00:00:00&quot;</span><br>datetime.to_s(<span class="hljs-symbol">:db</span>)                      <span class="hljs-comment"># =&gt; &quot;2007-12-04 00:00:00&quot;</span><br>datetime.to_s(<span class="hljs-symbol">:number</span>)                  <span class="hljs-comment"># =&gt; &quot;20071204000000&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:short</span>)         <span class="hljs-comment"># =&gt; &quot;04 Dec 00:00&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:long</span>)          <span class="hljs-comment"># =&gt; &quot;December 04, 2007 00:00&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:long_ordinal</span>)  <span class="hljs-comment"># =&gt; &quot;December 4th, 2007 00:00&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:rfc822</span>)        <span class="hljs-comment"># =&gt; &quot;Tue, 04 Dec 2007 00:00:00 +0000&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:iso8601</span>)       <span class="hljs-comment"># =&gt; &quot;2007-12-04T00:00:00+00:00&quot;</span><br></code></pre></td></tr></table></figure>
-<p>如果想要自己的格式來顯示的話，我們可以建立 <code>time_formats.rb</code> 來設定、整理所有有關時間的格式。</p>
-<h2 id="Setting-config-gt-initializers-gt-time-formats-rb"><a href="#Setting-config-gt-initializers-gt-time-formats-rb" class="headerlink" title="Setting config &gt; initializers &gt; time_formats.rb"></a>Setting <code>config &gt; initializers &gt; time_formats.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># config/initializers/time_formats.rb</span><br><br>Time::DATE_FORMATS[<span class="hljs-symbol">:long_zh_tw</span>] = <span class="hljs-string">&quot;%Y年%m月%d日%H時%M分&quot;</span><br>Time::DATE_FORMATS[<span class="hljs-symbol">:long_no_separator</span>] = <span class="hljs-string">&quot;%Y%m%d%H%M%S&quot;</span><br>Time::DATE_FORMATS[<span class="hljs-symbol">:hm_on_today</span>] = <span class="hljs-string">&quot;%H:%M&quot;</span><br>Time::DATE_FORMATS[<span class="hljs-symbol">:md_on_today_zh_tw</span>] = <span class="hljs-string">&quot;%m月%d日&quot;</span><br></code></pre></td></tr></table></figure>
-<p>這樣子在所有地方想要用到這種格式的顯示，就可以 to_s 後接自己的 custom_format 了！</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># before</span><br>User.first.created_at.strftime(<span class="hljs-string">&quot;%Y%m%d%H%M%S&quot;</span>)<br><br><span class="hljs-comment"># after</span><br>User.first.created_at.to_s(<span class="hljs-symbol">:long_no_separator</span>)<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>註: 新增 config 需要重啟 server 才會吃得到唷～</p>
-</blockquote>
-<h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://www.rubydoc.info/docs/rails/DateTime:to_s">Method: DateTime#to_s</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22255476/rails-formatting-date">Rails formatting date</a></li>
-</ul>
+<p>不過我的習慣會先 <code>gem undate</code> 直接更新所有的 gem 來看哪些需要被更新，更改了哪幾個檔案，把需要更新的 gems 都先記錄下來，然後 checkout 掉，不過如果只是單純要更新其中一個的話，上述的指令就可以完成了！</p>
+<p>再來會再把所有想要升級的 gem 一個一個來升級，原因是要測試這個 gem 的升級對於現在的專案是否會受到影響，如果一次 update 所有的 gems 結果壞掉的話，就無法知道是什麼升級導致專案炸裂的原因，尤其像是 <code>rails</code>、<code>puma</code> 大版號之類的升級～</p>
+<h2 id="Update-npm"><a href="#Update-npm" class="headerlink" title="Update npm"></a>Update npm</h2><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># At the package.json directory</span><br>npm update &lt;pkg_name&gt;@latest<br></code></pre></td></tr></table></figure>
+<p>npm 的升級也與 gem 的升級大同小異，唯一要記得的是，如果專案的 css 是需要手動 build 的話，升級完記得重新執行才會獲得依賴升級套件產生的 css file。</p>
+<p>再來就是會在升級的過程遇到各種奇怪的雷，還有不能用的語法惹～這時候就會提醒我們測試的重要性！才不會因為套件的升級導致哪個功能直接炸裂也不曉得的狀況 orz</p>
 
             </div>
             <hr>
@@ -261,12 +250,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2021/09/01/adventurer08/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">冒險村08 - Preitter output in rails console</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
                       <a href="/2021/08/30/adventurer06/">
-                        <span class="hidden-mobile">冒險村06 - Preitter output in rails console</span>
+                        <span class="hidden-mobile">冒險村06 - Auto-update dependencies</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
