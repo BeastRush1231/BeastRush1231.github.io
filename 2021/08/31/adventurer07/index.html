@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村03 - Travis CI cookbook - Chester Tang&#39;s Blog</title>
+  <title>冒險村07 - Time format config - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村03 - Travis CI cookbook">
+            <span class="h2" id="subtitle" title="冒險村07 - Time format config">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-17 23:00" pubdate>
-        August 17, 2021 pm
+      <time datetime="2021-08-31 23:00" pubdate>
+        August 31, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      566
+      531
       words
     </span>
   
@@ -202,30 +202,30 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村03 - Travis CI cookbook</h1>
+            <h1 style="display: none">冒險村07 - Time format config</h1>
             
             <div class="markdown-body">
-              <h1 id="03-Travis-CI-cookbook"><a href="#03-Travis-CI-cookbook" class="headerlink" title="03 - Travis CI cookbook"></a>03 - Travis CI cookbook</h1><p>既然都處理好 linter 來檢測我們的專案是否有符合規範，來把 Rails 放到 Travis CI 給它跑起來吧！</p>
-<p>首先到 <a target="_blank" rel="noopener" href="https://www.travis-ci.com/">Travis CI</a> 首頁，透過 Github 或者其他方式登入（注意如果進入的是首頁是 <a target="_blank" rel="noopener" href="https://travis-ci.org/">https://travis-ci.org/</a> 可以點選上方黃色的 link 連到 <code>.com</code> 的網址，以前有分企業、免費版）</p>
-<p>登入完成後，點選 <code>my account</code> &gt; <code>repositories</code> &gt; <code>activate</code> 並選擇要加入的 Repo 然後 「Approve and install」加入，這樣子 Repo 有更新 code 推上去 CI 就會 trigger 到。</p>
+              <h1 id="07-Time-format"><a href="#07-Time-format" class="headerlink" title="07 - Time format"></a>07 - Time format</h1><p>在專案中時常會有用到顯示時間的地方，可能格式只有一種，但是會散落在各個檔案裡，又或者是有許多種的格式。</p>
+<p>舉例來說，可能是某個前端 erb 檔案需要撈這筆資料被建立的時間 (create_at)，但是不想要 rails 預設給的 format 顯示給使用者。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">User.first.created_at.strftime(<span class="hljs-string">&quot;%F %H:%M&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>或者是某個 helper 裡面有個判斷來變更顯示的格式。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/helpers/user_helper.rb</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">UserHelper</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_last_update_password_at</span><span class="hljs-params">(last_update_password_at)</span></span><br>    <span class="hljs-keyword">if</span> last_update_password_at.<span class="hljs-literal">nil</span>?<br>      I18n.t(<span class="hljs-string">&#x27;user.labels.no_last_changed&#x27;</span>)<br>    <span class="hljs-keyword">else</span><br>      <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;I18n.t(<span class="hljs-string">&#x27;user.labels.last_changed_on&#x27;</span>)&#125;</span> <span class="hljs-subst">#&#123;resource.last_update_password_at.strftime(<span class="hljs-string">&#x27;%F %H:%M&#x27;</span>)&#125;</span>&quot;</span><br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>不過這樣子的做法會導致 <code>strftime</code> 格式會散落在許多檔案裡，可能 a 檔案跟 b 檔案的邏輯不同，但要顯示的格式相同，也不能整理在一起，更不易閱讀。</p>
 <blockquote>
-<p>註: 如下述設定檔 <code>.travis.yml</code> 已經完成，還是沒有觸發 CI 的話，須先到 <a target="_blank" rel="noopener" href="https://travis-ci.com/account/plan/usage">https://travis-ci.com/account/plan/usage</a> 設定 Plan usage，需要點選其中一種的 Plan 後，才會正常的執行。（第一次用應該都會碰到）</p>
+<p>註: ruby 內建的 <a target="_blank" rel="noopener" href="https://ruby-doc.org/core-2.3.4/Time.html#strftime-method">strftime</a> 格式顯示方式這邊就不詳細說明</p>
 </blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby">Plan information<br><br>FreePlan Activation <span class="hljs-symbol">date:</span> August <span class="hljs-number">17</span>, <span class="hljs-number">2021</span><br>Plan Add-ons <span class="hljs-symbol">list:</span><br>  - <span class="hljs-symbol">Private:</span> Free <span class="hljs-number">10</span> <span class="hljs-number">000</span> credits<br>  - User <span class="hljs-symbol">license:</span> Unlimited users<br></code></pre></td></tr></table></figure>
-<h2 id="Setting-travis-yml"><a href="#Setting-travis-yml" class="headerlink" title="Setting .travis.yml"></a>Setting <code>.travis.yml</code></h2><p>建立設定檔案於專案根目錄下，告訴 travis ci 我們要使用的環境設定。</p>
-<p>舉例來說：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># .travis.yml</span><br><span class="hljs-attr">language:</span> <span class="hljs-string">ruby</span><br><br><span class="hljs-comment"># 專案 ruby 版本</span><br><span class="hljs-attr">rvm:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-number">3.0</span><span class="hljs-number">.0</span><br><br><span class="hljs-comment"># 專案資料庫</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">postgresql</span><br><br><span class="hljs-attr">install:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">install</span><br><br><span class="hljs-attr">script:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">RAILS_ENV=test</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rake</span> <span class="hljs-string">db:migrate:reset</span><br>  <span class="hljs-comment"># Rspec + 前兩篇的 linter</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rspec</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rubocop</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rails_best_practices</span><br></code></pre></td></tr></table></figure>
-<p>再推一次 code 上 Repo 就會在 dashboard 看到 Build 了！如果成功跑過會顯示綠色  #branch passed，有問題則會是紅色 #branch failed</p>
+<p>雖然 rails 有提供 to_s 方法來達到這個需求</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ruby">datetime = DateTime.civil(<span class="hljs-number">2007</span>, <span class="hljs-number">12</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)   <span class="hljs-comment"># =&gt; Tue, 04 Dec 2007 00:00:00 +0000</span><br><br>datetime.to_formatted_s(<span class="hljs-symbol">:db</span>)            <span class="hljs-comment"># =&gt; &quot;2007-12-04 00:00:00&quot;</span><br>datetime.to_s(<span class="hljs-symbol">:db</span>)                      <span class="hljs-comment"># =&gt; &quot;2007-12-04 00:00:00&quot;</span><br>datetime.to_s(<span class="hljs-symbol">:number</span>)                  <span class="hljs-comment"># =&gt; &quot;20071204000000&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:short</span>)         <span class="hljs-comment"># =&gt; &quot;04 Dec 00:00&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:long</span>)          <span class="hljs-comment"># =&gt; &quot;December 04, 2007 00:00&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:long_ordinal</span>)  <span class="hljs-comment"># =&gt; &quot;December 4th, 2007 00:00&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:rfc822</span>)        <span class="hljs-comment"># =&gt; &quot;Tue, 04 Dec 2007 00:00:00 +0000&quot;</span><br>datetime.to_formatted_s(<span class="hljs-symbol">:iso8601</span>)       <span class="hljs-comment"># =&gt; &quot;2007-12-04T00:00:00+00:00&quot;</span><br></code></pre></td></tr></table></figure>
+<p>如果想要自己的格式來顯示的話，我們可以建立 <code>time_formats.rb</code> 來設定、整理所有有關時間的格式。</p>
+<h2 id="Setting-config-gt-initializers-gt-time-formats-rb"><a href="#Setting-config-gt-initializers-gt-time-formats-rb" class="headerlink" title="Setting config &gt; initializers &gt; time_formats.rb"></a>Setting <code>config &gt; initializers &gt; time_formats.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># config/initializers/time_formats.rb</span><br><br>Time::DATE_FORMATS[<span class="hljs-symbol">:long_zh_tw</span>] = <span class="hljs-string">&quot;%Y年%m月%d日%H時%M分&quot;</span><br>Time::DATE_FORMATS[<span class="hljs-symbol">:long_no_separator</span>] = <span class="hljs-string">&quot;%Y%m%d%H%M%S&quot;</span><br>Time::DATE_FORMATS[<span class="hljs-symbol">:hm_on_today</span>] = <span class="hljs-string">&quot;%H:%M&quot;</span><br>Time::DATE_FORMATS[<span class="hljs-symbol">:md_on_today_zh_tw</span>] = <span class="hljs-string">&quot;%m月%d日&quot;</span><br></code></pre></td></tr></table></figure>
+<p>這樣子在所有地方想要用到這種格式的顯示，就可以 to_s 後接自己的 custom_format 了！</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># before</span><br>User.first.created_at.strftime(<span class="hljs-string">&quot;%Y%m%d%H%M%S&quot;</span>)<br><br><span class="hljs-comment"># after</span><br>User.first.created_at.to_s(<span class="hljs-symbol">:long_no_separator</span>)<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>註: 有可能會發生 local 驗證正確，但在 CI 上跑沒過，這時候除了可以 <code>Restart build</code> 外(<del>有問題重開機的概念(誤)</del>)，也可以點選 <code>Debug build</code> 後給的 ssh link，再透過 local ssh 進去測試。</p>
+<p>註: 新增 config 需要重啟 server 才會吃得到唷～</p>
 </blockquote>
-<h2 id="Setting-ENV"><a href="#Setting-ENV" class="headerlink" title="Setting ENV"></a>Setting ENV</h2><p>專案時常會用到 settings 的 ENV，像是 api 的 key 或其他的 token，可以想像在 local 的時候需要另外設定，而推上 CI 上如果測試中也會使用到，則需要到 <code>More options</code> &gt; <code>Settins</code> &gt; <code>Enviroment Variables</code> 中設定</p>
-<h2 id="Setting-time-zone-config"><a href="#Setting-time-zone-config" class="headerlink" title="Setting time_zone config"></a>Setting time_zone config</h2><p>如專案有改變 Rails timezone</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># application.rb</span><br>config.time_zone = <span class="hljs-string">&quot;Tokyo&quot;</span><br></code></pre></td></tr></table></figure>
-<p>並在測試項目中也有寫關於時間的測試於 CI 跑，也記得要將 CI 的 config 修改</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># .travis.yml</span><br><span class="hljs-attr">language:</span> <span class="hljs-string">ruby</span><br><br><span class="hljs-attr">rvm:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-number">3.0</span><span class="hljs-number">.0</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">postgresql</span><br><br><span class="hljs-attr">install:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">install</span><br><br><span class="hljs-attr">script:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">RAILS_ENV=test</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rake</span> <span class="hljs-string">db:migrate:reset</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rspec</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rubocop</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">bundle</span> <span class="hljs-string">exec</span> <span class="hljs-string">rails_best_practices</span><br><br><span class="hljs-attr">before_install:</span><br>  <span class="hljs-comment"># setting config</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">export</span> <span class="hljs-string">TZ=Asia/Tokyo</span><br>  <span class="hljs-comment"># to check that is correct you can output the date</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">date</span><br></code></pre></td></tr></table></figure>
 <h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://docs.travis-ci.com/user/languages/ruby/">Travis CI doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rubydoc.info/docs/rails/DateTime:to_s">Method: DateTime#to_s</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22255476/rails-formatting-date">Rails formatting date</a></li>
 </ul>
 
             </div>
@@ -261,18 +261,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/23/adventurer04/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村04 - Create PR with default template</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/11/adventurer02/">
-                        <span class="hidden-mobile">冒險村02 - Begin from linter(2)</span>
+                      <a href="/2021/08/30/adventurer06/">
+                        <span class="hidden-mobile">冒險村06 - Preitter output in rails console</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -157,6 +157,114 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/31/adventurer07/">冒險村07 - Time format config</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/31/adventurer07/">
+          
+          
+            
+          
+          07 - Time format在專案中時常會有用到顯示時間的地方，可能格式只有一種，但是會散落在各個檔案裡，又或者是有許多種的格式。
+舉例來說，可能是某個前端 erb 檔案需要撈這筆資料被建立的時間 (create_at)，但是不想要 rails 預設給的 format 顯示給使用者。
+1User.first.created_at.strftime(&quot;%F %H:%M&quot;)
+或
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-31 23:00" pubdate>
+              2021-08-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/30/adventurer06/">冒險村06 - Preitter output in rails console</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/30/adventurer06/">
+          
+          
+            
+          
+          06 - Preitter output in rails consoleRails 的 default console 顯示看起來有點不好閱讀、不好看、也不美麗，在開發上對於資料的顯示相對於來說就是一路到底的感覺。當顯示的資料表中的欄位比較多時，對於開發來說又更不容易些，這篇將介紹一些優化 console UI 的兩個用過的 gems。
+defualt console UI1234567# bu
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-30 23:00" pubdate>
+              2021-08-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/24/adventurer05/">冒險村05 - Release Drafter</a>
       </h1>
 
@@ -552,112 +660,6 @@ InstructionWrite a method that takes an array of consecutive (increasing) letter
             <i class="iconfont icon-date"></i>
             <time datetime="2020-10-13 09:00" pubdate>
               2020-10-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/12th%E9%90%B5%E4%BA%BA%E8%B3%BD/">12th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/12th%E9%90%B5%E4%BA%BA%E8%B3%BD/">12th鐵人賽</a>
-            
-              <a href="/tags/%E5%88%B7%E9%A1%8C%E8%A6%8B%E7%BF%92%E6%9D%91/">刷題見習村</a>
-            
-              <a href="/tags/CodeWars/">CodeWars</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/12/codewars27/">見習村27 - First non-repeating character</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/12/codewars27/">
-          
-          
-            
-          
-          27 - First non-repeating characterDon’t say so much, just coding…
-InstructionWrite a function named first_non_repeating_letter that takes a string input, and returns the first character that is not re
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-12 09:00" pubdate>
-              2020-10-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/12th%E9%90%B5%E4%BA%BA%E8%B3%BD/">12th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/12th%E9%90%B5%E4%BA%BA%E8%B3%BD/">12th鐵人賽</a>
-            
-              <a href="/tags/%E5%88%B7%E9%A1%8C%E8%A6%8B%E7%BF%92%E6%9D%91/">刷題見習村</a>
-            
-              <a href="/tags/CodeWars/">CodeWars</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/10/11/codewars26/">見習村26 - Tongues</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/10/11/codewars26/">
-          
-          
-            
-          
-          26 - TonguesDon’t say so much, just coding…
-InstructionGandalf’s writings have long been available for study, but no one has yet figured out what language they are written in. Recently, due to program
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-10-11 09:00" pubdate>
-              2020-10-11
             </time>
           </div>
         
