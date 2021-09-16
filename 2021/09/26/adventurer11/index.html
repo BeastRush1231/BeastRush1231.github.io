@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/logo.png">
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="沒有半路出家，但像半路出家">
+  <meta name="author" content="[object Object]">
+  <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
+  <title>冒險村11 - migration notes - Chester Tang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"chestertang.tw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Chester Tang's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="冒險村11 - migration notes">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-26 23:00" pubdate>
+        September 26, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      
+      648
+      words
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+      mins
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">冒險村11 - migration notes</h1>
+            
+            <div class="markdown-body">
+              <h1 id="11-migration-notes"><a href="#11-migration-notes" class="headerlink" title="11 - migration notes"></a>11 - migration notes</h1><h2 id="Database-GUI"><a href="#Database-GUI" class="headerlink" title="Database GUI"></a>Database GUI</h2><p>上個專案跟這個專案剛好 db 都是用 mysql，分享一下匯入資料的方法，還有一些 migration 問題的一些筆記，另外個人滿推以下兩種 database 的 GUI：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://tableplus.com/">TablePlus</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sequelpro.com/">Sequal Pro</a></li>
+</ul>
+<p>兩者都滿好用的也其實都差不多，因為同事都用 Sequal Pro 還有個人剛好也偏好，所以後來主要都是用 Sequal Pro。</p>
+<p>連結的方式也很容易，點選左下角的 <code>+</code> 號來新增 <code>new favorite</code> database 名稱，還有設定一些 config 來連結即可，最常用的大概就是把 staging/production 的 database 弄到 local 來重現問題。</p>
+<p>點選 export 後選取需要的 table 並輸出 SQL file，詳細的其他需求就看當下需要的使用情況。</p>
+<h2 id="import-sql-to-database-in-local"><a href="#import-sql-to-database-in-local" class="headerlink" title="import sql to database in local"></a>import sql to database in local</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">mysql -u root <span class="hljs-string">`database_name`</span> &lt; ~<span class="hljs-regexp">/Desktop/export</span>_database_name_with_date_time.sql<br></code></pre></td></tr></table></figure>
+<p><code>database_name</code> 看要匯入的資料庫是哪一個？對應各個 database 後的 ENV 名稱，Rails 6 也支援 multiple database，詳細可以參考 <a href="active_record_multiple_databases">active_record_multiple_databases</a></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># config &gt; database.yml</span><br><br><span class="hljs-attr">default:</span> <span class="hljs-meta">&amp;default</span><br><span class="hljs-attr">writer:</span><br>  <span class="hljs-attr">adapter:</span>  <span class="hljs-string">mysql2</span><br>  <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf8mb4</span><br>  <span class="hljs-attr">pool:</span>     <span class="hljs-number">20</span><br>  <span class="hljs-attr">host:</span>     &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_WRITER_HOST&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">database:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_NAME&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">username:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_USER&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">password:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_PASS&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">charset:</span>  <span class="hljs-string">utf8</span><br><span class="hljs-attr">reader:</span><br>  <span class="hljs-attr">adapter:</span>  <span class="hljs-string">mysql2</span><br>  <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf8mb4</span><br>  <span class="hljs-attr">pool:</span>     <span class="hljs-number">20</span><br>  <span class="hljs-attr">host:</span>     &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_READER_HOST&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">database:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_NAME&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">username:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_USER&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">password:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_PASS&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">charset:</span>  <span class="hljs-string">utf8</span><br><span class="hljs-attr">anotherdb:</span><br>  <span class="hljs-attr">adapter:</span>  <span class="hljs-string">mysql2</span><br>  <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf8</span><br>  <span class="hljs-attr">pool:</span>     <span class="hljs-number">20</span><br>  <span class="hljs-attr">host:</span>     &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_HOST&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">database:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_NAME&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">username:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_USER&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">password:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_PASS&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">migrations_paths:</span> <span class="hljs-string">&quot;db/anotherdb_migrate&quot;</span><br><span class="hljs-comment"># ...</span><br></code></pre></td></tr></table></figure>
+<h2 id="Add-column-after-specific-field"><a href="#Add-column-after-specific-field" class="headerlink" title="Add column after specific field"></a>Add column after specific field</h2><p>時不時會有新的欄位需要新增的到舊有的 table 裡面，但預設 default 的都會在 <code>updated_at</code> 之後，不管是在 GUI 裡看或者是 console 裡面看都會滿不容易觀看的，且如果是與原本的欄位有關聯，會偏向擺在一起，因此我們可以在 migration 中帶 <code>after</code> option 來告知新增在哪個欄位之後，也因為會是先跑 first_name 再跑 last_name 欄位的新增，自然而然 last_name 要新增時可以排在 first_name 之後。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># 20210914230020_add_first_name_and_last_name_to_user.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddFirstNameAndLastNameToUser</span> &lt; ActiveRecord::Migration[6.1]</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change</span></span><br>    add_column <span class="hljs-symbol">:users</span>, <span class="hljs-symbol">:first_name</span>, <span class="hljs-symbol">:string</span>, <span class="hljs-symbol">after:</span> <span class="hljs-symbol">:id</span><br>    add_column <span class="hljs-symbol">:users</span>, <span class="hljs-symbol">:last_name</span>,  <span class="hljs-symbol">:string</span>, <span class="hljs-symbol">after:</span> <span class="hljs-symbol">:first_name</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Explicitly-specify-a-Model’s-table-name"><a href="#Explicitly-specify-a-Model’s-table-name" class="headerlink" title="Explicitly specify a Model’s table-name"></a>Explicitly specify a Model’s table-name</h2><p>在建立 table_name 的時候有時候剛好撞到 rails 的慣例，但又不想要取慣例的名字的時候，會需要想設定自己想要的 Table 名稱，像是名為 Index class，Rails 預設會是 indices，但可能對我們來說很不直覺，想要取叫做 indexes 比較合適</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># migration</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreateIndexes</span> &lt; ActiveRecord::Migration[6.1]</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change</span></span><br>    create_table <span class="hljs-symbol">:indexes</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|t|</span><br>      <span class="hljs-comment"># ...</span><br>      t.timestamps<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># app &gt; models &gt; index.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Index</span> &lt; ApplicationRecord</span><br>  <span class="hljs-keyword">self</span>.table_name = <span class="hljs-string">&quot;indexes&quot;</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
+<li><a href="active_record_multiple_databases">active_record_multiple_databases</a></li>
+<li><a target="_blank" rel="noopener" href="https://apidock.com/rails/ActiveRecord/ModelSchema/ClassMethods/table_name">table_name</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.rubyonrails.org/classes/ActiveRecord/Migration.html">Active Record Migrations</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ruby-on-rails/">ruby on rails</a>
+                    
+                  </div>
+                
+              </div>
+              <!-- 
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+               -->
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/27/adventurer12/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">冒險村12 - counter cache</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/25/adventurer10/">
+                        <span class="hidden-mobile">冒險村10 - or equals</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-3 py-3">
+  <div class="footer-content">
+    Copyright © 2021 - Chester Tang.
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
