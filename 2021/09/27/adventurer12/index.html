@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      316
+      458
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
       mins
     </span>
   
@@ -215,7 +215,10 @@
 <p>rescue 後也可以接對應的 Error 來做對應的事情。</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiService</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(url)</span></span><br>    <span class="hljs-variable">@url</span> = url<br><br>    get_some_api_reponses<br>  <span class="hljs-keyword">rescue</span> Net::ReadTimeout =&gt; e<br>    Bugsnag.notify(e)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_some_api_reponses</span></span><br>    <span class="hljs-comment"># ...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p>通常 <code>rescue</code> 一開始寫的時候可能不常直接想到需要在什麼情況加入，對應的 Error 也寫的不清不楚，直接 e 全部 rescue 起來。不過從串接第三方噴出 exception 的通知後，再回來思考像是 api runtime 時間過長、import csv 需要 retry 的加入等等情況下，不只紀錄 log，還有能將噴錯時做對應的措施也是重要的一環。</p>
-
+<p>與 <code>rescue</code> 相似的還有用在 controller 的 <code>rescue_from</code> 例外處理，通常我們在 user show 頁面很常會透過 params id 來找 user，但如果沒有 id 時，就會跑出 <code>ActiveRecord::RecordNotFound </code> 的錯誤。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">@user</span> = User.find(params[<span class="hljs-symbol">:id</span>])<br></code></pre></td></tr></table></figure>
+<p>這時，我們可以在 Controller 內加上 <code>rescue_from</code> 來處理，也可以寫成 block 的兩種方式。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># (1)</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> &lt; ActionController::Base</span><br>  rescue_from ActiveRecord::RecordNotFound, <span class="hljs-symbol">with:</span> <span class="hljs-symbol">:notify_record_not_found</span><br><br>  <span class="hljs-comment">#...</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">notify_record_not_found</span></span><br>    e = <span class="hljs-string">&quot;User id:<span class="hljs-subst">#&#123;params[<span class="hljs-symbol">:id</span>]&#125;</span> not found.&quot;</span><br>    Bugsnag.notify(e)<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># (2)</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> &lt; ActionController::Base</span><br>  rescue_from ActiveRecord::RecordNotFound, <span class="hljs-symbol">with:</span> <span class="hljs-symbol">:notify_record_not_found</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|_exception|</span><br>    e = <span class="hljs-string">&quot;User id:<span class="hljs-subst">#&#123;params[<span class="hljs-symbol">:id</span>]&#125;</span> not found.&quot;</span><br>    Bugsnag.notify(e)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment">#...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
