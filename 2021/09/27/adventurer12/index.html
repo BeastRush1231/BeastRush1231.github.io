@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村11 - frozen_string_literal - Chester Tang&#39;s Blog</title>
+  <title>冒險村12 - rescue exception - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村11 - frozen_string_literal">
+            <span class="h2" id="subtitle" title="冒險村12 - rescue exception">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-26 23:00" pubdate>
-        September 26, 2021 pm
+      <time datetime="2021-09-27 23:00" pubdate>
+        September 27, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      580
+      316
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      4
       mins
     </span>
   
@@ -202,32 +202,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村11 - frozen_string_literal</h1>
+            <h1 style="display: none">冒險村12 - rescue exception</h1>
             
             <div class="markdown-body">
-              <h1 id="11-frozen-string-literal"><a href="#11-frozen-string-literal" class="headerlink" title="11 - frozen_string_literal"></a>11 - frozen_string_literal</h1><p>延續 <a href="https://chestertang.tw/2021/09/17/adventurer02/#Auto-fix">Begin from linter : rubocop</a> 中最後 Auto-fix 提到 <code>frozen_string_literal</code> 的設定，這魔法般的註解到底代表什麼意思呢？</p>
-<p>先從 Ruby 中常數(constant)變更來理解可以很容易看出 <code>MY_CONSTANT</code> constant 是可以被變更的，不過我們常常在專案中或許想要寫死某個 default 值，會想要建立的是 <code>immutable</code>，可以透過 ruby 提供的 <code>freeze</code> 方法來處理。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ruby">MY_CONSTANT = <span class="hljs-string">&quot;chester&quot;</span><br>MY_CONSTANT &lt;&lt; <span class="hljs-string">&quot;_tang&quot;</span><br>puts MY_CONSTANT.inspect<br><br><span class="hljs-comment"># &quot;chester_tang&quot;</span><br><span class="hljs-comment"># =&gt; nil</span><br><br>Chester = <span class="hljs-string">&quot;Chester&quot;</span><br>Chester = <span class="hljs-string">&quot;ChesterTang&quot;</span><br><span class="hljs-comment"># :2: warning: already initialized constant Chester</span><br><span class="hljs-comment"># :1: warning: previous definition of Chester was here</span><br>Chester<br><span class="hljs-comment"># =&gt; &quot;ChesterTang&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="Creating-immutable-constants"><a href="#Creating-immutable-constants" class="headerlink" title="Creating immutable constants"></a>Creating immutable constants</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ruby">MY_CONSTANT = <span class="hljs-string">&quot;chester&quot;</span>.freeze<br>MY_CONSTANT &lt;&lt; <span class="hljs-string">&quot;_tang&quot;</span><br><span class="hljs-comment"># FrozenError: can&#x27;t modify frozen String: &quot;chester&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="testing-performance-with-benchmark-ips"><a href="#testing-performance-with-benchmark-ips" class="headerlink" title="testing performance with benchmark/ips"></a>testing performance with benchmark/ips</h2><p>透過 <a target="_blank" rel="noopener" href="https://github.com/evanphx/benchmark-ips">benchmark-ips</a> 來測試一定時間內可以執行最多的次數，從結果顯示可以看出約提升 50% 的速度。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-keyword">require</span> <span class="hljs-string">&#x27;benchmark/ips&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">noop</span><span class="hljs-params">(arg)</span></span><br><span class="hljs-keyword">end</span><br><br>Benchmark.ips <span class="hljs-keyword">do</span> <span class="hljs-params">|x|</span><br>  x.report(<span class="hljs-string">&quot;normal&quot;</span>) &#123; noop(<span class="hljs-string">&quot;foo&quot;</span>) &#125;<br>  x.report(<span class="hljs-string">&quot;frozen&quot;</span>) &#123; noop(<span class="hljs-string">&quot;foo&quot;</span>.freeze) &#125;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># Results with MRI 2.2.2:</span><br><span class="hljs-comment"># Calculating -------------------------------------</span><br><span class="hljs-comment">#   normal   152.123k i/100ms</span><br><span class="hljs-comment">#   frozen   167.474k i/100ms</span><br><span class="hljs-comment"># -------------------------------------------------</span><br><span class="hljs-comment">#   normal   6.158M (± 3.3%) i/s -     30.881M</span><br><span class="hljs-comment">#   frozen   9.312M (± 3.5%) i/s -     46.558M</span><br></code></pre></td></tr></table></figure>
-<h2 id="Value-objects-amp-functional-programming"><a href="#Value-objects-amp-functional-programming" class="headerlink" title="Value objects &amp; functional programming"></a>Value objects &amp; functional programming</h2><p>也可以在 init 內使用 freeze 方法，保證 constructor 內 object 不會被改變</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Score</span></span><br>  <span class="hljs-keyword">attr_accessor</span> <span class="hljs-symbol">:a</span>, <span class="hljs-symbol">:b</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(a, b)</span></span><br>    <span class="hljs-variable">@a</span> = a<br>    <span class="hljs-variable">@b</span> = b<br>    freeze<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change</span></span><br>    <span class="hljs-variable">@a</span> = <span class="hljs-number">3</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br>score = Score.new(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)<br>score.change <span class="hljs-comment"># RuntimeError: can&#x27;t modify frozen Score</span><br></code></pre></td></tr></table></figure>
-<h2 id="Built-in-optimizations-in-Ruby-gt-2-2"><a href="#Built-in-optimizations-in-Ruby-gt-2-2" class="headerlink" title="Built-in optimizations in Ruby &gt;= 2.2"></a>Built-in optimizations in Ruby &gt;= 2.2</h2><p>在 &gt;= 2.2 以後的 Ruby 版本中針對 hash 使用的字串已經有做自動 freeze，不過如果版本在這之前就可能會常常看到下面的這種情況：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby">user = &#123;<span class="hljs-string">&quot;name&quot;</span> =&gt; <span class="hljs-string">&quot;george&quot;</span>&#125;<br><span class="hljs-comment"># In Ruby &gt;= 2.2</span><br>user[<span class="hljs-string">&quot;name&quot;</span>]<br><span class="hljs-comment"># ...is equivalent to this, in Ruby &lt;= 2.1</span><br>user[<span class="hljs-string">&quot;name&quot;</span>.freeze]<br></code></pre></td></tr></table></figure>
+              <h1 id="12-rescue-exception"><a href="#12-rescue-exception" class="headerlink" title="12 - rescue exception"></a>12 - rescue exception</h1><p>異常處理在開發過程中時常可見，舉例來說 Rails 中找不到對應的 routing 的時候則會丟出 <code>Routing Error</code>，或者是在特定的程式碼中手動加入 <code>raise</code> 來丟出 Exception</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># 驗證 params[:user]</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">validate_user</span></span><br>  <span class="hljs-keyword">if</span> user.blank?<br>    raise <span class="hljs-string">&quot;User is <span class="hljs-subst">#&#123;I18n.t(<span class="hljs-string">&#x27;errors.messages.blank&#x27;</span>)&#125;</span>&quot;</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>raise 起來後，我們可以透過 <code>rescue</code> 來處理 exception，並記錄於 logger 或者是通知第三方（Bugsnag）串接 slack 提醒都是可行的做法。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">valid?</span></span><br>  validate_user<br>  validate_email<br>  validate_device<br><br>  <span class="hljs-literal">true</span><br><span class="hljs-keyword">rescue</span> =&gt; e<br>  Bugsnag.notify e<br>  <span class="hljs-literal">false</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>註: <a target="_blank" rel="noopener" href="https://bugs.ruby-lang.org/issues/11473#note-53">Immutable String literal in Ruby 3</a> 原本 Ruby 3.0 中自動 freeze 所有字串目前也沒有後續。</p>
+<p>註: 內建的 Error 有太多種類，詳情可以直接參考文件 <a target="_blank" rel="noopener" href="https://ruby-doc.org/core-2.2.0/Exception.html">https://ruby-doc.org/core-2.2.0/Exception.html</a></p>
 </blockquote>
-<p>最後，再回來一開始設定 <code>frozen_string_literal</code> 原因，到底是什麼魔法呢？</p>
-<h2 id="Magic-Comments"><a href="#Magic-Comments" class="headerlink" title="Magic Comments!"></a>Magic Comments!</h2><p>版本 &gt;= 2.3 後的功能，這行註解起來的魔法，可以自動將該檔案內的 String 通通做 #freeze 的方法</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;sidekiq/version&quot;</span><br><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">Sidekiq</span></span><br>  NAME = <span class="hljs-string">&quot;Sidekiq&quot;</span><br>  LICENSE = <span class="hljs-string">&quot;See LICENSE and the LGPL-3.0 for licensing details.&quot;</span><br>  DEFAULTS = &#123;<br>    <span class="hljs-comment">#...</span><br>  &#125;<br>  <span class="hljs-comment">#...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/mperham/sidekiq/pull/3759/files">Remove String#freeze calls</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.honeybadger.io/blog/when-to-use-freeze-and-frozen-in-ruby/">When to use freeze and frozen? in Ruby</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/27702540/why-are-there-frozen-constants-everywhere">Why are there frozen constants everywhere?</a></li>
-<li><a target="_blank" rel="noopener" href="https://bugs.ruby-lang.org/issues/11473#note-53">Immutable String literal in Ruby 3</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/evanphx/benchmark-ips">Ruby gem: benchmark-ips</a></li>
-</ul>
+<p>rescue 後也可以接對應的 Error 來做對應的事情。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiService</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(url)</span></span><br>    <span class="hljs-variable">@url</span> = url<br><br>    get_some_api_reponses<br>  <span class="hljs-keyword">rescue</span> Net::ReadTimeout =&gt; e<br>    Bugsnag.notify(e)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_some_api_reponses</span></span><br>    <span class="hljs-comment"># ...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>通常 <code>rescue</code> 一開始寫的時候可能不常直接想到需要在什麼情況加入，對應的 Error 也寫的不清不楚，直接 e 全部 rescue 起來。不過從串接第三方噴出 exception 的通知後，再回來思考像是 api runtime 時間過長、import csv 需要 retry 的加入等等情況下，不只紀錄 log，還有能將噴錯時做對應的措施也是重要的一環。</p>
 
             </div>
             <hr>
@@ -262,9 +249,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/27/adventurer12/">
+                      <a href="/2021/09/28/adventurer13/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村12 - rescue exception</span>
+                        <span class="hidden-mobile">冒險村13 - migration notes</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -272,8 +259,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/25/adventurer10/">
-                        <span class="hidden-mobile">冒險村10 - or equals</span>
+                      <a href="/2021/09/26/adventurer11/">
+                        <span class="hidden-mobile">冒險村11 - frozen_string_literal</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
