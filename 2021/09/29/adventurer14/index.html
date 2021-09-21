@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村12 - counter cache - Chester Tang&#39;s Blog</title>
+  <title>冒險村14 - counter cache - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村12 - counter cache">
+            <span class="h2" id="subtitle" title="冒險村14 - counter cache">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-27 23:00" pubdate>
-        September 27, 2021 pm
+      <time datetime="2021-09-29 23:00" pubdate>
+        September 29, 2021 pm
       </time>
     </span>
   
@@ -202,10 +202,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村12 - counter cache</h1>
+            <h1 style="display: none">冒險村14 - counter cache</h1>
             
             <div class="markdown-body">
-              <h1 id="12-counter-cache"><a href="#12-counter-cache" class="headerlink" title="12 - counter cache"></a>12 - counter cache</h1><p>在許多情況下，會需要統計一對多關聯的資料數量。舉例來說像是 User <code>has_many</code> Post。這時如果要統計該 user 擁有的 post 數量時，若直接使用 <code>User.posts.size</code> 則每次讀取頁面都會重新再統計一次，影響網站效能，而 ActiveRecord’s counter_cache 可以來幫助解決這個問題。</p>
+              <h1 id="14-counter-cache"><a href="#14-counter-cache" class="headerlink" title="14 - counter cache"></a>14 - counter cache</h1><p>在許多情況下，會需要統計一對多關聯的資料數量。舉例來說像是 User <code>has_many</code> Post。這時如果要統計該 user 擁有的 post 數量時，若直接使用 <code>User.posts.size</code> 則每次讀取頁面都會重新再統計一次，影響網站效能，而 ActiveRecord’s counter_cache 可以來幫助解決這個問題。</p>
 <hr>
 <h2 id="以-User-has-many-post-的例子來看："><a href="#以-User-has-many-post-的例子來看：" class="headerlink" title="以 User has_many post 的例子來看："></a>以 User has_many post 的例子來看：</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/controllers/users_controller.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> &lt; ApplicationController</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span></span><br>    <span class="hljs-variable">@users</span> = User.all<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/views/users/index.html.erb</span><br>&lt;% <span class="hljs-variable">@users</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|user|</span> %&gt;<br>  &lt;tr&gt;<br>    &lt;td&gt;&lt;%= user.name %&gt;&lt;<span class="hljs-regexp">/td&gt;</span><br><span class="hljs-regexp">    &lt;td&gt;&lt;%= user.email %&gt;&lt;/td</span>&gt;<br>    &lt;td&gt;&lt;%= user.tel %&gt;&lt;<span class="hljs-regexp">/td&gt;</span><br><span class="hljs-regexp">    &lt;td&gt;&lt;%= user.posts.size %&gt;&lt;/td</span>&gt;<br>    &lt;td&gt;&lt;%= link_to <span class="hljs-string">&#x27;Show&#x27;</span>, user %&gt;&lt;<span class="hljs-regexp">/td&gt;</span><br><span class="hljs-regexp">    &lt;td&gt;&lt;%= link_to &#x27;Edit&#x27;, edit_user_path(user) %&gt;&lt;/td</span>&gt;<br>  &lt;<span class="hljs-regexp">/tr&gt;</span><br><span class="hljs-regexp">&lt;% end %&gt;</span><br></code></pre></td></tr></table></figure>
@@ -265,8 +265,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/26/adventurer11/">
-                        <span class="hidden-mobile">冒險村11 - migration notes</span>
+                      <a href="/2021/09/28/adventurer13/">
+                        <span class="hidden-mobile">冒險村13 - migration notes</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

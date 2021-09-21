@@ -157,16 +157,16 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/09/27/adventurer12/">冒險村12 - counter cache</a>
+        <a href="/2021/09/29/adventurer14/">冒險村14 - counter cache</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/09/27/adventurer12/">
+        <a href="/2021/09/29/adventurer14/">
           
           
             
           
-          12 - counter cache在許多情況下，會需要統計一對多關聯的資料數量。舉例來說像是 User has_many Post。這時如果要統計該 user 擁有的 post 數量時，若直接使用 User.posts.size 則每次讀取頁面都會重新再統計一次，影響網站效能，而 ActiveRecord’s counter_cache 可以來幫助解決這個問題。
+          14 - counter cache在許多情況下，會需要統計一對多關聯的資料數量。舉例來說像是 User has_many Post。這時如果要統計該 user 擁有的 post 數量時，若直接使用 User.posts.size 則每次讀取頁面都會重新再統計一次，影響網站效能，而 ActiveRecord’s counter_cache 可以來幫助解決這個問題。
 
 以 User has_man
         </a>
@@ -176,8 +176,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-27 23:00" pubdate>
-              2021-09-27
+            <time datetime="2021-09-29 23:00" pubdate>
+              2021-09-29
             </time>
           </div>
         
@@ -211,7 +211,64 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/09/26/adventurer11/">冒險村11 - migration notes</a>
+        <a href="/2021/09/28/adventurer13/">冒險村13 - migration notes</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/09/28/adventurer13/">
+          
+          
+            
+          
+          13 - migration notesDatabase GUI上個專案跟這個專案剛好 db 都是用 mysql，分享一下匯入資料的方法，還有一些 migration 問題的一些筆記，另外個人滿推以下兩種 database 的 GUI：
+
+TablePlus
+Sequal Pro
+
+兩者都滿好用的也其實都差不多，因為同事都用 Sequal Pro 還有個人剛好也偏好，所以後來主要都是用 Sequ
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-28 23:00" pubdate>
+              2021-09-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/09/26/adventurer11/">冒險村11 - frozen_string_literal</a>
       </h1>
 
       <p class="index-excerpt">
@@ -220,12 +277,8 @@
           
             
           
-          11 - migration notesDatabase GUI上個專案跟這個專案剛好 db 都是用 mysql，分享一下匯入資料的方法，還有一些 migration 問題的一些筆記，另外個人滿推以下兩種 database 的 GUI：
-
-TablePlus
-Sequal Pro
-
-兩者都滿好用的也其實都差不多，因為同事都用 Sequal Pro 還有個人剛好也偏好，所以後來主要都是用 Sequ
+          11 - frozen_string_literal延續 Begin from linter : rubocop 中最後 Auto-fix 提到 frozen_string_literal 的設定，這魔法般的註解到底代表什麼意思呢？
+先從 Ruby 中常數(constant)變更來理解可以很容易看出 MY_CONSTANT constant 是可以被變更的，不過我們常常在專案中或許想要寫死某個 d
         </a>
       </p>
 
@@ -611,60 +664,6 @@ Setting .github &gt;
             <i class="iconfont icon-date"></i>
             <time datetime="2021-09-19 23:00" pubdate>
               2021-09-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
-            
-              <a href="/tags/ruby-on-rails/">ruby on rails</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/18/adventurer03/">冒險村03 - Travis CI cookbook</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/18/adventurer03/">
-          
-          
-            
-          
-          03 - Travis CI cookbook既然都處理好 linter 來檢測我們的專案是否有符合規範，來把 Rails 放到 Travis CI 給它跑起來吧！
-首先到 Travis CI 首頁，透過 Github 或者其他方式登入（注意如果進入的是首頁是 https://travis-ci.org/ 可以點選上方黃色的 link 連到 .com 的網址，以前有分企業、免費版）
-登入完成後，點
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-18 23:00" pubdate>
-              2021-09-18
             </time>
           </div>
         

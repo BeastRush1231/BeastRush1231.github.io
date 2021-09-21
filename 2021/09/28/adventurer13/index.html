@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村04 - Create PR with default template - Chester Tang&#39;s Blog</title>
+  <title>冒險村13 - migration notes - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村04 - Create PR with default template">
+            <span class="h2" id="subtitle" title="冒險村13 - migration notes">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-19 23:00" pubdate>
-        September 19, 2021 pm
+      <time datetime="2021-09-28 23:00" pubdate>
+        September 28, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      358
+      648
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      9
       mins
     </span>
   
@@ -202,19 +202,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村04 - Create PR with default template</h1>
+            <h1 style="display: none">冒險村13 - migration notes</h1>
             
             <div class="markdown-body">
-              <h1 id="04-Create-PR-with-default-template"><a href="#04-Create-PR-with-default-template" class="headerlink" title="04 - Create PR with default template"></a>04 - Create PR with default template</h1><p>在 Github 多人開發協作時，不同的工程師發的 Pull Requests 描述也寫的不ㄧ樣，而寫的方式如果每個人都有自己的風格，對於 Reviewers 來說負擔其實也滿大，也有可能因為 PR 寫的不完整造成更多的溝通成本。</p>
-<p>除了能統一團隊的撰寫模式外，也可以將每次都會寫到相同的文字設定成 template 來節省時間，像是這個 PR 解決了哪個 issue、測試的 link 在以下、release 之後要注意什麼？</p>
-<p>先建立 <code>.github</code> folder（與 app 資料夾同層），並在該資料夾下建立 <code>pull_request_template.md</code> file 撰寫內容。</p>
-<h2 id="Setting-pull-request-template-md"><a href="#Setting-pull-request-template-md" class="headerlink" title="Setting pull_request_template.md"></a>Setting <code>pull_request_template.md</code></h2><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs md">This PR resolved issue #issue<span class="hljs-emphasis">_code</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">### testing link</span><br><span class="hljs-emphasis">&gt; url</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">### screenshot</span><br><span class="hljs-emphasis">&gt; image</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">### Notes</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">Before submitting the PR make sure the following are checked:</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">- [ ] The PR relates to only one subject with a clear title and description in grammatically correct, complete sentences.</span><br><span class="hljs-emphasis"> Wrote good commit messages.</span><br><span class="hljs-emphasis">- [ ] Commit message starts with [ithome13#issue-number] (if the related issue exists).</span><br><span class="hljs-emphasis">- [ ] Feature branch is up-to-date with master (if not - rebase it).</span><br><span class="hljs-emphasis">- [ ] Added tests.</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">--------------------------</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">### Before deploy</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">- [ ] todo</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">### After deploy</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">- [ ] todo</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">--------------------------</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>註: 以上 PR template 僅供參考，可以依照團隊決定最適合的方式來制訂，方便 Reviewers 快速理解 issue 及為什麼這樣子撰寫為主，更能增加團隊協作的效率。</p>
-</blockquote>
-<p>merge 近 main branch 後，之後的 PR 都會有這個 file 的預設格式，也方便之後每個 PR 都能有一個公版，是不是既簡單又方便呀！</p>
+              <h1 id="13-migration-notes"><a href="#13-migration-notes" class="headerlink" title="13 - migration notes"></a>13 - migration notes</h1><h2 id="Database-GUI"><a href="#Database-GUI" class="headerlink" title="Database GUI"></a>Database GUI</h2><p>上個專案跟這個專案剛好 db 都是用 mysql，分享一下匯入資料的方法，還有一些 migration 問題的一些筆記，另外個人滿推以下兩種 database 的 GUI：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://tableplus.com/">TablePlus</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sequelpro.com/">Sequal Pro</a></li>
+</ul>
+<p>兩者都滿好用的也其實都差不多，因為同事都用 Sequal Pro 還有個人剛好也偏好，所以後來主要都是用 Sequal Pro。</p>
+<p>連結的方式也很容易，點選左下角的 <code>+</code> 號來新增 <code>new favorite</code> database 名稱，還有設定一些 config 來連結即可，最常用的大概就是把 staging/production 的 database 弄到 local 來重現問題。</p>
+<p>點選 export 後選取需要的 table 並輸出 SQL file，詳細的其他需求就看當下需要的使用情況。</p>
+<h2 id="import-sql-to-database-in-local"><a href="#import-sql-to-database-in-local" class="headerlink" title="import sql to database in local"></a>import sql to database in local</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">mysql -u root <span class="hljs-string">`database_name`</span> &lt; ~<span class="hljs-regexp">/Desktop/export</span>_database_name_with_date_time.sql<br></code></pre></td></tr></table></figure>
+<p><code>database_name</code> 看要匯入的資料庫是哪一個？對應各個 database 後的 ENV 名稱，Rails 6 也支援 multiple database，詳細可以參考 <a href="active_record_multiple_databases">active_record_multiple_databases</a></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># config &gt; database.yml</span><br><br><span class="hljs-attr">default:</span> <span class="hljs-meta">&amp;default</span><br><span class="hljs-attr">writer:</span><br>  <span class="hljs-attr">adapter:</span>  <span class="hljs-string">mysql2</span><br>  <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf8mb4</span><br>  <span class="hljs-attr">pool:</span>     <span class="hljs-number">20</span><br>  <span class="hljs-attr">host:</span>     &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_WRITER_HOST&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">database:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_NAME&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">username:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_USER&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">password:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_PASS&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">charset:</span>  <span class="hljs-string">utf8</span><br><span class="hljs-attr">reader:</span><br>  <span class="hljs-attr">adapter:</span>  <span class="hljs-string">mysql2</span><br>  <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf8mb4</span><br>  <span class="hljs-attr">pool:</span>     <span class="hljs-number">20</span><br>  <span class="hljs-attr">host:</span>     &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_READER_HOST&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">database:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_NAME&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">username:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_USER&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">password:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;DATABASE_PASS&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">charset:</span>  <span class="hljs-string">utf8</span><br><span class="hljs-attr">anotherdb:</span><br>  <span class="hljs-attr">adapter:</span>  <span class="hljs-string">mysql2</span><br>  <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf8</span><br>  <span class="hljs-attr">pool:</span>     <span class="hljs-number">20</span><br>  <span class="hljs-attr">host:</span>     &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_HOST&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">database:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_NAME&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">username:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_USER&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">password:</span> &lt;%=<span class="ruby"> ENV[<span class="hljs-string">&#x27;ANOTHERDB_PASS&#x27;</span>] </span>%&gt;<br>  <span class="hljs-attr">migrations_paths:</span> <span class="hljs-string">&quot;db/anotherdb_migrate&quot;</span><br><span class="hljs-comment"># ...</span><br></code></pre></td></tr></table></figure>
+<h2 id="Add-column-after-specific-field"><a href="#Add-column-after-specific-field" class="headerlink" title="Add column after specific field"></a>Add column after specific field</h2><p>時不時會有新的欄位需要新增的到舊有的 table 裡面，但預設 default 的都會在 <code>updated_at</code> 之後，不管是在 GUI 裡看或者是 console 裡面看都會滿不容易觀看的，且如果是與原本的欄位有關聯，會偏向擺在一起，因此我們可以在 migration 中帶 <code>after</code> option 來告知新增在哪個欄位之後，也因為會是先跑 first_name 再跑 last_name 欄位的新增，自然而然 last_name 要新增時可以排在 first_name 之後。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># 20210914230020_add_first_name_and_last_name_to_user.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddFirstNameAndLastNameToUser</span> &lt; ActiveRecord::Migration[6.1]</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change</span></span><br>    add_column <span class="hljs-symbol">:users</span>, <span class="hljs-symbol">:first_name</span>, <span class="hljs-symbol">:string</span>, <span class="hljs-symbol">after:</span> <span class="hljs-symbol">:id</span><br>    add_column <span class="hljs-symbol">:users</span>, <span class="hljs-symbol">:last_name</span>,  <span class="hljs-symbol">:string</span>, <span class="hljs-symbol">after:</span> <span class="hljs-symbol">:first_name</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Explicitly-specify-a-Model’s-table-name"><a href="#Explicitly-specify-a-Model’s-table-name" class="headerlink" title="Explicitly specify a Model’s table-name"></a>Explicitly specify a Model’s table-name</h2><p>在建立 table_name 的時候有時候剛好撞到 rails 的慣例，但又不想要取慣例的名字的時候，會需要想設定自己想要的 Table 名稱，像是名為 Index class，Rails 預設會是 indices，但可能對我們來說很不直覺，想要取叫做 indexes 比較合適</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># migration</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreateIndexes</span> &lt; ActiveRecord::Migration[6.1]</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change</span></span><br>    create_table <span class="hljs-symbol">:indexes</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|t|</span><br>      <span class="hljs-comment"># ...</span><br>      t.timestamps<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># app &gt; models &gt; index.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Index</span> &lt; ApplicationRecord</span><br>  <span class="hljs-keyword">self</span>.table_name = <span class="hljs-string">&quot;indexes&quot;</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository">Github Doc</a></li>
+<li><a href="active_record_multiple_databases">active_record_multiple_databases</a></li>
+<li><a target="_blank" rel="noopener" href="https://apidock.com/rails/ActiveRecord/ModelSchema/ClassMethods/table_name">table_name</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.rubyonrails.org/classes/ActiveRecord/Migration.html">Active Record Migrations</a></li>
 </ul>
 
             </div>
@@ -250,9 +259,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/20/adventurer05/">
+                      <a href="/2021/09/29/adventurer14/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村05 - Release Drafter</span>
+                        <span class="hidden-mobile">冒險村14 - counter cache</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -260,8 +269,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/18/adventurer03/">
-                        <span class="hidden-mobile">冒險村03 - Travis CI cookbook</span>
+                      <a href="/2021/09/26/adventurer11/">
+                        <span class="hidden-mobile">冒險村11 - frozen_string_literal</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
