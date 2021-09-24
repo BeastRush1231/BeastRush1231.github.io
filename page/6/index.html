@@ -157,6 +157,104 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/05/05/zyx0505/">J 筆記 - Clone an Object</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/05/05/zyx0505/">
+          
+          
+            
+          
+          J 筆記 - Clone an Object雖然在 JavaScript 裡的物件型別是屬於 Passing by sharing，但正常來說如果沒有傳遞到另一物件的話，正常為 Passing by Address，因此沒有辦法直接用等號 = 來更改值、而會改到址。
+3 Ways to Clone Objects12345678910111213const Array = &#123; old: 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-05 11:00" pubdate>
+              2020-05-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JavaScript/">JavaScript</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JavaScript/">JavaScript</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/05/04/zyx0504/">J 筆記 - Object to Array</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/05/04/zyx0504/">
+          
+          
+            
+          
+          J 筆記 - Object to Array繼之前的 String to Array 後，我們已經會了許多種將字串轉成陣列的方法。這篇將介紹如何將 Object 轉成 Array …
+Ancient在 ES6 以前，我們想將 Object 變成 Array 常常會這樣來使用，但其實這種方法真的不太好用！而且跟 Ruby 超級不合適的，宣告一個空的陣列，然後塞東西進去，通常都可以有更好的方法可以取代
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-04 00:00" pubdate>
+              2020-05-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JavaScript/">JavaScript</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JavaScript/">JavaScript</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/04/30/zyx0430/">J 筆記 - Append Item to Array</a>
       </h1>
 
@@ -549,108 +647,6 @@ Using Snowball addresses common challe
               <a href="/tags/AWS/">AWS</a>
             
               <a href="/tags/SnowBall/">SnowBall</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/04/05/zyx0405/">S3 CloudFront Distribution</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/04/05/zyx0405/">
-          
-          
-            
-          
-          Create A CloudFront DistributionNetworking &amp; Content Delivery / CloudFrontAmazon CloudFront 是快速內容交付網路 (CDN) 服務，可在支援開發人員的環境中，以低延遲和高速傳輸的方式將資料、影片、應用程式和 API 安全地交付給全球的客戶。
-CloudFront 可與多種服務流暢搭配，包含使用 AWS
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-04-05 00:00" pubdate>
-              2020-04-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Amazon-Web-Services/">Amazon Web Services</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/AWS/">AWS</a>
-            
-              <a href="/tags/CloudFront-Distribution/">CloudFront Distribution</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2020/03/31/zyx0331/">S3 Cross Region Replication</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/03/31/zyx0331/">
-          
-          
-            
-          
-          S3 Cross Region Replication - LABS3 Cross Region Replication這篇將介紹如果要複製一個 S3 bucket ，不只複製現在部分，而且在被複製的 bucket 上如果 Upload 新的檔案，複製的 bucket 也有一樣的效果該如何實作？此外還有一些預設該知道的觀念。
-以下將用 Versioning 建立的 S3 Bucket 繼續實作這篇
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-03-31 15:00" pubdate>
-              2020-03-31
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Amazon-Web-Services/">Amazon Web Services</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/AWS/">AWS</a>
-            
-              <a href="/tags/S3-Cross-Region-Replication/">S3 Cross Region Replication</a>
             
           </div>
         
