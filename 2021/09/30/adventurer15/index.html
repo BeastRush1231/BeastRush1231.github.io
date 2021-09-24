@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村14 - counter cache - Chester Tang&#39;s Blog</title>
+  <title>冒險村15 - customize tooltips with data attribute - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村14 - counter cache">
+            <span class="h2" id="subtitle" title="冒險村15 - customize tooltips with data attribute">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-29 23:00" pubdate>
-        September 29, 2021 pm
+      <time datetime="2021-09-30 23:00" pubdate>
+        September 30, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      592
+      560
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      8
       mins
     </span>
   
@@ -202,30 +202,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村14 - counter cache</h1>
+            <h1 style="display: none">冒險村15 - customize tooltips with data attribute</h1>
             
             <div class="markdown-body">
-              <h1 id="14-counter-cache"><a href="#14-counter-cache" class="headerlink" title="14 - counter cache"></a>14 - counter cache</h1><p>在許多情況下，會需要統計一對多關聯的資料數量。舉例來說像是 User <code>has_many</code> Post。這時如果要統計該 user 擁有的 post 數量時，若直接使用 <code>User.posts.size</code> 則每次讀取頁面都會重新再統計一次，影響網站效能，而 ActiveRecord’s counter_cache 可以來幫助解決這個問題。</p>
-<hr>
-<h2 id="以-User-has-many-post-的例子來看："><a href="#以-User-has-many-post-的例子來看：" class="headerlink" title="以 User has_many post 的例子來看："></a>以 User has_many post 的例子來看：</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/controllers/users_controller.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> &lt; ApplicationController</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span></span><br>    <span class="hljs-variable">@users</span> = User.all<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/views/users/index.html.erb</span><br>&lt;% <span class="hljs-variable">@users</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|user|</span> %&gt;<br>  &lt;tr&gt;<br>    &lt;td&gt;&lt;%= user.name %&gt;&lt;<span class="hljs-regexp">/td&gt;</span><br><span class="hljs-regexp">    &lt;td&gt;&lt;%= user.email %&gt;&lt;/td</span>&gt;<br>    &lt;td&gt;&lt;%= user.tel %&gt;&lt;<span class="hljs-regexp">/td&gt;</span><br><span class="hljs-regexp">    &lt;td&gt;&lt;%= user.posts.size %&gt;&lt;/td</span>&gt;<br>    &lt;td&gt;&lt;%= link_to <span class="hljs-string">&#x27;Show&#x27;</span>, user %&gt;&lt;<span class="hljs-regexp">/td&gt;</span><br><span class="hljs-regexp">    &lt;td&gt;&lt;%= link_to &#x27;Edit&#x27;, edit_user_path(user) %&gt;&lt;/td</span>&gt;<br>  &lt;<span class="hljs-regexp">/tr&gt;</span><br><span class="hljs-regexp">&lt;% end %&gt;</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/models/user.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> &lt; ApplicationRecord</span><br>  has_many <span class="hljs-symbol">:posts</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># app/models/post.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Post</span> &lt; ApplicationRecord</span><br>  belongs_to <span class="hljs-symbol">:user</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>從 server console 中可以看到 N+1 問題，會重複的一直去撈資料庫。</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs zsh">SELECT <span class="hljs-string">&quot;users&quot;</span>.* FROM <span class="hljs-string">&quot;users&quot;</span><br>SELECT COUNT(*) FROM <span class="hljs-string">&quot;posts&quot;</span> WHERE <span class="hljs-string">&quot;posts&quot;</span>.<span class="hljs-string">&quot;user_id&quot;</span> = <span class="hljs-variable">$1</span>  [[<span class="hljs-string">&quot;user_id&quot;</span>, 1]]<br>SELECT COUNT(*) FROM <span class="hljs-string">&quot;posts&quot;</span> WHERE <span class="hljs-string">&quot;posts&quot;</span>.<span class="hljs-string">&quot;user_id&quot;</span> = <span class="hljs-variable">$1</span>  [[<span class="hljs-string">&quot;user_id&quot;</span>, 2]]<br>SELECT COUNT(*) FROM <span class="hljs-string">&quot;posts&quot;</span> WHERE <span class="hljs-string">&quot;posts&quot;</span>.<span class="hljs-string">&quot;user_id&quot;</span> = <span class="hljs-variable">$1</span>  [[<span class="hljs-string">&quot;user_id&quot;</span>, 3]]<br>SELECT COUNT(*) FROM <span class="hljs-string">&quot;posts&quot;</span> WHERE <span class="hljs-string">&quot;posts&quot;</span>.<span class="hljs-string">&quot;user_id&quot;</span> = <span class="hljs-variable">$1</span>  [[<span class="hljs-string">&quot;user_id&quot;</span>, 4]]<br>SELECT COUNT(*) FROM <span class="hljs-string">&quot;posts&quot;</span> WHERE <span class="hljs-string">&quot;posts&quot;</span>.<span class="hljs-string">&quot;user_id&quot;</span> = <span class="hljs-variable">$1</span>  [[<span class="hljs-string">&quot;user_id&quot;</span>, 5]]<br></code></pre></td></tr></table></figure>
-<p>接下來就來新增欄位 field_count（慣例為 <code>xxx_count</code> 結尾） 來透過 <code>counter_cache</code> 來把存數字進資料庫，解決 SQL count 查詢造成的 N+1 問題，神奇的是 Post 數量有更新時，欄位也會自動增減。</p>
-<h2 id="產生欄位"><a href="#產生欄位" class="headerlink" title="產生欄位"></a>產生欄位</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">rails g migration add_posts_count_to_user<br></code></pre></td></tr></table></figure>
-<h2 id="migration"><a href="#migration" class="headerlink" title="migration"></a>migration</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddPostsCountToUser</span> &lt; ActiveRecord::Migration[6.1]</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">change</span></span><br>    add_column <span class="hljs-symbol">:users</span>, <span class="hljs-symbol">:posts_count</span>, <span class="hljs-symbol">:integer</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span><br><br>    User.pluck(<span class="hljs-symbol">:id</span>).each <span class="hljs-keyword">do</span> <span class="hljs-params">|id|</span><br>      User.reset_counters(id, <span class="hljs-symbol">:posts</span>)<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>註: <code>reset_counters</code> 為 <code>ActiveRecord::CounterCache</code> <a target="_blank" rel="noopener" href="https://apidock.com/rails/ActiveRecord/CounterCache/reset_counters">method</a></p>
+              <h1 id="15-customize-tooltips-with-data-attribute"><a href="#15-customize-tooltips-with-data-attribute" class="headerlink" title="15 - customize tooltips with data attribute"></a>15 - customize tooltips with data attribute</h1><p>雖然這次想介紹的東西偏向後端為主，不過畢竟寫 ROR 除非前後端完全分離，不然多少還是會碰到前端一些，想到 tooltips 基本上是每個網站多多少少會有的功能，但如果是用 <a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/5.1/components/tooltips/">bootstrap</a> 或者其他的套件可能就會踩到 <a target="_blank" rel="noopener" href="https://ihower.tw/rails/fullstack-turbolink.html">Turbolinks</a> 的雷，又或者是還要載入 <a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/5.1/components/tooltips/#example-enable-tooltips-everywhere">Enable tooltips everywhere</a>，所以與其用別人寫好的還要套來套去，不如直接手刻一個讓整個網站都能使用吧！</p>
+<h2 id="data-attribute"><a href="#data-attribute" class="headerlink" title="data-* attribute"></a><code>data-*</code> attribute</h2><blockquote>
+<p>data-<em>全域屬性構成一組稱作自訂 data 屬性的屬性。它能令 HTML 與其 DOM 擁有給腳本用的交換資訊。這種屬性設置的自訂資料，能透過元素的 HTMLElement 介面而活用。HTMLElement.dataset property 允許訪問它們。</em> 可以是任何遵循以下規則的 xml 名稱（取自 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTML/Global_attributes/data-*">MDN data-*</a>）：</p>
 </blockquote>
-<p>也可以將重新計算的 counter 的程式寫成 rake 來執行比放在 migration 內來的適合</p>
-<h2 id="rake-task"><a href="#rake-task" class="headerlink" title="rake task"></a>rake task</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># lib/migrate/reset_user_posts_count.rb</span><br>namespace <span class="hljs-symbol">:migrate</span> <span class="hljs-keyword">do</span><br>  desc <span class="hljs-string">&#x27;Reset user posts_count counter cache&#x27;</span><br>  task <span class="hljs-symbol">reset_user_posts_count:</span> <span class="hljs-symbol">:environment</span> <span class="hljs-keyword">do</span><br>    User.pluck(<span class="hljs-symbol">:id</span>).each <span class="hljs-keyword">do</span> <span class="hljs-params">|id|</span><br>      User.reset_counters(id, <span class="hljs-symbol">:posts</span>)<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>並記得要跑 <code>bundle exec rails migrate:reset_user_posts_count</code>。</p>
-<h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><p>再來在 Post model 修正加上 <code>counter_cache: true</code> 即可。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/models/post.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Post</span> &lt; ApplicationRecord</span><br>  belongs_to <span class="hljs-symbol">:user</span>, <span class="hljs-symbol">counter_cache:</span> <span class="hljs-literal">true</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>這時候就會發現原本的 N+1 問題解決了～<code>user.posts.size</code> 這段就會被自動改成 <code>user.posts_count</code>，數量也都會自動更新！</p>
+<ul>
+<li>名字絕對不能以 xml 起頭，無論是否用於 xml、</li>
+<li>名字絕對不能包含分號（U+003A）、</li>
+<li>名字絕對不能包含大寫 A 到大小 Z 的拉丁字母。</li>
+</ul>
+<p>簡單來說 <code>*</code> 後的字串可自定義名稱，例如： <code>data-item=&quot;1&quot;</code>、<code>data-content=&quot;chester_tang&quot;</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- thead --&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span><br>    &lt;% @users.each do |user| %&gt;<br>      <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;%= user.name %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;%= user.email %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">data-explain-tooltip</span>=<span class="hljs-string">&quot;&lt;%= user.country.alpha_2_code %&gt;&quot;</span>&gt;</span>&lt;%= user.tel %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;%= link_to &#x27;Show&#x27;, user %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;%= link_to &#x27;Edit&#x27;, edit_user_path(user) %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>&lt;%= link_to &#x27;Destroy&#x27;, user, method: :delete, data: &#123; confirm: &#x27;Are you sure?&#x27; &#125; %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span><br>    &lt;% end %&gt;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="Settings-app-gt-assets-gt-stylesheets-gt-explain-tooltip-scss"><a href="#Settings-app-gt-assets-gt-stylesheets-gt-explain-tooltip-scss" class="headerlink" title="Settings app &gt; assets &gt; stylesheets &gt; explain_tooltip.scss"></a>Settings <code>app &gt; assets &gt; stylesheets &gt; explain_tooltip.scss</code></h2><p>設定 <code>::after</code> 偽元素來將自訂的資料傳入 scss 內顯示在 content 中，並在 hover 到加入<code>延遲、visible</code>，其餘就只是單純的簡易 style 設定，是不是簡單又方便啊…</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-attr">[data-explain-tooltip]</span> &#123;<br>  <span class="hljs-attribute">position</span>: relative;<br>&#125;<br><br><span class="hljs-selector-attr">[data-explain-tooltip]</span><span class="hljs-selector-pseudo">::after</span> &#123;<br>  <span class="hljs-attribute">content</span>: attr(data-explain-tooltip);<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#777</span>;<br>  <span class="hljs-attribute">white-space</span>: nowrap;<br><br>  <span class="hljs-attribute">position</span>: absolute;<br>  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">visibility</span>: hidden;<br>  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">10</span>;<br>  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">100%</span>;<br><br>  <span class="hljs-attribute">border-width</span>: <span class="hljs-number">1px</span>;<br>  <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#fa0</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0.25rem</span>;<br>  <span class="hljs-attribute">background-color</span>: red;<br>  <span class="hljs-attribute">padding</span>: .<span class="hljs-number">25rem</span> .<span class="hljs-number">5rem</span>;<br>&#125;<br><br><span class="hljs-selector-attr">[data-explain-tooltip]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span> &#123;<br>  <span class="hljs-attribute">visibility</span>: visible;<br>  <span class="hljs-attribute">transition-delay</span>: <span class="hljs-number">300ms</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="參考來源"><a href="#參考來源" class="headerlink" title="參考來源"></a>參考來源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://airsonwayne.gitbooks.io/rocodev-practice-series/content/chapter1-mvc/counter_cache.html">rocodev-practice-series</a></li>
+<li><a target="_blank" rel="noopener" href="https://ihower.tw/rails/fullstack-turbolink.html">Turbolinks 坑</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTML/Global_attributes/data-*">MDN data-*</a></li>
 </ul>
 
             </div>
@@ -261,9 +256,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/30/adventurer15/">
+                      <a href="/2021/10/01/adventurer16/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村15 - customize tooltips with data attribute</span>
+                        <span class="hidden-mobile">冒險村16 - customize breadcurmb</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -271,8 +266,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/28/adventurer13/">
-                        <span class="hidden-mobile">冒險村13 - migration notes</span>
+                      <a href="/2021/09/29/adventurer14/">
+                        <span class="hidden-mobile">冒險村14 - counter cache</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
