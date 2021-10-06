@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>冒險村21 - draper</title>
+    <link href="/2021/10/06/adventurer21/"/>
+    <url>/2021/10/06/adventurer21/</url>
+    
+    <content type="html"><![CDATA[<h1 id="21-Draper"><a href="#21-Draper" class="headerlink" title="21 - Draper"></a>21 - Draper</h1><p>上篇 <a href="https://chestertang.tw/2021/10/05/adventurer20/">Design Pattern(1) - Decorator</a> 簡單的介紹了自己生一個 decorator，不過可以發現東西會經過 <code>helper</code>，相對於來說個人不太喜歡，又或者是原本沒有使用 <code>decorator</code> 將邏輯直接放在 <code>helper</code> 內，且 <code>full_name</code> 方法是沒有任何 <code>namespace</code> 在 controller 與 view 之中。</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/helpers/users_helper.rb</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">full_name</span></span><br>  <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;first_name&#125;</span> <span class="hljs-subst">#&#123;last_name&#125;</span>&quot;</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><h2 id="gem-install"><a href="#gem-install" class="headerlink" title="gem install"></a>gem install</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># Gemfile</span><br>gem <span class="hljs-string">&quot;draper&quot;</span><br></code></pre></td></tr></table></figure><h2 id="Writing-Decorators"><a href="#Writing-Decorators" class="headerlink" title="Writing Decorators"></a>Writing Decorators</h2><p>建立對應的 Decorator，並指要呼叫 <code>decorate</code> 方法就可以使用裡面的方法。</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/controllers/user_controller.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> &lt; ApplicationController</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span></span><br>    <span class="hljs-variable">@user</span> = User.find(params[<span class="hljs-symbol">:id</span>])<br>    <span class="hljs-variable">@user_decorator</span> = <span class="hljs-variable">@user</span>.decorate<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/decorators/user_decorator.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDecorator</span> &lt; Draper::Decorator</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">full_name</span></span><br>    <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;first_name&#125;</span> <span class="hljs-subst">#&#123;last_name&#125;</span>&quot;</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># show.html.erb</span><br>&lt;%= <span class="hljs-variable">@user_decorator</span>.full_name %&gt;<br></code></pre></td></tr></table></figure><p>其實整體東西與上一篇的概念是差不多的，不過 draper 做到更多意想不到的事情，詳細也可以參考文件。</p><h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul><li><a href="https://github.com/drapergem/draper">Draper</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>13th鐵人賽</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>13th鐵人賽</tag>
+      
+      <tag>後端冒險村</tag>
+      
+      <tag>ruby on rails</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>冒險村20 - Design Pattern(1) - Decorator</title>
     <link href="/2021/10/05/adventurer20/"/>
     <url>/2021/10/05/adventurer20/</url>
