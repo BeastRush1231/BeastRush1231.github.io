@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村21 - draper - Chester Tang&#39;s Blog</title>
+  <title>冒險村22 - Design Pattern(2) - Presenter - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村21 - draper">
+            <span class="h2" id="subtitle" title="冒險村22 - Design Pattern(2) - Presenter">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-06 23:00" pubdate>
-        October 6, 2021 pm
+      <time datetime="2021-10-07 23:00" pubdate>
+        October 7, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      219
+      405
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      5
       mins
     </span>
   
@@ -202,19 +202,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村21 - draper</h1>
+            <h1 style="display: none">冒險村22 - Design Pattern(2) - Presenter</h1>
             
             <div class="markdown-body">
-              <h1 id="21-Draper"><a href="#21-Draper" class="headerlink" title="21 - Draper"></a>21 - Draper</h1><p>上篇 <a href="https://chestertang.tw/2021/10/05/adventurer20/">Design Pattern(1) - Decorator</a> 簡單的介紹了自己生一個 decorator，不過可以發現東西會經過 <code>helper</code>，相對於來說個人不太喜歡，又或者是原本沒有使用 <code>decorator</code> 將邏輯直接放在 <code>helper</code> 內，且 <code>full_name</code> 方法是沒有任何 <code>namespace</code> 在 controller 與 view 之中。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/helpers/users_helper.rb</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">full_name</span></span><br>  <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;first_name&#125;</span> <span class="hljs-subst">#&#123;last_name&#125;</span>&quot;</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<h2 id="gem-install"><a href="#gem-install" class="headerlink" title="gem install"></a>gem install</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># Gemfile</span><br>gem <span class="hljs-string">&quot;draper&quot;</span><br></code></pre></td></tr></table></figure>
-<h2 id="Writing-Decorators"><a href="#Writing-Decorators" class="headerlink" title="Writing Decorators"></a>Writing Decorators</h2><p>建立對應的 Decorator，並指要呼叫 <code>decorate</code> 方法就可以使用裡面的方法。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/controllers/user_controller.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> &lt; ApplicationController</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span></span><br>    <span class="hljs-variable">@user</span> = User.find(params[<span class="hljs-symbol">:id</span>])<br>    <span class="hljs-variable">@user_decorator</span> = <span class="hljs-variable">@user</span>.decorate<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># app/decorators/user_decorator.rb</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDecorator</span> &lt; Draper::Decorator</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">full_name</span></span><br>    <span class="hljs-string">&quot;<span class="hljs-subst">#&#123;first_name&#125;</span> <span class="hljs-subst">#&#123;last_name&#125;</span>&quot;</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># show.html.erb</span><br>&lt;%= <span class="hljs-variable">@user_decorator</span>.full_name %&gt;<br></code></pre></td></tr></table></figure>
-<p>其實整體東西與上一篇的概念是差不多的，不過 draper 做到更多意想不到的事情，詳細也可以參考文件。</p>
+              <h1 id="22-Design-Pattern-2-Presenter"><a href="#22-Design-Pattern-2-Presenter" class="headerlink" title="22 - Design Pattern(2) - Presenter"></a>22 - Design Pattern(2) - Presenter</h1><p>Presenter pattern 的原理是，是 Model-View-Controller(MVC) 架構模式衍生出來的一個部分，主要用於建立使用者的介面接口。 在 MVP 中，Presenter 承擔了 <code>中間人</code> 的功能。在 MVP 中，所有邏輯的部份都會寫在 Presenter 內。事實上，其實與 Decorator 有點相似，通常有些些微的差異，但通常只會選擇兩個其中一個來整理，也沒有一定的通則，主要還是以團隊內的方式為主。</p>
+<p>直接來看如何使用:</p>
+<blockquote>
+<p>假設我有一張 Log 的表，裡面 operator 欄位紀錄了 User 誰操作了某項東西，所以紀錄這個 Log，並且知道 <code>Source</code> -&gt; <code>Target</code> 從 A 到 B，這時候想要後台的前端可以看到 Log 紀錄，隨便舉個例子。</p>
+</blockquote>
+<h2 id="Create-app-presenters-folder"><a href="#Create-app-presenters-folder" class="headerlink" title="Create app/presenters folder"></a>Create <code>app/presenters</code> folder</h2><ul>
+<li>user_log_presenter.rb</li>
+</ul>
+<h2 id="Add-Presenter-to-Controller"><a href="#Add-Presenter-to-Controller" class="headerlink" title="Add Presenter to Controller"></a>Add <code>Presenter</code> to Controller</h2><p>假設 Log 是在 TrackController 內的 show 來顯示，範例如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrackingController</span> &lt; ApplicationController</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span></span><br>    <span class="hljs-variable">@user_migration_logs</span> = UserLogPresenter.new(user_id)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Add-app-gt-presenters-gt-user-log-presenter-rb"><a href="#Add-app-gt-presenters-gt-user-log-presenter-rb" class="headerlink" title="Add app &gt; presenters &gt; user_log_presenter.rb"></a>Add <code>app &gt; presenters &gt; user_log_presenter.rb</code></h2><p><code>Enumerable</code> include 近來提供 each 等等方法，</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MigrationLogPresenter</span></span><br><span class="hljs-keyword">include</span> Enumerable<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(user_id)</span></span><br>    <span class="hljs-variable">@user_id</span> = user_id<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">each</span><span class="hljs-params">(&amp;_block)</span></span><br>    logs.each <span class="hljs-keyword">do</span> <span class="hljs-params">|log|</span><br>      <span class="hljs-keyword">yield</span> format(log)<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">format</span><span class="hljs-params">(log)</span></span><br>    &#123;<br>      <span class="hljs-symbol">user:</span>       User.find(log.operator),<br>      <span class="hljs-symbol">source:</span>     log.source,<br>      <span class="hljs-symbol">target:</span>     log.target,<br>      <span class="hljs-symbol">created_at:</span> log.created_at<br>    &#125;<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">logs</span></span><br>    <span class="hljs-variable">@logs</span> <span class="hljs-params">||</span>= Log.where(<span class="hljs-symbol">operator:</span> user_id)<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">@user_migration_logs</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|log|</span><br>  &lt;th&gt;&lt;%= log[<span class="hljs-symbol">:user</span>] %&gt;&lt;<span class="hljs-regexp">/th&gt;</span><br><span class="hljs-regexp">  &lt;th&gt;&lt;%= log[:source] %&gt;&lt;/th</span>&gt;<br>  &lt;th&gt;&lt;%= log[<span class="hljs-symbol">:target</span>] %&gt;&lt;<span class="hljs-regexp">/th&gt;</span><br><span class="hljs-regexp">  &lt;th&gt;&lt;%= log[:created_at] %&gt;&lt;/th</span>&gt;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>註: 想理解兩者的差異也可以參考這篇的比較 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7860301/ruby-on-rails-patterns-decorator-vs-presenter">Ruby on Rails patterns - decorator vs presenter</a>，雖然目前我也沒有可以完全的分懂 orz</p>
+</blockquote>
 <h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/drapergem/draper">Draper</a></li>
+<li><a target="_blank" rel="noopener" href="https://ruby-doc.org/core-3.0.2/Enumerable.html">Enumerable</a></li>
 </ul>
 
             </div>
@@ -250,18 +258,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/07/adventurer22/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村22 - Design Pattern(2) - Presenter</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/05/adventurer20/">
-                        <span class="hidden-mobile">冒險村20 - Design Pattern(1) - Decorator</span>
+                      <a href="/2021/10/06/adventurer21/">
+                        <span class="hidden-mobile">冒險村21 - draper</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
