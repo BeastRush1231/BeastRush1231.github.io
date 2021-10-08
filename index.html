@@ -157,6 +157,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/09/adventurer24/">冒險村24 - Design Pattern(4) - Calculator</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/09/adventurer24/">
+          
+          
+            
+          
+          Calculator 的 design pattern 在平常算是沒看到的，主要是之前專案的規範裡面有看到這樣子的做法，覺得也算滿清楚且實用的。主要目的在偏向計算像是某服務的剩餘使用天數總和，或者是目前的價格，過去五天的價格平均計算。
+Create app/services folder
+service_price_calculator.rb
+
+Add app &gt; services &gt;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-09 23:00" pubdate>
+              2021-10-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/10/08/adventurer23/">冒險村23 - Design Pattern(3) - Builder</a>
       </h1>
 
@@ -633,65 +689,11 @@ Installing12345678bundle exec rails g
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/29/adventurer14/">冒險村14 - counter cache</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/29/adventurer14/">
-          
-          
-            
-          
-          14 - counter cache在許多情況下，會需要統計一對多關聯的資料數量。舉例來說像是 User has_many Post。這時如果要統計該 user 擁有的 post 數量時，若直接使用 User.posts.size 則每次讀取頁面都會重新再統計一次，影響網站效能，而 ActiveRecord’s counter_cache 可以來幫助解決這個問題。
-
-以 User has_man
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-29 23:00" pubdate>
-              2021-09-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
-            
-              <a href="/tags/ruby-on-rails/">ruby on rails</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

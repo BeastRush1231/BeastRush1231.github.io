@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>冒險村24 - Design Pattern(4) - Calculator</title>
+    <link href="/2021/10/09/adventurer24/"/>
+    <url>/2021/10/09/adventurer24/</url>
+    
+    <content type="html"><![CDATA[<p>Calculator 的 design pattern 在平常算是沒看到的，主要是之前專案的規範裡面有看到這樣子的做法，覺得也算滿清楚且實用的。主要目的在偏向計算像是某服務的剩餘使用天數總和，或者是目前的價格，過去五天的價格平均計算。</p><h2 id="Create-app-services-folder"><a href="#Create-app-services-folder" class="headerlink" title="Create app/services folder"></a>Create <code>app/services</code> folder</h2><ul><li>service_price_calculator.rb</li></ul><h2 id="Add-app-gt-services-gt-service-price-calculator-rb"><a href="#Add-app-gt-services-gt-service-price-calculator-rb" class="headerlink" title="Add app &gt; services &gt; service_price_calculator.rb"></a>Add <code>app &gt; services &gt; service_price_calculator.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServicePriceCalculator</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(services)</span></span><br>    <span class="hljs-variable">@price_statistic</span> = Hash.new(<span class="hljs-number">0</span>)<br>    <span class="hljs-variable">@services</span> = services<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">perform</span></span><br>    sum_price_by_services<br>  <span class="hljs-keyword">end</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sum_price_by_services</span></span><br>    <span class="hljs-variable">@services</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|service|</span><br>      <span class="hljs-variable">@price_statistic</span>[service.price] += service.added_price<br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-variable">@price</span>_statistic<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><p>可能某個 presenter 內需要用到這個計算，這邊就可以與前篇的部分來做結合了。</p><h2 id="Add-app-gt-presenters-gt-service-price-presenter-rb"><a href="#Add-app-gt-presenters-gt-service-price-presenter-rb" class="headerlink" title="Add app &gt; presenters &gt; service_price_presenter.rb"></a>Add <code>app &gt; presenters &gt; service_price_presenter.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServiceAmountPresenter</span></span><br>  <span class="hljs-keyword">include</span> Enumerable<br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(services)</span></span><br>    <span class="hljs-variable">@services</span> = services<br>    prepare_statistics<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">each</span><span class="hljs-params">(&amp;_block)</span></span><br>    <span class="hljs-variable">@statistics</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|s|</span><br>      <span class="hljs-keyword">yield</span> ...<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">prepare_statistics</span></span><br>    calculate_result = ServicePriceCalculator.new(<span class="hljs-variable">@services</span>).perform<br>    <span class="hljs-variable">@statistics</span> = calculate_result <span class="hljs-comment">#...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><p>其實東西滿簡單的，只是整理成一個好理解的獨立 service 來命名，也在閱讀上更好理解一個東西裡面只做單一事件，在撰寫測試上也更好寫。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>13th鐵人賽</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>13th鐵人賽</tag>
+      
+      <tag>後端冒險村</tag>
+      
+      <tag>ruby on rails</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>冒險村23 - Design Pattern(3) - Builder</title>
     <link href="/2021/10/08/adventurer23/"/>
     <url>/2021/10/08/adventurer23/</url>
