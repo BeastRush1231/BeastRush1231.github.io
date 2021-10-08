@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村22 - Design Pattern(2) - Presenter - Chester Tang&#39;s Blog</title>
+  <title>冒險村23 - Design Pattern(3) - Builder - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村22 - Design Pattern(2) - Presenter">
+            <span class="h2" id="subtitle" title="冒險村23 - Design Pattern(3) - Builder">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-07 23:00" pubdate>
-        October 7, 2021 pm
+      <time datetime="2021-10-08 23:00" pubdate>
+        October 8, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      405
+      214
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      3
       mins
     </span>
   
@@ -202,27 +202,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村22 - Design Pattern(2) - Presenter</h1>
+            <h1 style="display: none">冒險村23 - Design Pattern(3) - Builder</h1>
             
             <div class="markdown-body">
-              <h1 id="22-Design-Pattern-2-Presenter"><a href="#22-Design-Pattern-2-Presenter" class="headerlink" title="22 - Design Pattern(2) - Presenter"></a>22 - Design Pattern(2) - Presenter</h1><p>Presenter pattern 的原理是，是 Model-View-Controller(MVC) 架構模式衍生出來的一個部分，主要用於建立使用者的介面接口。 在 MVP 中，Presenter 承擔了 <code>中間人</code> 的功能。在 MVP 中，所有邏輯的部份都會寫在 Presenter 內。事實上，其實與 Decorator 有點相似，通常有些些微的差異，但通常只會選擇兩個其中一個來整理，也沒有一定的通則，主要還是以團隊內的方式為主。</p>
-<p>直接來看如何使用:</p>
-<blockquote>
-<p>假設我有一張 Log 的表，裡面 operator 欄位紀錄了 User 誰操作了某項東西，所以紀錄這個 Log，並且知道 <code>Source</code> -&gt; <code>Target</code> 從 A 到 B，這時候想要後台的前端可以看到 Log 紀錄，隨便舉個例子。</p>
-</blockquote>
-<h2 id="Create-app-presenters-folder"><a href="#Create-app-presenters-folder" class="headerlink" title="Create app/presenters folder"></a>Create <code>app/presenters</code> folder</h2><ul>
-<li>user_log_presenter.rb</li>
+              <h1 id="23-Design-Pattern-3-Builder"><a href="#23-Design-Pattern-3-Builder" class="headerlink" title="23 - Design Pattern(3) - Builder"></a>23 - Design Pattern(3) - Builder</h1><p>Builder pattern 常常也被叫做 <code>adapter</code>，主要目的是提供一種根據情況 return，給 class 或 instance 的簡單方法，通常被拿來解析文件的內容，可以依照以下的方式來建立一個 builder:</p>
+<h2 id="Create-app-parsers-folder"><a href="#Create-app-parsers-folder" class="headerlink" title="Create app/parsers folder"></a>Create <code>app/parsers</code> folder</h2><ul>
+<li>base_parser.rb</li>
+<li>file_parser.rb</li>
+<li>csv_file_parser.rb</li>
+<li>xls_file_parser.rb</li>
 </ul>
-<h2 id="Add-Presenter-to-Controller"><a href="#Add-Presenter-to-Controller" class="headerlink" title="Add Presenter to Controller"></a>Add <code>Presenter</code> to Controller</h2><p>假設 Log 是在 TrackController 內的 show 來顯示，範例如下：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrackingController</span> &lt; ApplicationController</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">show</span></span><br>    <span class="hljs-variable">@user_logs</span> = UserLogPresenter.new(user_id)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<h2 id="Add-app-gt-presenters-gt-user-log-presenter-rb"><a href="#Add-app-gt-presenters-gt-user-log-presenter-rb" class="headerlink" title="Add app &gt; presenters &gt; user_log_presenter.rb"></a>Add <code>app &gt; presenters &gt; user_log_presenter.rb</code></h2><p><code>Enumerable</code> include 近來提供 each 等等方法，</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserLogPresenter</span></span><br><span class="hljs-keyword">include</span> Enumerable<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(user_id)</span></span><br>    <span class="hljs-variable">@user_id</span> = user_id<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">each</span><span class="hljs-params">(&amp;_block)</span></span><br>    logs.each <span class="hljs-keyword">do</span> <span class="hljs-params">|log|</span><br>      <span class="hljs-keyword">yield</span> format(log)<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">format</span><span class="hljs-params">(log)</span></span><br>    &#123;<br>      <span class="hljs-symbol">user:</span>       User.find(log.operator),<br>      <span class="hljs-symbol">source:</span>     log.source,<br>      <span class="hljs-symbol">target:</span>     log.target,<br>      <span class="hljs-symbol">created_at:</span> log.created_at<br>    &#125;<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">logs</span></span><br>    <span class="hljs-variable">@logs</span> <span class="hljs-params">||</span>= Log.where(<span class="hljs-symbol">operator:</span> user_id)<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">@user_logs</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|log|</span><br>  &lt;th&gt;&lt;%= log[<span class="hljs-symbol">:user</span>] %&gt;&lt;<span class="hljs-regexp">/th&gt;</span><br><span class="hljs-regexp">  &lt;th&gt;&lt;%= log[:source] %&gt;&lt;/th</span>&gt;<br>  &lt;th&gt;&lt;%= log[<span class="hljs-symbol">:target</span>] %&gt;&lt;<span class="hljs-regexp">/th&gt;</span><br><span class="hljs-regexp">  &lt;th&gt;&lt;%= log[:created_at] %&gt;&lt;/th</span>&gt;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Add-app-gt-parsers-gt-base-parser-rb"><a href="#Add-app-gt-parsers-gt-base-parser-rb" class="headerlink" title="Add app &gt; parsers &gt; base_parser.rb"></a>Add <code>app &gt; parsers &gt; base_parser.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseParser</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(file_path)</span></span><br>    <span class="hljs-variable">@file_path</span> = file_path<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Add-app-gt-parsers-gt-file-parser-rb"><a href="#Add-app-gt-parsers-gt-file-parser-rb" class="headerlink" title="Add app &gt; parsers &gt; file_parser.rb"></a>Add <code>app &gt; parsers &gt; file_parser.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileParser</span></span><br>  def <span class="hljs-keyword">self</span>.build(file_path)<br>    <span class="hljs-keyword">case</span> File.extname(file_path)<br>      <span class="hljs-keyword">when</span> <span class="hljs-string">&quot;.csv&quot;</span> <span class="hljs-keyword">then</span> CsvFileParser.new(file_path)<br>      <span class="hljs-keyword">when</span> <span class="hljs-string">&quot;.xls&quot;</span> <span class="hljs-keyword">then</span> XlsFileParser.new(file_path)<br>      <span class="hljs-keyword">else</span><br>        raise(UnknownFileFormat)<br>      <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>註: 想理解兩者的差異也可以參考這篇的比較 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7860301/ruby-on-rails-patterns-decorator-vs-presenter">Ruby on Rails patterns - decorator vs presenter</a>，雖然目前我也沒有可以完全的分懂 orz</p>
+<p>註: extname - <a target="_blank" rel="noopener" href="https://apidock.com/ruby/File/extname/class">https://apidock.com/ruby/File/extname/class</a></p>
 </blockquote>
+<h2 id="Add-app-gt-parsers-gt-csv-file-parser-rb"><a href="#Add-app-gt-parsers-gt-csv-file-parser-rb" class="headerlink" title="Add app &gt; parsers &gt; csv_file_parser.rb"></a>Add <code>app &gt; parsers &gt; csv_file_parser.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CsvFileParser</span> &lt; BaseParser</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rows</span></span><br>    <span class="hljs-comment"># parse rows</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Add-app-gt-parsers-gt-xls-file-parser-rb"><a href="#Add-app-gt-parsers-gt-xls-file-parser-rb" class="headerlink" title="Add app &gt; parsers &gt; xls_file_parser.rb"></a>Add <code>app &gt; parsers &gt; xls_file_parser.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XlsFileParser</span> &lt; BaseParser</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rows</span></span><br>    <span class="hljs-comment"># parse rows</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>再來，只需要 build 後，就可以取得 parser 底下的 rows，再根據要取得的資料做對應的 code 即可。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby">parser = FileParser.build(file_path)<br>rows = parser.rows<br></code></pre></td></tr></table></figure>
 <h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://ruby-doc.org/core-3.0.2/Enumerable.html">Enumerable</a></li>
+<li><a target="_blank" rel="noopener" href="https://apidock.com/ruby/File/extname/class">extname</a></li>
 </ul>
 
             </div>
@@ -258,18 +258,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/08/adventurer23/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村23 - Design Pattern(3) - Builder</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/06/adventurer21/">
-                        <span class="hidden-mobile">冒險村21 - draper</span>
+                      <a href="/2021/10/07/adventurer22/">
+                        <span class="hidden-mobile">冒險村22 - Design Pattern(2) - Presenter</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
