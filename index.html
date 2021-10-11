@@ -157,6 +157,115 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/11/adventurer26/">冒險村26 - Design Pattern(6) - Form Object</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/11/adventurer26/">
+          
+          
+            
+          
+          26 - Design Pattern(6) - Form Object相信從名字上就很好知道，主要在處理 form 表單打到後端時，到資料庫的驗證問題，可以先來看一先如果沒有額外拆出來通通寫在 model 內會發生的狀況，不只邏輯會變非常的長，還會發生如果到時候整個重新設計要改邏輯，其他地方也要全部一起重新驗證，甚至是把其他的驗證改壞了。
+光看可能一堆的邏輯，想完就忘了，結果要邊改邏輯的時候，
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-11 23:00" pubdate>
+              2021-10-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/10/adventurer25/">冒險村25 - Design Pattern(5) - Service Object</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/10/adventurer25/">
+          
+          
+            
+          
+          25 - Design Pattern(5) - Service ObjectService 相對於來說是最單純的，主要目的在做一件事情。舉例來說，我的網站可能有跨時區的問題，常常需要換算 time zone 與其他時區之間的計算，所以會需要知道其他時區目前的時間，就以 us_east_time 來舉例:
+Create app/services folder
+us_east_time.rb
+
+Ad
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-10 23:00" pubdate>
+              2021-10-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/10/09/adventurer24/">冒險村24 - Design Pattern(4) - Calculator</a>
       </h1>
 
@@ -166,11 +275,9 @@
           
             
           
-          Calculator 的 design pattern 在平常算是沒看到的，主要是之前專案的規範裡面有看到這樣子的做法，覺得也算滿清楚且實用的。主要目的在偏向計算像是某服務的剩餘使用天數總和，或者是目前的價格，過去五天的價格平均計算。
+          24 - Design Pattern(4) - CalculatorCalculator 的 design pattern 在平常算是沒看到的，主要是之前專案的規範裡面有看到這樣子的做法，覺得也算滿清楚且實用的。主要目的在偏向計算像是某服務的剩餘使用天數總和，或者是目前的價格，過去五天的價格平均計算。
 Create app/services folder
-service_price_calculator.rb
-
-Add app &gt; services &gt;
+service_price_calcul
         </a>
       </p>
 
@@ -556,112 +663,6 @@ Installing12345678bundle exec rails g
             <i class="iconfont icon-date"></i>
             <time datetime="2021-10-02 23:00" pubdate>
               2021-10-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
-            
-              <a href="/tags/ruby-on-rails/">ruby on rails</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/01/adventurer16/">冒險村16 - customize breadcurmb</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/01/adventurer16/">
-          
-          
-            
-          
-          16 - customize breadcurmb延續上篇 customize tooltips with data attribute 後，另外也來自己手刻一個麵包屑吧～
-可能想說套個 bootstrap 像是這樣子：
-1234567891011121314151617181920&lt;nav aria-label=&quot;breadcrumb&quot;&gt;  &lt;ol clas
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-01 23:00" pubdate>
-              2021-10-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
-            
-              <a href="/tags/ruby-on-rails/">ruby on rails</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/30/adventurer15/">冒險村15 - customize tooltips with data attribute</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/30/adventurer15/">
-          
-          
-            
-          
-          15 - customize tooltips with data attribute雖然這次想介紹的東西偏向後端為主，不過畢竟寫 ROR 除非前後端完全分離，不然多少還是會碰到前端一些，想到 tooltips 基本上是每個網站多多少少會有的功能，但如果是用 bootstrap 或者其他的套件可能就會踩到 Turbolinks 的雷，又或者是還要載入 Enable tooltips ever
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-30 23:00" pubdate>
-              2021-09-30
             </time>
           </div>
         

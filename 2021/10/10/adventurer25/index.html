@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村24 - Design Pattern(4) - Calculator - Chester Tang&#39;s Blog</title>
+  <title>冒險村25 - Design Pattern(5) - Service Object - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村24 - Design Pattern(4) - Calculator">
+            <span class="h2" id="subtitle" title="冒險村25 - Design Pattern(5) - Service Object">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-09 23:00" pubdate>
-        October 9, 2021 pm
+      <time datetime="2021-10-10 23:00" pubdate>
+        October 10, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      263
+      200
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
       mins
     </span>
   
@@ -202,17 +202,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村24 - Design Pattern(4) - Calculator</h1>
+            <h1 style="display: none">冒險村25 - Design Pattern(5) - Service Object</h1>
             
             <div class="markdown-body">
-              <h1 id="24-Design-Pattern-4-Calculator"><a href="#24-Design-Pattern-4-Calculator" class="headerlink" title="24 - Design Pattern(4) - Calculator"></a>24 - Design Pattern(4) - Calculator</h1><p>Calculator 的 design pattern 在平常算是沒看到的，主要是之前專案的規範裡面有看到這樣子的做法，覺得也算滿清楚且實用的。主要目的在偏向計算像是某服務的剩餘使用天數總和，或者是目前的價格，過去五天的價格平均計算。</p>
+              <h1 id="25-Design-Pattern-5-Service-Object"><a href="#25-Design-Pattern-5-Service-Object" class="headerlink" title="25 - Design Pattern(5) - Service Object"></a>25 - Design Pattern(5) - Service Object</h1><p>Service 相對於來說是最單純的，主要目的在做一件事情。舉例來說，我的網站可能有跨時區的問題，常常需要換算 time zone 與其他時區之間的計算，所以會需要知道其他時區目前的時間，就以 <code>us_east_time</code> 來舉例:</p>
 <h2 id="Create-app-services-folder"><a href="#Create-app-services-folder" class="headerlink" title="Create app/services folder"></a>Create <code>app/services</code> folder</h2><ul>
-<li>service_price_calculator.rb</li>
+<li>us_east_time.rb</li>
 </ul>
-<h2 id="Add-app-gt-services-gt-service-price-calculator-rb"><a href="#Add-app-gt-services-gt-service-price-calculator-rb" class="headerlink" title="Add app &gt; services &gt; service_price_calculator.rb"></a>Add <code>app &gt; services &gt; service_price_calculator.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServicePriceCalculator</span></span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(services)</span></span><br>    <span class="hljs-variable">@price_statistic</span> = Hash.new(<span class="hljs-number">0</span>)<br>    <span class="hljs-variable">@services</span> = services<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">perform</span></span><br>    sum_price_by_services<br>  <span class="hljs-keyword">end</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sum_price_by_services</span></span><br>    <span class="hljs-variable">@services</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|service|</span><br>      <span class="hljs-variable">@price_statistic</span>[service.price] += service.added_price<br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-variable">@price</span>_statistic<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>可能某個 presenter 內需要用到這個計算，這邊就可以與前篇的部分來做結合了。</p>
-<h2 id="Add-app-gt-presenters-gt-service-price-presenter-rb"><a href="#Add-app-gt-presenters-gt-service-price-presenter-rb" class="headerlink" title="Add app &gt; presenters &gt; service_price_presenter.rb"></a>Add <code>app &gt; presenters &gt; service_price_presenter.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServicePricePresenter</span></span><br>  <span class="hljs-keyword">include</span> Enumerable<br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialize</span><span class="hljs-params">(services)</span></span><br>    <span class="hljs-variable">@services</span> = services<br>    prepare_statistics<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">each</span><span class="hljs-params">(&amp;_block)</span></span><br>    <span class="hljs-variable">@statistics</span>.each <span class="hljs-keyword">do</span> <span class="hljs-params">|s|</span><br>      <span class="hljs-keyword">yield</span> ...<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">prepare_statistics</span></span><br>    calculate_result = ServicePriceCalculator.new(<span class="hljs-variable">@services</span>).perform<br>    <span class="hljs-variable">@statistics</span> = calculate_result <span class="hljs-comment">#...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>其實東西滿簡單的，只是整理成一個好理解的獨立 service 來命名，也在閱讀上更好理解一個東西裡面只做單一事件，在撰寫測試上也更好寫。</p>
+<h2 id="Add-app-gt-services-gt-us-east-time-rb"><a href="#Add-app-gt-services-gt-us-east-time-rb" class="headerlink" title="Add app &gt; services &gt; us_east_time.rb"></a>Add <code>app &gt; services &gt; us_east_time.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsEastTime</span></span><br>  TIME_ZONE = <span class="hljs-string">&quot;America/New_York&quot;</span>.freeze<br><br>  <span class="hljs-class"><span class="hljs-keyword">class</span> &lt;&lt; self</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">current</span></span><br>      ActiveSupport::TimeZone.new(TIME_ZONE).now<br>    <span class="hljs-keyword">end</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">current_date</span></span><br>      current.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)<br>    <span class="hljs-keyword">end</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">current_year</span></span><br>      current.year<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">&lt;%= UsEastTime.current =&gt;<br></code></pre></td></tr></table></figure>
+<p>這樣子的寫法，就不會把需要用到 <code>us_east_time</code> 的邏輯散落在各地或者重複寫好幾遍，相對於來說也很好理解。</p>
+<blockquote>
+<p>註: 簡單也好理解龍哥的書 - <a target="_blank" rel="noopener" href="https://railsbook.tw/chapters/26-organize-your-code-advanced.html">Rails 程式碼整理術（進階）</a> </p>
+</blockquote>
 
             </div>
             <hr>
@@ -247,9 +249,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/10/adventurer25/">
+                      <a href="/2021/10/11/adventurer26/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村25 - Design Pattern(5) - Service Object</span>
+                        <span class="hidden-mobile">冒險村26 - Design Pattern(6) - Form Object</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -257,8 +259,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/08/adventurer23/">
-                        <span class="hidden-mobile">冒險村23 - Design Pattern(3) - Builder</span>
+                      <a href="/2021/10/09/adventurer24/">
+                        <span class="hidden-mobile">冒險村24 - Design Pattern(4) - Calculator</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
