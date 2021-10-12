@@ -157,17 +157,20 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/10/11/adventurer26/">冒險村26 - Design Pattern(6) - Form Object</a>
+        <a href="/2021/10/12/adventurer27/">冒險村27 - Concern</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/10/11/adventurer26/">
+        <a href="/2021/10/12/adventurer27/">
           
           
             
           
-          26 - Design Pattern(6) - Form Object相信從名字上就很好知道，主要在處理 form 表單打到後端時，到資料庫的驗證問題，可以先來看一先如果沒有額外拆出來通通寫在 model 內會發生的狀況，不只邏輯會變非常的長，還會發生如果到時候整個重新設計要改邏輯，其他地方也要全部一起重新驗證，甚至是把其他的驗證改壞了。
-光看可能一堆的邏輯，想完就忘了，結果要邊改邏輯的時候，
+          27 - Concern最後整理的方式再來講到 Rails 提供功能，主要目的在把相同邏輯 code 整理在一起，需要使用的時候再 include 近來即可使用，有點類似繼承的概念，但又不想要所有東西都繼承起來。或許會發生有一兩個特別的不需要使用到，這時候就可以使用 Concern 來處理。
+用途主要在：
+
+用於將程式寫在同一個 concern，提高可讀性也方便重構。
+把 model or con
         </a>
       </p>
 
@@ -175,8 +178,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-11 23:00" pubdate>
-              2021-10-11
+            <time datetime="2021-10-12 23:00" pubdate>
+              2021-10-12
             </time>
           </div>
         
@@ -210,20 +213,17 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/10/11/adventurer27/">冒險村27 - Concern</a>
+        <a href="/2021/10/11/adventurer26/">冒險村26 - Design Pattern(6) - Form Object</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/10/11/adventurer27/">
+        <a href="/2021/10/11/adventurer26/">
           
           
             
           
-          27 - Concern最後整理的方式再來講到 Rails 提供功能，主要目的在把相同邏輯 code 整理在一起，需要使用的時候再 include 近來即可使用，有點類似繼承的概念，但又不想要所有東西都繼承起來。或許會發生有一兩個特別的不需要使用到，這時候就可以使用 Concern 來處理。
-用途主要在：
-
-用於將程式寫在同一個 concern，提高可讀性也方便重構。
-把 model or con
+          26 - Design Pattern(6) - Form Object相信從名字上就很好知道，主要在處理 form 表單打到後端時，到資料庫的驗證問題，可以先來看一先如果沒有額外拆出來通通寫在 model 內會發生的狀況，不只邏輯會變非常的長，還會發生如果到時候整個重新設計要改邏輯，其他地方也要全部一起重新驗證，甚至是把其他的驗證改壞了。
+光看可能一堆的邏輯，想完就忘了，結果要邊改邏輯的時候，
         </a>
       </p>
 
