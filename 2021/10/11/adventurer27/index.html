@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村26 - Design Pattern(6) - Form Object - Chester Tang&#39;s Blog</title>
+  <title>冒險村27 - Concern - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村26 - Design Pattern(6) - Form Object">
+            <span class="h2" id="subtitle" title="冒險村27 - Concern">
               
             </span>
 
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      330
+      311
       words
     </span>
   
@@ -202,25 +202,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村26 - Design Pattern(6) - Form Object</h1>
+            <h1 style="display: none">冒險村27 - Concern</h1>
             
             <div class="markdown-body">
-              <h1 id="26-Design-Pattern-6-Form-Object"><a href="#26-Design-Pattern-6-Form-Object" class="headerlink" title="26 - Design Pattern(6) - Form Object"></a>26 - Design Pattern(6) - Form Object</h1><p>相信從名字上就很好知道，主要在處理 form 表單打到後端時，到資料庫的驗證問題，可以先來看一先如果沒有額外拆出來通通寫在 model 內會發生的狀況，不只邏輯會變非常的長，還會發生如果到時候整個重新設計要改邏輯，其他地方也要全部一起重新驗證，甚至是把其他的驗證改壞了。</p>
-<p>光看可能一堆的邏輯，想完就忘了，結果要邊改邏輯的時候，又再繼續想一次XDD</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># model user.rb</span><br><br>validates <span class="hljs-symbol">:first_name</span>, <span class="hljs-symbol">presence:</span> <span class="hljs-literal">true</span>, <span class="hljs-symbol">if:</span> <span class="hljs-symbol">:individual_required?</span><br>validates <span class="hljs-symbol">:last_name</span>, <span class="hljs-symbol">presence:</span> <span class="hljs-literal">true</span>, <span class="hljs-symbol">if:</span> <span class="hljs-symbol">:individual_required?</span><br><span class="hljs-comment"># ...</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">individual_required?</span></span><br>  (!quickmode? <span class="hljs-params">||</span> (quickmode? &amp;&amp; !new_record? &amp;&amp; confirmed? &amp;&amp; !resetting_password?)) &amp;&amp; individual?<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>建議拆出來的寫法，舉例來說像是把登入、登出拆成兩個 form，然後對各自的欄位做驗證，可以參考以下:</p>
-<h2 id="Create-app-forms-folder"><a href="#Create-app-forms-folder" class="headerlink" title="Create app/forms folder"></a>Create <code>app/forms</code> folder</h2><ul>
-<li>sign_in_form.rb</li>
-<li>sign_up_form.rb</li>
+              <h1 id="27-Concern"><a href="#27-Concern" class="headerlink" title="27 - Concern"></a>27 - Concern</h1><p>最後整理的方式再來講到 Rails 提供功能，主要目的在把相同邏輯 code 整理在一起，需要使用的時候再 include 近來即可使用，有點類似繼承的概念，但又不想要所有東西都繼承起來。或許會發生有一兩個特別的不需要使用到，這時候就可以使用 Concern 來處理。</p>
+<p>用途主要在：</p>
+<ol>
+<li>用於將程式寫在同一個 concern，提高可讀性也方便重構。</li>
+<li>把 model or controller 重複的功能寫在同一個 concern。</li>
+</ol>
+<h2 id="Create-concerns-folder-in-controller-or-model-folder"><a href="#Create-concerns-folder-in-controller-or-model-folder" class="headerlink" title="Create concerns folder in controller or model folder"></a>Create concerns folder in controller or model folder</h2><ul>
+<li>users_concern.rb</li>
 </ul>
-<h2 id="Add-app-gt-forms-gt-users-gt-sign-in-form-rb"><a href="#Add-app-gt-forms-gt-users-gt-sign-in-form-rb" class="headerlink" title="Add app &gt; forms &gt; users &gt; sign_in_form.rb"></a>Add <code>app &gt; forms &gt; users &gt; sign_in_form.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">Users</span></span><br>  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SignInForm</span></span><br>    <span class="hljs-keyword">include</span> ActiveModel::Model<br><br>    <span class="hljs-keyword">attr_accessor</span> <span class="hljs-symbol">:email</span>, <span class="hljs-symbol">:password</span><br>    validates <span class="hljs-symbol">:email</span>, <span class="hljs-symbol">:password</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># Sign in</span><br>user = Users::SignInForm.new(user_params)<br>sign_in(user) <span class="hljs-keyword">if</span> user.valid?<br></code></pre></td></tr></table></figure>
-<h2 id="Add-app-gt-forms-gt-users-gt-sign-up-form-rb"><a href="#Add-app-gt-forms-gt-users-gt-sign-up-form-rb" class="headerlink" title="Add app &gt; forms &gt; users &gt; sign_up_form.rb"></a>Add <code>app &gt; forms &gt; users &gt; sign_up_form.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">Users</span></span><br>  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SignUpForm</span></span><br>    <span class="hljs-keyword">include</span> ActiveModel::Model<br><br>    <span class="hljs-keyword">attr_accessor</span> <span class="hljs-symbol">:email</span>, <span class="hljs-symbol">:password</span>, <span class="hljs-symbol">:first_name</span>, <span class="hljs-symbol">:last_name</span><br>    validates <span class="hljs-symbol">:email</span>, <span class="hljs-symbol">:password</span>, <span class="hljs-symbol">:first_name</span>, <span class="hljs-symbol">:last_name</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">save</span></span><br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> valid?<br><br>      <span class="hljs-comment"># save user</span><br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># Sign up</span><br>user = Users::SignUpForm.new(user_params)<br>user.save<br></code></pre></td></tr></table></figure>
-<p>也可以再 active_record_validations <a target="_blank" rel="noopener" href="https://guides.rubyonrails.org/active_record_validations.html#custom-methods">custom-methods</a></p>
-<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://guides.rubyonrails.org/active_record_validations.html#custom-methods">custom-methods</a></li>
-</ul>
+<h2 id="Add-app-gt-controllers-gt-concerns-gt-users-concern-rb"><a href="#Add-app-gt-controllers-gt-concerns-gt-users-concern-rb" class="headerlink" title="Add app &gt; controllers &gt; concerns &gt; users_concern.rb"></a>Add <code>app &gt; controllers &gt; concerns &gt; users_concern.rb</code></h2><p>module / concern 兩種寫法的定義都相同，看習慣寫成什麼樣子都可以，我個人常看到的是 module + included。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># definition(1)</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">UserConcern</span></span><br>  extend ActiveSupport::Concern<br>  <br>  def <span class="hljs-keyword">self</span>.included(base) <br>    base.instance_eval <span class="hljs-keyword">do</span><br>      scope <span class="hljs-symbol">:some_thing_scope</span>, -&gt; &#123;...&#125;<br>      has_many <span class="hljs-symbol">:table</span><br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-comment"># or</span><br>    <span class="hljs-comment"># base.class_eval do</span><br>    <span class="hljs-comment">#   ...  </span><br>    <span class="hljs-comment"># end</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment">#or</span><br>  included <span class="hljs-keyword">do</span><br>    <span class="hljs-comment">#...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># definition(2)</span><br>concern UserConcern <span class="hljs-keyword">do</span> <br>  ...<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>看完上述的寫法，以 user controller 整理舉例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">UserConcern</span></span><br>  extend ActiveSupport::Concern<br>  <span class="hljs-comment"># render_404_if_user_id_invalid in here</span><br>  <span class="hljs-keyword">include</span> ValidateParams<br><br>  included <span class="hljs-keyword">do</span><br>    before_action -&gt; &#123; render_404_if_user_id_invalid(params[<span class="hljs-symbol">:id</span>]) &#125;<br>    before_action <span class="hljs-symbol">:set_basic_user_instances</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_basic_user_instances</span></span><br>    <span class="hljs-variable">@some_instances</span> = ...<br>    <span class="hljs-comment"># ...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> &lt; ApplicationController</span><br>  <span class="hljs-keyword">include</span> UserConcern<br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>而相同的，model 也可以用相同的方法整理再一起，這邊也不另外舉例了。</p>
 
             </div>
             <hr>
@@ -255,12 +254,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2021/10/11/adventurer26/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">冒險村26 - Design Pattern(6) - Form Object</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/11/adventurer27/">
-                        <span class="hidden-mobile">冒險村27 - Concern</span>
+                      <a href="/2021/10/10/adventurer25/">
+                        <span class="hidden-mobile">冒險村25 - Design Pattern(5) - Service Object</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

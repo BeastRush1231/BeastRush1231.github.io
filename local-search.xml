@@ -33,6 +33,35 @@
   
   
   <entry>
+    <title>冒險村27 - Concern</title>
+    <link href="/2021/10/11/adventurer27/"/>
+    <url>/2021/10/11/adventurer27/</url>
+    
+    <content type="html"><![CDATA[<h1 id="27-Concern"><a href="#27-Concern" class="headerlink" title="27 - Concern"></a>27 - Concern</h1><p>最後整理的方式再來講到 Rails 提供功能，主要目的在把相同邏輯 code 整理在一起，需要使用的時候再 include 近來即可使用，有點類似繼承的概念，但又不想要所有東西都繼承起來。或許會發生有一兩個特別的不需要使用到，這時候就可以使用 Concern 來處理。</p><p>用途主要在：</p><ol><li>用於將程式寫在同一個 concern，提高可讀性也方便重構。</li><li>把 model or controller 重複的功能寫在同一個 concern。</li></ol><h2 id="Create-concerns-folder-in-controller-or-model-folder"><a href="#Create-concerns-folder-in-controller-or-model-folder" class="headerlink" title="Create concerns folder in controller or model folder"></a>Create concerns folder in controller or model folder</h2><ul><li>users_concern.rb</li></ul><h2 id="Add-app-gt-controllers-gt-concerns-gt-users-concern-rb"><a href="#Add-app-gt-controllers-gt-concerns-gt-users-concern-rb" class="headerlink" title="Add app &gt; controllers &gt; concerns &gt; users_concern.rb"></a>Add <code>app &gt; controllers &gt; concerns &gt; users_concern.rb</code></h2><p>module / concern 兩種寫法的定義都相同，看習慣寫成什麼樣子都可以，我個人常看到的是 module + included。</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># definition(1)</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">UserConcern</span></span><br>  extend ActiveSupport::Concern<br>  <br>  def <span class="hljs-keyword">self</span>.included(base) <br>    base.instance_eval <span class="hljs-keyword">do</span><br>      scope <span class="hljs-symbol">:some_thing_scope</span>, -&gt; &#123;...&#125;<br>      has_many <span class="hljs-symbol">:table</span><br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-comment"># or</span><br>    <span class="hljs-comment"># base.class_eval do</span><br>    <span class="hljs-comment">#   ...  </span><br>    <span class="hljs-comment"># end</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment">#or</span><br>  included <span class="hljs-keyword">do</span><br>    <span class="hljs-comment">#...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment"># definition(2)</span><br>concern UserConcern <span class="hljs-keyword">do</span> <br>  ...<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><p>看完上述的寫法，以 user controller 整理舉例：</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">UserConcern</span></span><br>  extend ActiveSupport::Concern<br>  <span class="hljs-comment"># render_404_if_user_id_invalid in here</span><br>  <span class="hljs-keyword">include</span> ValidateParams<br><br>  included <span class="hljs-keyword">do</span><br>    before_action -&gt; &#123; render_404_if_user_id_invalid(params[<span class="hljs-symbol">:id</span>]) &#125;<br>    before_action <span class="hljs-symbol">:set_basic_user_instances</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_basic_user_instances</span></span><br>    <span class="hljs-variable">@some_instances</span> = ...<br>    <span class="hljs-comment"># ...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> &lt; ApplicationController</span><br>  <span class="hljs-keyword">include</span> UserConcern<br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><p>而相同的，model 也可以用相同的方法整理再一起，這邊也不另外舉例了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>13th鐵人賽</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>13th鐵人賽</tag>
+      
+      <tag>後端冒險村</tag>
+      
+      <tag>ruby on rails</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>冒險村25 - Design Pattern(5) - Service Object</title>
     <link href="/2021/10/10/adventurer25/"/>
     <url>/2021/10/10/adventurer25/</url>
