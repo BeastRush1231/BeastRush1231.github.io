@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>冒險村28 - Validate Params</title>
+    <link href="/2021/10/13/adventurer28/"/>
+    <url>/2021/10/13/adventurer28/</url>
+    
+    <content type="html"><![CDATA[<h1 id="28-Validate-Params"><a href="#28-Validate-Params" class="headerlink" title="28 - Validate Params"></a>28 - Validate Params</h1><p><a href="https://chestertang.tw/2021/10/12/adventurer27/">上篇</a> 最後有看到在 Concern 內又 include <code>ValidateParams</code>，覺得是不錯的整理方式，所以抽出來另外寫一篇，簡單來說其實也是放在 concern folder 內，並另外的取個適合在做什麼的名字而已。並沒有說這是制式的規範，比較像個概念，不管是要額外處理其他的項目，都可以用相同概念變化，同樣放在 Concern 內。</p><h2 id="Create-concerns-folder"><a href="#Create-concerns-folder" class="headerlink" title="Create concerns folder"></a>Create concerns folder</h2><ul><li>validate_params.rb</li></ul><h2 id="Add-app-gt-controller-gt-concerns-gt-validate-params-rb"><a href="#Add-app-gt-controller-gt-concerns-gt-validate-params-rb" class="headerlink" title="Add app &gt; controller &gt; concerns &gt; validate_params.rb"></a>Add <code>app &gt; controller &gt; concerns &gt; validate_params.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">ValidateParams</span></span><br>  extend ActiveSupport::Concern<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render_404_if_user_id_invalid</span><span class="hljs-params">(user_id)</span></span><br>    raise ActiveRecord::RecordNotFound <span class="hljs-keyword">if</span> params[<span class="hljs-symbol">:user_id</span>] <span class="hljs-params">||</span> User.find(user_id)<br>  <span class="hljs-keyword">end</span><br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><p>另外，也有可能是在搜尋功能時，可能全形、半形導致後端搜尋無法出現對應的東西出來，其實也可以寫個類似的東西來做轉換，舉例來說：</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">HalfwidthFullwidthConverter</span></span><br>  extend ActiveSupport::Concern<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_number_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    <span class="hljs-keyword">return</span> fullwidth_number_to_halfwidth(term) <span class="hljs-keyword">if</span> term.match(<span class="hljs-regexp">/^[０-９]+$/</span>)<br>    term<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_character_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    <span class="hljs-keyword">return</span> fullwidth_character_to_halfwidth(term) <span class="hljs-keyword">if</span> term.match(<span class="hljs-regexp">/^[ａ-ｚＡ-Ｚ]+$/</span>)<br>    term<br>  <span class="hljs-keyword">end</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fullwidth_number_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    term.tr(<span class="hljs-string">&#x27;０-９&#x27;</span>, <span class="hljs-string">&#x27;0-9&#x27;</span>)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fullwidth_character_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    term.tr(<span class="hljs-string">&quot;ａ-ｚ&quot;</span>, <span class="hljs-string">&quot;a-z&quot;</span>).tr(<span class="hljs-string">&quot;Ａ-Ｚ&quot;</span>, <span class="hljs-string">&quot;A-Z&quot;</span>)<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure><p>將下來，要需要的地方 include 近來就可以使用了</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> &lt; ApplicationController</span><br>  <span class="hljs-keyword">include</span> HalfwidthFullwidthConverter<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search</span></span><br>    convert_character_to_halfwidth(params[<span class="hljs-symbol">:term</span>])<br>    <span class="hljs-comment">#...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>13th鐵人賽</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>13th鐵人賽</tag>
+      
+      <tag>後端冒險村</tag>
+      
+      <tag>ruby on rails</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>冒險村27 - Concern</title>
     <link href="/2021/10/12/adventurer27/"/>
     <url>/2021/10/12/adventurer27/</url>
