@@ -17,7 +17,7 @@
   <meta name="description" content="沒有半路出家，但像半路出家">
   <meta name="author" content="[object Object]">
   <meta name="keywords" content="ruby on rails, web developer, JavaScript, full stack">
-  <title>冒險村28 - Validate Params - Chester Tang&#39;s Blog</title>
+  <title>冒險村29 - API - exchange_rate - Chester Tang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -138,7 +138,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="冒險村28 - Validate Params">
+            <span class="h2" id="subtitle" title="冒險村29 - API - exchange_rate">
               
             </span>
 
@@ -148,8 +148,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-13 23:00" pubdate>
-        October 13, 2021 pm
+      <time datetime="2021-10-14 23:00" pubdate>
+        October 14, 2021 pm
       </time>
     </span>
   
@@ -161,7 +161,7 @@
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
       
-      291
+      480
       words
     </span>
   
@@ -172,7 +172,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      8
       mins
     </span>
   
@@ -202,18 +202,26 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">冒險村28 - Validate Params</h1>
+            <h1 style="display: none">冒險村29 - API - exchange_rate</h1>
             
             <div class="markdown-body">
-              <h1 id="28-Validate-Params"><a href="#28-Validate-Params" class="headerlink" title="28 - Validate Params"></a>28 - Validate Params</h1><p><a href="https://chestertang.tw/2021/10/12/adventurer27/">上篇</a> 最後有看到在 Concern 內又 include <code>ValidateParams</code>，覺得是不錯的整理方式，所以抽出來另外寫一篇，簡單來說其實也是放在 concern folder 內，並另外的取個適合在做什麼的名字而已。並沒有說這是制式的規範，比較像個概念，不管是要額外處理其他的項目，都可以用相同概念變化，同樣放在 Concern 內。</p>
-<h2 id="Create-concerns-folder"><a href="#Create-concerns-folder" class="headerlink" title="Create concerns folder"></a>Create concerns folder</h2><ul>
-<li>validate_params.rb</li>
+              <h1 id="29-API-exchange-rate"><a href="#29-API-exchange-rate" class="headerlink" title="29 - API - exchange_rate"></a>29 - API - exchange_rate</h1><p>本次範例以 <a target="_blank" rel="noopener" href="https://app.exchangerate-api.com/">exchangerate-api</a> 為例，需要先註冊信箱並有 key 才可以使用。</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>以 <a target="_blank" rel="noopener" href="https://ruby-doc.org/stdlib-3.0.2/libdoc/net/http/rdoc/Net/HTTP.html">Net:HTTP</a> Ruby 內建 Library 為例</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby">uri = URI(<span class="hljs-string">&#x27;http://example.com/some_path?query=string&#x27;</span>)<br><br>Net::HTTP.start(uri.host, uri.port) <span class="hljs-keyword">do</span> <span class="hljs-params">|http|</span><br>  request = Net::HTTP::Get.new uri<br>  response = http.request request <span class="hljs-comment"># Net::HTTPResponse object</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h2 id="Setting-Headers"><a href="#Setting-Headers" class="headerlink" title="Setting Headers"></a>Setting Headers</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby">uri = URI(<span class="hljs-string">&#x27;http://example.com/cached_response&#x27;</span>)<br>file = File.stat <span class="hljs-string">&#x27;cached_response&#x27;</span><br><br>req = Net::HTTP::Get.new(uri)<br>req[<span class="hljs-string">&#x27;If-Modified-Since&#x27;</span>] = file.mtime.rfc2822<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>註: 詳細可參考 <a target="_blank" rel="noopener" href="https://ruby-doc.org/stdlib-3.0.2/libdoc/net/http/rdoc/Net/HTTP.html">https://ruby-doc.org/stdlib-3.0.2/libdoc/net/http/rdoc/Net/HTTP.html</a></p>
+</blockquote>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>接下來，我們用 exchangerate 匯率交易的 api，以最新的美金匯率換算為例，<code>EXCHANGE_RATE_APP_ID</code> 設定在環境變數內，為 exchangerate-api 提供的 secret_key（別直接寫在 code 內 commit 惹～）</p>
+<p>另外也可以將連結放入前幾篇介紹的 config 內，這邊的 <code>Settings.exchange_rates_api</code>，也就是 <code>&quot;https://v6.exchangerate-api.com/v6&quot;</code>，透過 GET 得到 API response。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby">uri = URI(Settings.exchange_rates_api + <span class="hljs-string">&quot;/<span class="hljs-subst">#&#123;ENV[<span class="hljs-string">&quot;EXCHANGE_RATE_APP_ID&quot;</span>]&#125;</span>/latest/USD&quot;</span>)<br><br>Net::HTTP.start(uri.host, uri.port, <span class="hljs-symbol">use_ssl:</span> <span class="hljs-literal">true</span>) <span class="hljs-keyword">do</span> <span class="hljs-params">|http|</span><br>  req = Net::HTTP::Get.new uri.request_uri<br>  res = http.request(req)<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>就馬上可以獲得 exchange_rate 啦！</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs ruby">&#123;<br>  <span class="hljs-string">&quot;result&quot;</span>: <span class="hljs-string">&quot;success&quot;</span>,<br>  <span class="hljs-string">&quot;documentation&quot;</span>: <span class="hljs-string">&quot;https://www.exchangerate-api.com/docs&quot;</span>,<br>  <span class="hljs-string">&quot;terms_of_use&quot;</span>: <span class="hljs-string">&quot;https://www.exchangerate-api.com/terms&quot;</span>,<br>  <span class="hljs-string">&quot;time_last_update_unix&quot;</span>: <span class="hljs-number">1634169602</span>,<br>  <span class="hljs-string">&quot;time_last_update_utc&quot;</span>: <span class="hljs-string">&quot;Thu, 14 Oct 2021 00:00:02 +0000&quot;</span>,<br>  <span class="hljs-string">&quot;time_next_update_unix&quot;</span>: <span class="hljs-number">1634256002</span>,<br>  <span class="hljs-string">&quot;time_next_update_utc&quot;</span>: <span class="hljs-string">&quot;Fri, 15 Oct 2021 00:00:02 +0000&quot;</span>,<br>  <span class="hljs-string">&quot;base_code&quot;</span>: <span class="hljs-string">&quot;USD&quot;</span>,<br>  <span class="hljs-string">&quot;conversion_rates&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;USD&quot;</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-string">&quot;AED&quot;</span>: <span class="hljs-number">3.6725</span>,<br>    <span class="hljs-string">&quot;AFN&quot;</span>: <span class="hljs-number">84.9745</span>,<br>    <span class="hljs-string">&quot;ALL&quot;</span>: <span class="hljs-number">105.0810</span>,<br>    <span class="hljs-string">&quot;AMD&quot;</span>: <span class="hljs-number">478.1197</span>,<br>    <span class="hljs-string">&quot;ANG&quot;</span>: <span class="hljs-number">1.7900</span>,<br>    <span class="hljs-string">&quot;AOA&quot;</span>: <span class="hljs-number">601.0158</span>,<br>    <span class="hljs-string">&quot;ARS&quot;</span>: <span class="hljs-number">98.9610</span>,<br>    <span class="hljs-string">&quot;AUD&quot;</span>: <span class="hljs-number">1.3572</span>,<br>    <span class="hljs-string">&quot;AWG&quot;</span>: <span class="hljs-number">1.7900</span>,<br>    <span class="hljs-string">&quot;AZN&quot;</span>: <span class="hljs-number">1.6973</span>,<br>    <span class="hljs-string">&quot;BAM&quot;</span>: <span class="hljs-number">1.6887</span>,<br>    <span class="hljs-string">&quot;BBD&quot;</span>: <span class="hljs-number">2.0000</span>,<br>    <span class="hljs-string">&quot;BDT&quot;</span>: <span class="hljs-number">85.5464</span>,<br>    <span class="hljs-string">&quot;BGN&quot;</span>: <span class="hljs-number">1.6896</span>,<br>    <span class="hljs-string">&quot;BHD&quot;</span>: <span class="hljs-number">0.3760</span>,<br>    <span class="hljs-string">&quot;BIF&quot;</span>: <span class="hljs-number">1983.1474</span>,<br>    <span class="hljs-string">&quot;BMD&quot;</span>: <span class="hljs-number">1.0000</span>,<br>    <span class="hljs-string">&quot;BND&quot;</span>: <span class="hljs-number">1.3523</span>,<br>    <span class="hljs-string">&quot;BOB&quot;</span>: <span class="hljs-number">6.8897</span>,<br>    <span class="hljs-string">&quot;BRL&quot;</span>: <span class="hljs-number">5.5301</span>,<br>    <span class="hljs-string">&quot;BSD&quot;</span>: <span class="hljs-number">1.0000</span>,<br>    <span class="hljs-comment">#...</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>另外也可以先透過 <a target="_blank" rel="noopener" href="https://www.postman.com/">Postman</a> 來打試試看，只要直接將網址丟在上方即可馬上獲得。</p>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://ruby-doc.org/stdlib-3.0.2/libdoc/net/http/rdoc/Net/HTTP.html">Net:HTTP</a></li>
 </ul>
-<h2 id="Add-app-gt-controller-gt-concerns-gt-validate-params-rb"><a href="#Add-app-gt-controller-gt-concerns-gt-validate-params-rb" class="headerlink" title="Add app &gt; controller &gt; concerns &gt; validate_params.rb"></a>Add <code>app &gt; controller &gt; concerns &gt; validate_params.rb</code></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># frozen_string_literal: true</span><br><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">ValidateParams</span></span><br>  extend ActiveSupport::Concern<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render_404_if_user_id_invalid</span><span class="hljs-params">(user_id)</span></span><br>    raise ActiveRecord::RecordNotFound <span class="hljs-keyword">if</span> params[<span class="hljs-symbol">:user_id</span>] <span class="hljs-params">||</span> User.find(user_id)<br>  <span class="hljs-keyword">end</span><br>  <span class="hljs-comment"># ...</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>另外，也有可能是在搜尋功能時，可能全形、半形導致後端搜尋無法出現對應的東西出來，其實也可以寫個類似的東西來做轉換，舉例來說：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">HalfwidthFullwidthConverter</span></span><br>  extend ActiveSupport::Concern<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_number_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    <span class="hljs-keyword">return</span> fullwidth_number_to_halfwidth(term) <span class="hljs-keyword">if</span> term.match(<span class="hljs-regexp">/^[０-９]+$/</span>)<br>    term<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_character_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    <span class="hljs-keyword">return</span> fullwidth_character_to_halfwidth(term) <span class="hljs-keyword">if</span> term.match(<span class="hljs-regexp">/^[ａ-ｚＡ-Ｚ]+$/</span>)<br>    term<br>  <span class="hljs-keyword">end</span><br><br>  private<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fullwidth_number_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    term.tr(<span class="hljs-string">&#x27;０-９&#x27;</span>, <span class="hljs-string">&#x27;0-9&#x27;</span>)<br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fullwidth_character_to_halfwidth</span><span class="hljs-params">(term)</span></span><br>    term.tr(<span class="hljs-string">&quot;ａ-ｚ&quot;</span>, <span class="hljs-string">&quot;a-z&quot;</span>).tr(<span class="hljs-string">&quot;Ａ-Ｚ&quot;</span>, <span class="hljs-string">&quot;A-Z&quot;</span>)<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-<p>將下來，要需要的地方 include 近來就可以使用了</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> &lt; ApplicationController</span><br>  <span class="hljs-keyword">include</span> HalfwidthFullwidthConverter<br><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">search</span></span><br>    convert_character_to_halfwidth(params[<span class="hljs-symbol">:term</span>])<br>    <span class="hljs-comment">#...</span><br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
             </div>
             <hr>
             <div>
@@ -247,18 +255,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/14/adventurer29/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">冒險村29 - API - exchange_rate</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/12/adventurer27/">
-                        <span class="hidden-mobile">冒險村27 - Concern</span>
+                      <a href="/2021/10/13/adventurer28/">
+                        <span class="hidden-mobile">冒險村28 - Validate Params</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
