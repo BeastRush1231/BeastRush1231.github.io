@@ -157,6 +157,59 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/15/adventurer30/">冒險村30 - Handle API response with value objects</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/15/adventurer30/">
+          
+          
+            
+          
+          30 - Handle API response with value objects本篇將介紹撰寫 Rails 的過程中整個重構的過程，比較偏向一個方向，以一個簡單的例子為例，假設我們請求 API 獲取 Active 的 User 列表：
+以下的程式是一個很常見的方法，但這段程式碼中，不只打 Api + parser + 過濾 active user，這樣的方式並沒有辦法讓程式碼只負責一件事情。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-15 23:00" pubdate>
+              2021-10-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
+            
+              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
+            
+              <a href="/tags/ruby-on-rails/">ruby on rails</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/10/14/adventurer29/">冒險村29 - API - exchange_rate</a>
       </h1>
 
@@ -610,60 +663,6 @@ file_parser.r
             <i class="iconfont icon-date"></i>
             <time datetime="2021-10-06 23:00" pubdate>
               2021-10-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/13th%E9%90%B5%E4%BA%BA%E8%B3%BD/">13th鐵人賽</a>
-            
-              <a href="/tags/%E5%BE%8C%E7%AB%AF%E5%86%92%E9%9A%AA%E6%9D%91/">後端冒險村</a>
-            
-              <a href="/tags/ruby-on-rails/">ruby on rails</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/05/adventurer20/">冒險村20 - Design Pattern(1) - Decorator</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/05/adventurer20/">
-          
-          
-            
-          
-          20 - Design Pattern(1) - DecoratorDecorator pattern 的原理是，增加一個修飾類包裹原來的 class，包裹的方式是在修飾類的構造函數中將原來的類以參數的形式傳入。裝飾類實現新的功能，但是，在不需要用到新功能的地方，它可以直接調用原來的類中的方法。修飾類必須和原來的類有相同的接口。
-直接來看如何使用:
-Create app/decorators fo
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-05 23:00" pubdate>
-              2021-10-05
             </time>
           </div>
         
